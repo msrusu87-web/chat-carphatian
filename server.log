@@ -10,3 +10,249 @@ nohup: ignoring input
  ✓ Starting...
  ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
  ✓ Ready in 825ms
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at async L (.next/server/chunks/ssr/_aa12406c._.js:1:1974) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at async L (.next/server/chunks/ssr/_dd0ef791._.js:1:1979) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at async L (.next/server/chunks/ssr/_dd0ef791._.js:1:1979) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at async L (.next/server/chunks/ssr/_dd0ef791._.js:1:1979) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at async L (.next/server/chunks/ssr/_dd0ef791._.js:1:1979) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at async L (.next/server/chunks/ssr/_660db712._.js:1:1979) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at async L (.next/server/chunks/ssr/_660db712._.js:1:1979) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at async L (.next/server/chunks/ssr/_d794b7ad._.js:1:1984) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at async L (.next/server/chunks/ssr/_d794b7ad._.js:1:1984) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+ ⨯ Error: ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+    at ignore-listed frames {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/home/ubuntu/chat-carphatian/.next/required-server-files.json'
+}

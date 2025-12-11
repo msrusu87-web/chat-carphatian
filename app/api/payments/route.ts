@@ -55,12 +55,16 @@ export async function POST(req: NextRequest) {
 
     // Record payment in database
     await db.insert(payments).values({
+      user_id: contract.client_id, // Client is paying
       contract_id: contract.id,
-      payer_id: contract.client_id,
       amount: contract.total_amount,
       status: 'pending',
-      payment_type: 'escrow',
-      stripe_payment_intent_id: paymentIntent.id,
+      stripe_payment_id: paymentIntent.id,
+      payment_method: 'card',
+      metadata: {
+        freelancerId: contract.freelancer_id,
+        jobId: contract.job_id,
+      },
     })
 
     return NextResponse.json({

@@ -1,0 +1,198 @@
+# =========================================
+# Docker Compose Configuration
+# Local development environment for Carphatian AI Marketplace
+# Built by Carphatian
+# =========================================
+
+version: '3.8'
+
+# Define all services that make up the application
+services:
+  # ----------------------------------------
+  # Next.js Frontend (Port 3000)
+  # ----------------------------------------
+  # The main web application built with Next.js
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Build-time environment variables
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
+    container_name: carphatian-nextjs
+    ports:
+      - "3000:3000"
+    environment:
+      # Runtime environment variables
+      # These are loaded from your .env file
+      - NODE_ENV=development
+      - DATABASE_URL=${DATABASE_URL}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    volumes:
+      # Mount source code for hot reload during development
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - postgres
+      - redis
+      - fastapi
+    restart: unless-stopped
+    networks:
+      - carphatian-network
+
+  # ----------------------------------------
+  # FastAPI AI Microservice (Port 8000)
+  # ----------------------------------------
+  # Python backend for AI model orchestration
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    container_name: carphatian-fastapi
+    ports:
+      - "8000:8000"
+    environment:
+      # AI provider API keys
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # Database connection
+      - DATABASE_URL=${DATABASE_URL}
+      # Redis for caching AI responses
+      - REDIS_URL=redis://redis:6379
+      # Sentry for error tracking
+      - SENTRY_DSN=${SENTRY_DSN}
+    volumes:
+      # Mount source for development
+      - ./ai-service:/app
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    networks:
+      - carphatian-network
+
+  # ----------------------------------------
+  # PostgreSQL Database (Port 5432)
+  # ----------------------------------------
+  # Primary database with pgvector extension for AI embeddings
+  postgres:
+    image: pgvector/pgvector:pg15
+    container_name: carphatian-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      # PostgreSQL credentials
+      - POSTGRES_USER=carphatian
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-carphatian_secure_password}
+      - POSTGRES_DB=carphatian_ai_marketplace
+      # Enable pgvector extension
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    volumes:
+      # Persist database data
+      - postgres-data:/var/lib/postgresql/data
+      # Custom initialization script to enable extensions
+      - ./docker/postgres-init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U carphatian"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - carphatian-network
+
+  # ----------------------------------------
+  # Redis (Port 6379)
+  # ----------------------------------------
+  # In-memory cache for AI responses and rate limiting
+  redis:
+    image: redis:7-alpine
+    container_name: carphatian-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redis_secure_password}
+    volumes:
+      # Persist Redis data
+      - redis-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - carphatian-network
+
+  # ----------------------------------------
+  # MinIO (S3-Compatible Storage)
+  # ----------------------------------------
+  # Local object storage for file uploads (alternative to AWS S3)
+  minio:
+    image: minio/minio:latest
+    container_name: carphatian-minio
+    ports:
+      - "9000:9000"  # API port
+      - "9001:9001"  # Web console
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-minioadmin}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-minioadmin123}
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - carphatian-network
+
+  # ----------------------------------------
+  # Nginx Reverse Proxy (Port 80/443)
+  # ----------------------------------------
+  # Handles routing and SSL termination
+  nginx:
+    image: nginx:alpine
+    container_name: carphatian-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # Custom Nginx configuration
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf
+      # SSL certificates (mount from host if using Let's Encrypt)
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - nextjs
+      - fastapi
+    restart: unless-stopped
+    networks:
+      - carphatian-network
+
+# ----------------------------------------
+# Persistent Volumes
+# ----------------------------------------
+# Named volumes for data persistence across container restarts
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  minio-data:
+    driver: local
+
+# ----------------------------------------
+# Network Configuration
+# ----------------------------------------
+# Custom bridge network for service-to-service communication
+networks:
+  carphatian-network:
+    driver: bridge

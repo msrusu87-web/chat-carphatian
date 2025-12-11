@@ -1,0 +1,48 @@
+# =========================================
+# Dockerfile for FastAPI AI Microservice
+# Python-based API for AI model orchestration
+# Built by Carphatian
+# =========================================
+
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+# - gcc: Required for compiling some Python packages
+# - libpq-dev: PostgreSQL client library for psycopg2
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements file
+# Copying this separately allows Docker to cache pip installations
+COPY ai-service/requirements.txt .
+
+# Install Python dependencies
+# --no-cache-dir reduces image size by not storing pip cache
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY ai-service/ .
+
+# Create non-root user for security
+RUN useradd --create-home --shell /bin/bash appuser && \
+    chown -R appuser:appuser /app
+USER appuser
+
+# Expose port 8000 for FastAPI
+EXPOSE 8000
+
+# Health check endpoint
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+  CMD python -c "import requests; requests.get('http://localhost:8000/health')"
+
+# Start FastAPI with Uvicorn ASGI server
+# --host 0.0.0.0: Accept connections from any IP
+# --port 8000: Listen on port 8000
+# --workers 4: Use 4 worker processes for handling requests
+# --log-level info: Show informational logs
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4", "--log-level", "info"]

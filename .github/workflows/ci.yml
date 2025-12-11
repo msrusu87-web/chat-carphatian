@@ -1,0 +1,183 @@
+# =========================================
+# GitHub Actions CI/CD Pipeline - CI
+# Runs on every pull request to validate code quality
+# Built by Carphatian
+# =========================================
+
+name: CI - Lint, Test, TypeCheck
+
+# Trigger this workflow on pull requests to main branch
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+# Define jobs to run
+jobs:
+  # ----------------------------------------
+  # Lint Job
+  # ----------------------------------------
+  # Checks code formatting and style using ESLint
+  lint:
+    name: ESLint Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code from repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      # Step 4: Run ESLint
+      # This checks for code style issues and potential bugs
+      - name: Run ESLint
+        run: npm run lint
+
+  # ----------------------------------------
+  # TypeScript Type Check Job
+  # ----------------------------------------
+  # Verifies TypeScript types are correct
+  typecheck:
+    name: TypeScript Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      # Run TypeScript compiler in check mode
+      # --noEmit: Don't generate output files, just check types
+      - name: Run TypeScript Type Check
+        run: npx tsc --noEmit
+
+  # ----------------------------------------
+  # Build Job
+  # ----------------------------------------
+  # Ensures the application builds successfully
+  build:
+    name: Build Next.js App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      # Create placeholder .env file with dummy values for build
+      # The actual build needs these env vars to be defined
+      - name: Create .env file
+        run: |
+          cat > .env.local << EOF
+          NEXT_PUBLIC_SUPABASE_URL=https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY=placeholder-key
+          NEXT_PUBLIC_APP_URL=http://localhost:3000
+          EOF
+
+      # Build the Next.js application
+      # This verifies that the code compiles without errors
+      - name: Build application
+        run: npm run build
+
+      # Upload build artifacts for deploy job
+      # This allows the deploy job to use the same build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build
+          path: .next/
+          retention-days: 1
+
+  # ----------------------------------------
+  # Unit Tests Job (Placeholder)
+  # ----------------------------------------
+  # Currently a placeholder - will run tests when implemented
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      # Placeholder for running tests
+      # Once tests are written, uncomment this
+      # - name: Run tests
+      #   run: npm test
+
+      - name: Tests placeholder
+        run: echo "Tests will be implemented in Phase 2"
+
+  # ----------------------------------------
+  # FastAPI Tests Job (Placeholder)
+  # ----------------------------------------
+  # Tests for the Python FastAPI microservice
+  test-fastapi:
+    name: FastAPI Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Setup Python environment
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      # Step 3: Create placeholder requirements.txt
+      # This will be replaced when FastAPI service is implemented
+      - name: Create placeholder requirements
+        run: |
+          mkdir -p ai-service
+          echo "fastapi==0.104.1" > ai-service/requirements.txt
+          echo "uvicorn==0.24.0" >> ai-service/requirements.txt
+
+      # Step 4: Install Python dependencies
+      - name: Install dependencies
+        run: |
+          cd ai-service
+          pip install -r requirements.txt
+
+      # Placeholder for FastAPI tests
+      - name: FastAPI tests placeholder
+        run: echo "FastAPI tests will be implemented in Phase 3"

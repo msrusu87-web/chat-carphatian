@@ -1,0 +1,223 @@
+# =========================================
+# GitHub Actions CI/CD Pipeline - Deploy
+# Automatically deploys to production on push to main
+# Built by Carphatian
+# =========================================
+
+name: Deploy to Production
+
+# Trigger this workflow when code is pushed to main branch
+on:
+  push:
+    branches:
+      - main
+
+# Environment variables used across all jobs
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # ----------------------------------------
+  # Build Docker Images Job
+  # ----------------------------------------
+  # Creates production Docker images and pushes to GitHub Container Registry
+  build:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      # Step 1: Checkout repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Setup Docker Buildx for multi-platform builds
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Step 3: Login to GitHub Container Registry
+      # This allows us to push Docker images
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 4: Extract metadata for Docker images
+      # This creates tags like: ghcr.io/owner/repo:latest, ghcr.io/owner/repo:sha-abc123
+      - name: Extract metadata (tags, labels)
+        id: meta-nextjs
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/nextjs
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      # Step 5: Build and push Next.js Docker image
+      - name: Build and push Next.js image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta-nextjs.outputs.tags }}
+          labels: ${{ steps.meta-nextjs.outputs.labels }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/nextjs:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/nextjs:buildcache,mode=max
+          build-args: |
+            NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+            NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+            NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }}
+
+      # Step 6: Build FastAPI metadata
+      - name: Extract FastAPI metadata
+        id: meta-fastapi
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/fastapi
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      # Step 7: Build and push FastAPI Docker image
+      - name: Build and push FastAPI image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.fastapi
+          push: true
+          tags: ${{ steps.meta-fastapi.outputs.tags }}
+          labels: ${{ steps.meta-fastapi.outputs.labels }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/fastapi:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/fastapi:buildcache,mode=max
+
+  # ----------------------------------------
+  # Deploy to VPS Job
+  # ----------------------------------------
+  # SSH into the production server and deploy new containers
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    needs: build  # Wait for build job to complete
+    environment:
+      name: production
+      url: https://chat.carphatian.ro
+
+    steps:
+      # Step 1: Checkout code (needed for deployment scripts)
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Setup SSH connection to VPS
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # Step 3: Add VPS to known hosts (prevents SSH prompt)
+      - name: Add VPS to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      # Step 4: Deploy to production server
+      # This connects via SSH and runs deployment commands
+      - name: Deploy to production
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_DEPLOY_PATH: /home/ubuntu/chat-carphatian
+        run: |
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} << 'EOF'
+            # Navigate to deployment directory
+            cd ${{ env.VPS_DEPLOY_PATH }}
+            
+            # Pull latest code from GitHub
+            git pull origin main
+            
+            # Login to GitHub Container Registry
+            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            
+            # Pull latest Docker images
+            docker-compose pull
+            
+            # Stop existing containers
+            docker-compose down
+            
+            # Start new containers in detached mode
+            docker-compose up -d
+            
+            # Clean up old Docker images to save space
+            docker system prune -f
+            
+            # Show running containers for verification
+            docker-compose ps
+          EOF
+
+      # Step 5: Health check
+      # Verify the deployment was successful
+      - name: Health check
+        run: |
+          sleep 30  # Wait for services to start
+          
+          # Check if Next.js is responding
+          curl -f https://chat.carphatian.ro || exit 1
+          
+          # Check if API is responding
+          curl -f https://chat.carphatian.ro/api/health || exit 1
+
+      # Step 6: Notify success (optional - can integrate Slack/Discord)
+      - name: Deployment success
+        run: |
+          echo "✅ Deployment to production completed successfully!"
+          echo "🚀 Application is live at https://chat.carphatian.ro"
+
+  # ----------------------------------------
+  # Rollback Job (Manual Trigger)
+  # ----------------------------------------
+  # Can be manually triggered if deployment fails
+  rollback:
+    name: Rollback Deployment
+    runs-on: ubuntu-latest
+    if: failure()  # Only runs if deploy job fails
+    needs: deploy
+    environment:
+      name: production
+
+    steps:
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add VPS to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Rollback to previous version
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_DEPLOY_PATH: /home/ubuntu/chat-carphatian
+        run: |
+          ssh ${{ env.VPS_USER }}@${{ env.VPS_HOST }} << 'EOF'
+            cd ${{ env.VPS_DEPLOY_PATH }}
+            
+            # Revert to previous Git commit
+            git reset --hard HEAD~1
+            
+            # Restart containers with previous version
+            docker-compose down
+            docker-compose up -d
+          EOF
+
+      - name: Rollback notification
+        run: echo "⚠️ Deployment failed. Rolled back to previous version."

@@ -1,0 +1,62 @@
+# =========================================
+# Docker Ignore File
+# Excludes unnecessary files from Docker image builds
+# Built by Carphatian
+# =========================================
+
+# Node.js dependencies
+# These will be installed fresh in the container
+node_modules
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Next.js build outputs
+# These will be generated during Docker build
+.next
+out
+dist
+
+# Development files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Git files
+.git
+.gitignore
+.github
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*.swn
+.DS_Store
+
+# Testing
+coverage
+.nyc_output
+*.log
+
+# Docker files (no need to copy these into the image)
+Dockerfile
+Dockerfile.fastapi
+docker-compose.yml
+.dockerignore
+
+# CI/CD
+.github
+
+# Documentation
+README.md
+PROJECT_PROGRESS.md
+*.md
+
+# Cache
+.cache
+.parcel-cache
+.turbo

@@ -1,0 +1,91 @@
+/**
+ * Client Applications Page
+ * Built by Carphatian
+ */
+
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth-options'
+import { redirect } from 'next/navigation'
+import { db } from '@/lib/db'
+import { applications, jobs } from '@/lib/db/schema'
+import { eq } from 'drizzle-orm'
+import Link from 'next/link'
+
+export default async function ClientApplicationsPage() {
+  const session = await getServerSession(authOptions)
+
+  if (!session?.user) {
+    redirect('/login')
+  }
+
+  const user = session.user as any
+  if (user.role !== 'client' && user.role !== 'admin') {
+    redirect('/dashboard')
+  }
+
+  const userId = parseInt(user.id)
+
+  // Get all applications for client's jobs
+  const clientJobs = await db.query.jobs.findMany({
+    where: eq(jobs.client_id, userId),
+  })
+
+  const jobIds = clientJobs.map(j => j.id)
+  
+  const allApplications = await db.query.applications.findMany({
+    where: (applications, { inArray }) => inArray(applications.job_id, jobIds),
+    orderBy: (applications, { desc }) => [desc(applications.created_at)],
+    with: {
+      freelancer: { with: { profile: true } },
+      job: true,
+    },
+  })
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-8">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-white">Applications</h1>
+        <p className="text-gray-400 mt-1">Review applications to your jobs</p>
+      </div>
+
+      {allApplications.length === 0 ? (
+        <div className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl p-12 text-center">
+          <span className="text-6xl mb-4 block">📝</span>
+          <h3 className="text-xl font-bold text-white mb-2">No Applications Yet</h3>
+          <p className="text-gray-400 mb-6">When freelancers apply to your jobs, they'll appear here.</p>
+          <Link 
+            href="/client/jobs/new"
+            className="inline-block px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all"
+          >
+            Post a Job
+          </Link>
+        </div>
+      ) : (
+        <div className="grid gap-4">
+          {allApplications.map((app) => (
+            <div key={app.id} className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl p-6">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-1">{app.job?.title}</h3>
+                  <p className="text-gray-400 text-sm">Applied by {app.freelancer?.name || 'Unknown'}</p>
+                </div>
+                <span className={`px-4 py-2 rounded-full text-sm font-medium ${
+                  app.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' :
+                  app.status === 'accepted' ? 'bg-green-500/20 text-green-400' :
+                  'bg-red-500/20 text-red-400'
+                }`}>
+                  {app.status}
+                </span>
+              </div>
+              <p className="text-gray-300 mb-4">{app.cover_letter}</p>
+              <div className="flex items-center gap-4 text-sm">
+                <span className="text-gray-400">💰 Proposed: ${app.proposed_rate}/hr</span>
+                <span className="text-gray-400">📅 {new Date(app.created_at).toLocaleDateString()}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}

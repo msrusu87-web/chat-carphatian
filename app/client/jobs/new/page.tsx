@@ -122,11 +122,10 @@ export default function CreateJobPage() {
         body: JSON.stringify({
           title,
           description,
-          category,
-          budget: parseFloat(budget),
-          budgetType,
-          skills,
-          status: 'open',
+          budget_min: parseFloat(budget),
+          budget_max: parseFloat(budget),
+          timeline: '2-3 months',
+          required_skills: skills,
         }),
       })
 
@@ -135,8 +134,8 @@ export default function CreateJobPage() {
         throw new Error(data.error || 'Failed to create job')
       }
 
-      const job = await response.json()
-      router.push(`/client/jobs/${job.id}`)
+      const result = await response.json()
+      router.push(`/client/jobs/${result.job.id}`)
     } catch (err: any) {
       setError(err.message || 'Failed to create job')
       setStep('preview')

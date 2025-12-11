@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
         budget_max: validatedData.budget_max?.toString(),
         timeline: validatedData.timeline,
         required_skills: validatedData.required_skills,
-        status: 'draft',
+        status: 'open',
       })
       .returning()
 

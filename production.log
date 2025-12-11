@@ -1,0 +1,29 @@
+
+> chat-carphatian@0.1.0 start
+> next start
+
+   ▲ Next.js 16.0.8
+   - Local:         http://localhost:3000
+   - Network:       http://135.125.174.208:3000
+
+ ✓ Starting...
+ ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
+ ✓ Ready in 859ms
+Error [InvariantError]: Invariant: Expected clientReferenceManifest to be defined. This is a bug in Next.js.
+    at f (.next/server/chunks/ssr/_efcb8f99._.js:1:4130)
+    at m (.next/server/chunks/ssr/_efcb8f99._.js:1:6920)
+    at o (.next/server/chunks/ssr/_efcb8f99._.js:2:2612)
+    at responseGenerator (.next/server/chunks/ssr/_efcb8f99._.js:2:2770)
+ ⨯ Error [InvariantError]: Invariant: Expected clientReferenceManifest to be defined. This is a bug in Next.js.
+    at f (.next/server/chunks/ssr/_efcb8f99._.js:1:4130)
+    at m (.next/server/chunks/ssr/_efcb8f99._.js:1:6920)
+    at o (.next/server/chunks/ssr/_efcb8f99._.js:2:2612)
+    at responseGenerator (.next/server/chunks/ssr/_efcb8f99._.js:2:2770)
+ ⨯ Error [InvariantError]: Invariant: Expected clientReferenceManifest to be defined. This is a bug in Next.js.
+    at f (.next/server/chunks/ssr/_efcb8f99._.js:1:4130)
+    at m (.next/server/chunks/ssr/_efcb8f99._.js:1:6920)
+    at o (.next/server/chunks/ssr/_efcb8f99._.js:2:2612)
+    at responseGenerator (.next/server/chunks/ssr/_efcb8f99._.js:2:2770)
+ ⨯ Error: Failed to load static file for page: /500 ENOENT: no such file or directory, open '/home/ubuntu/chat-carphatian/.next/server/pages/500.html'
+    at ignore-listed frames
+Killed

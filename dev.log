@@ -17,3 +17,27 @@ Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allow
  ○ Compiling /client/jobs/[id] ...
 [next-auth][warn][DEBUG_ENABLED] 
 https://next-auth.js.org/warnings#debug_enabled
+ GET /client/jobs/undefined 404 in 7.2s (compile: 6.7s, render: 532ms)
+ GET /manifest.json 404 in 1030ms (compile: 938ms, render: 92ms)
+ GET /manifest.json 404 in 75ms (compile: 6ms, render: 69ms)
+[next-auth][warn][DEBUG_ENABLED] 
+https://next-auth.js.org/warnings#debug_enabled
+ GET /api/auth/session 200 in 2.7s (compile: 2.6s, render: 67ms)
+ GET /client/jobs/new 200 in 1009ms (compile: 973ms, render: 36ms)
+ POST /api/ai/job-draft 200 in 2.8s (compile: 1483ms, render: 1274ms)
+ POST /api/jobs 201 in 518ms (compile: 458ms, render: 60ms)
+ GET /client/jobs/undefined 200 in 124ms (compile: 64ms, render: 60ms)
+ GET /client/jobs/undefined 404 in 267ms (compile: 59ms, render: 208ms)
+ GET /manifest.json 404 in 75ms (compile: 7ms, render: 68ms)
+ GET /api/auth/session 200 in 80ms (compile: 60ms, render: 20ms)
+ GET /manifest.json 404 in 157ms (compile: 10ms, render: 148ms)
+ GET /client/jobs/undefined 404 in 285ms (compile: 76ms, render: 208ms)
+ GET /api/auth/session 200 in 226ms (compile: 145ms, render: 81ms)
+ GET /manifest.json 404 in 692ms (compile: 13ms, render: 679ms)
+ GET /manifest.json 404 in 311ms (compile: 31ms, render: 280ms)
+ GET /client/jobs/new 200 in 76ms (compile: 7ms, render: 69ms)
+ GET /client/jobs/new 200 in 267ms (compile: 12ms, render: 255ms)
+ GET /api/auth/session 200 in 167ms (compile: 118ms, render: 49ms)
+ GET /manifest.json 404 in 478ms (compile: 10ms, render: 467ms)
+ GET /manifest.json 404 in 168ms (compile: 13ms, render: 155ms)
+[?25h

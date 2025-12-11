@@ -225,7 +225,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                             jobId={jobId}
                             freelancerId={app.freelancer_id}
                             jobTitle={job.title}
-                            budget={parseFloat(job.budget_max || "0")}
+                            budget={typeof app.proposed_rate === 'string' ? parseFloat(app.proposed_rate) : (app.proposed_rate || 0)}
                           />
                         )}
                       </div>

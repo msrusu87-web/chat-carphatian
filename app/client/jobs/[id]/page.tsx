@@ -56,11 +56,8 @@ export default async function JobDetailPage({ params }: PageProps) {
       status: applications.status,
       created_at: applications.created_at,
       freelancer_id: applications.freelancer_id,
-      freelancer_name: users.name,
+      freelancer_name: users.email,
       freelancer_email: users.email,
-      freelancer_bio: users.bio,
-      freelancer_skills: users.skills,
-      freelancer_hourly_rate: users.hourly_rate,
     })
     .from(applications)
     .leftJoin(users, eq(applications.freelancer_id, users.id))
@@ -110,7 +107,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                 month: 'long', 
                 day: 'numeric',
                 year: 'numeric'
-              })} • {job.category}
+              })}
             </p>
           </div>
           
@@ -148,7 +145,7 @@ export default async function JobDetailPage({ params }: PageProps) {
           <div className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl p-6">
             <h2 className="text-xl font-bold text-white mb-4">Required Skills</h2>
             <div className="flex flex-wrap gap-2">
-              {(job.skills as string[] || []).map((skill: string) => (
+              {(job.required_skills as string[] || []).map((skill: string) => (
                 <span
                   key={skill}
                   className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm"
@@ -156,7 +153,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                   {skill}
                 </span>
               ))}
-              {(!job.skills || (job.skills as string[]).length === 0) && (
+              {(!job.required_skills || (job.required_skills as string[]).length === 0) && (
                 <span className="text-gray-500">No skills specified</span>
               )}
             </div>
@@ -206,16 +203,8 @@ export default async function JobDetailPage({ params }: PageProps) {
                           </span>
                         </div>
                         
-                        {app.freelancer_bio && (
-                          <p className="text-gray-400 text-sm mb-2 line-clamp-2">{app.freelancer_bio}</p>
-                        )}
                         
                         <div className="flex flex-wrap gap-1 mb-3">
-                          {(app.freelancer_skills as string[] || []).slice(0, 5).map((skill: string) => (
-                            <span key={skill} className="bg-gray-700/50 text-gray-400 px-2 py-0.5 rounded text-xs">
-                              {skill}
-                            </span>
-                          ))}
                         </div>
 
                         <div className="bg-gray-700/30 rounded-lg p-3 mt-3">
@@ -229,12 +218,6 @@ export default async function JobDetailPage({ params }: PageProps) {
                           <p className="text-2xl font-bold text-white">${app.proposed_rate?.toLocaleString()}</p>
                           <p className="text-gray-500 text-xs">Proposed Rate</p>
                         </div>
-                        
-                        {app.freelancer_hourly_rate && (
-                          <p className="text-gray-500 text-sm">
-                            Usual rate: ${app.freelancer_hourly_rate}/hr
-                          </p>
-                        )}
 
                         {app.status === 'pending' && (
                           <ApplicationActions 
@@ -242,7 +225,7 @@ export default async function JobDetailPage({ params }: PageProps) {
                             jobId={jobId}
                             freelancerId={app.freelancer_id}
                             jobTitle={job.title}
-                            budget={job.budget || 0}
+                            budget={parseFloat(job.budget_max || "0")}
                           />
                         )}
                       </div>
@@ -270,8 +253,8 @@ export default async function JobDetailPage({ params }: PageProps) {
           <div className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl p-6">
             <h3 className="text-lg font-bold text-white mb-4">Budget</h3>
             <div className="text-center py-4">
-              <p className="text-4xl font-bold text-green-400">${job.budget?.toLocaleString()}</p>
-              <p className="text-gray-500 uppercase text-sm mt-1">{job.budget_type || 'Fixed Price'}</p>
+              <p className="text-4xl font-bold text-green-400">${(job.budget_min && job.budget_max) ? `${job.budget_min}-${job.budget_max}` : "Not specified"}</p>
+              <p className="text-gray-500 uppercase text-sm mt-1">Budget Range</p>
             </div>
           </div>
 

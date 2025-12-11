@@ -56,7 +56,7 @@ export default async function FreelancerApplicationsPage() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-1">{app.job?.title}</h3>
-                  <p className="text-gray-400 text-sm">Client: {app.job?.client?.name || 'Unknown'}</p>
+                  <p className="text-gray-400 text-sm">Client: {app.job?.client?.email || 'Unknown'}</p>
                 </div>
                 <span className={`px-4 py-2 rounded-full text-sm font-medium ${
                   app.status === 'pending' ? 'bg-yellow-500/20 text-yellow-400' :

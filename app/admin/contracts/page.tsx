@@ -39,7 +39,7 @@ export default async function AdminContractsPage() {
               <div>
                 <h3 className="text-xl font-bold text-white mb-2">{contract.job?.title || 'No title'}</h3>
                 <p className="text-gray-400 text-sm">
-                  {contract.client?.name || 'Unknown'} → {contract.freelancer?.name || 'Unknown'}
+                  {contract.client?.email || 'Unknown'} → {contract.freelancer?.email || 'Unknown'}
                 </p>
               </div>
               <span className={`px-4 py-2 rounded-full text-sm font-medium ${

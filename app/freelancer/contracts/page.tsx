@@ -59,7 +59,7 @@ export default async function FreelancerContractsPage() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-1">{contract.job?.title}</h3>
-                  <p className="text-gray-400 text-sm">Client: {contract.client?.name || 'Unknown'}</p>
+                  <p className="text-gray-400 text-sm">Client: {contract.client?.email || 'Unknown'}</p>
                 </div>
                 <span className={`px-4 py-2 rounded-full text-sm font-medium ${
                   contract.status === 'active' ? 'bg-green-500/20 text-green-400' :

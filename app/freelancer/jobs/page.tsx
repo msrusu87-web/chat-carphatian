@@ -49,7 +49,7 @@ export default async function FreelancerJobsPage() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">{job.title}</h3>
-                  <p className="text-gray-400 text-sm">Posted by {job.client?.name || 'Unknown'}</p>
+                  <p className="text-gray-400 text-sm">Posted by {job.client?.email || 'Unknown'}</p>
                 </div>
                 <Link
                   href={`/freelancer/jobs/${job.id}`}

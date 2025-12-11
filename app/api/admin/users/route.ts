@@ -31,7 +31,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Cannot delete your own account' }, { status: 400 })
     }
 
-    await db.delete(users).where(eq(users.id, userId))
+    await db.delete(users).where(eq(users.id, parseInt(userId)))
 
     return NextResponse.json({ success: true })
   } catch (error) {
@@ -67,7 +67,7 @@ export async function PATCH(request: NextRequest) {
 
     await db.update(users)
       .set(updateData)
-      .where(eq(users.id, id))
+      .where(eq(users.id, parseInt(id)))
 
     return NextResponse.json({ success: true })
   } catch (error) {

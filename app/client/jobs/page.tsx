@@ -147,7 +147,7 @@ export default async function ClientJobsPage() {
                       {job.description?.substring(0, 150)}...
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {(job.skills as string[] || []).slice(0, 4).map((skill: string) => (
+                      {(job.required_skills as string[] || []).slice(0, 4).map((skill: string) => (
                         <span
                           key={skill}
                           className="bg-gray-700/50 text-gray-300 px-2 py-1 rounded text-xs"
@@ -155,9 +155,9 @@ export default async function ClientJobsPage() {
                           {skill}
                         </span>
                       ))}
-                      {(job.skills as string[] || []).length > 4 && (
+                      {(job.required_skills as string[] || []).length > 4 && (
                         <span className="text-gray-500 text-xs">
-                          +{(job.skills as string[]).length - 4} more
+                          +{(job.required_skills as string[]).length - 4} more
                         </span>
                       )}
                     </div>

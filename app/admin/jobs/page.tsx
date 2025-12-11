@@ -34,11 +34,11 @@ export default async function AdminJobsPage() {
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h3 className="text-xl font-bold text-white mb-2">{job.title}</h3>
-                <p className="text-gray-400 text-sm">by {job.client?.name || 'Unknown'}</p>
+                <p className="text-gray-400 text-sm">by {job.client?.email || 'Unknown'}</p>
               </div>
               <span className={`px-4 py-2 rounded-full text-sm font-medium ${
                 job.status === 'open' ? 'bg-green-500/20 text-green-400' :
-                job.status === 'closed' ? 'bg-gray-500/20 text-gray-400' :
+                job.status === 'cancelled' ? 'bg-gray-500/20 text-gray-400' :
                 'bg-blue-500/20 text-blue-400'
               }`}>
                 {job.status}
@@ -48,7 +48,6 @@ export default async function AdminJobsPage() {
             <div className="flex items-center gap-4 text-sm">
               <span className="text-gray-400">💰 ${job.budget_min} - ${job.budget_max}</span>
               <span className="text-gray-400">📅 {new Date(job.created_at).toLocaleDateString()}</span>
-              {job.category && <span className="text-indigo-400">🏷️ {job.category}</span>}
             </div>
           </div>
         ))}

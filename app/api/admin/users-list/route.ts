@@ -21,7 +21,6 @@ export async function GET(request: NextRequest) {
       columns: {
         id: true,
         email: true,
-        name: true,
         role: true,
         email_verified: true,
         created_at: true,

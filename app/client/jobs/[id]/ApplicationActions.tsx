@@ -59,39 +59,20 @@ export default function ApplicationActions({
     setError('')
 
     try {
-      // Accept the application
-      const appResponse = await fetch(`/api/applications/${applicationId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: 'accepted' }),
-      })
-
-      if (!appResponse.ok) {
-        throw new Error('Failed to accept application')
-      }
-
-      // Create a contract
+      // Create a contract (this also accepts the application and updates job status)
       const contractResponse = await fetch('/api/contracts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          job_id: jobId,
-          freelancer_id: freelancerId,
-          amount: budget,
-          title: jobTitle,
+          application_id: applicationId,
+          total_amount: budget,
         }),
       })
 
       if (!contractResponse.ok) {
-        throw new Error('Failed to create contract')
+        const data = await contractResponse.json()
+        throw new Error(data.error || 'Failed to create contract')
       }
-
-      // Update job status
-      await fetch(`/api/jobs/${jobId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: 'in_progress' }),
-      })
 
       setShowHireModal(false)
       router.refresh()

@@ -788,3 +788,62 @@ Job draft generation error: Error [ZodError]: [
  ✓ Compiled in 90ms
  GET /client/jobs/new 200 in 82ms (compile: 9ms, render: 73ms)
  GET /api/auth/session 200 in 138ms (compile: 82ms, render: 56ms)
+ GET /api/auth/session 200 in 96ms (compile: 72ms, render: 24ms)
+ GET /client/applications 200 in 139ms (compile: 8ms, render: 131ms)
+ GET /client/contracts 200 in 57ms (compile: 5ms, render: 52ms)
+[next-auth][warn][DEBUG_ENABLED] 
+https://next-auth.js.org/warnings#debug_enabled
+ GET /client/messages 200 in 422ms (compile: 231ms, render: 190ms)
+ GET /client/payments 200 in 66ms (compile: 20ms, render: 46ms)
+ GET /client/settings 200 in 40ms (compile: 7ms, render: 33ms)
+ GET /client/jobs 200 in 71ms (compile: 4ms, render: 66ms)
+ GET /client/jobs/new 200 in 42ms (compile: 5ms, render: 37ms)
+Job draft generation error: Error [ZodError]: [
+  {
+    "expected": "string",
+    "code": "invalid_type",
+    "path": [
+      "title"
+    ],
+    "message": "Invalid input: expected string, received undefined"
+  },
+  {
+    "expected": "array",
+    "code": "invalid_type",
+    "path": [
+      "skills"
+    ],
+    "message": "Invalid input: expected array, received undefined"
+  }
+]
+    at POST (app/api/ai/job-draft/route.ts:64:42)
+  62 |     // Parse and validate request body
+  63 |     const body = await request.json()
+> 64 |     const validatedData = jobDraftSchema.parse(body)
+     |                                          ^
+  65 |
+  66 |     // Call AI service
+  67 |     const result = await aiServiceRequest<JobDraftResponse>(
+ POST /api/ai/job-draft 400 in 279ms (compile: 6ms, render: 273ms)
+AI service health check failed: TypeError: fetch failed
+    at async aiServiceRequest (lib/ai-service.ts:29:22)
+    at async GET (app/api/ai/health/route.ts:17:20)
+  27 |
+  28 |   try {
+> 29 |     const response = await fetch(`${AI_SERVICE_URL}${endpoint}`, {
+     |                      ^
+  30 |       method,
+  31 |       headers: {
+  32 |         'Content-Type': 'application/json', {
+  [cause]: Error: connect ECONNREFUSED 127.0.0.1:8000
+      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 8000
+  }
+}
+ GET /api/ai/health 503 in 513ms (compile: 264ms, render: 249ms)
+ GET /?id=15e07393-4d7d-4334-b4d5-a55a6ae58d34&vscodeBrowserReqId=1765491768321 200 in 166ms (compile: 22ms, render: 144ms)
+[?25h

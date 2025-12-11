@@ -11,36 +11,24 @@
 
  ✓ Starting...
  ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
- ✓ Ready in 2.5s
+ ✓ Ready in 2.1s
  ⚠ Cross origin request detected from chat.carphatian.ro to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
 Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
  ○ Compiling /client/jobs/new ...
 [next-auth][warn][DEBUG_ENABLED] 
 https://next-auth.js.org/warnings#debug_enabled
- GET /client/jobs/new 200 in 6.9s (compile: 6.3s, render: 591ms)
- GET /?id=15e07393-4d7d-4334-b4d5-a55a6ae58d34&vscodeBrowserReqId=1765491834287 200 in 3.2s (compile: 2.6s, render: 552ms)
- GET /manifest.json 404 in 1080ms (compile: 920ms, render: 160ms)
- GET /manifest.json 404 in 118ms (compile: 20ms, render: 98ms)
-AI service health check failed: TypeError: fetch failed
-    at async aiServiceRequest (lib/ai-service.ts:29:22)
-    at async GET (app/api/ai/health/route.ts:17:20)
-  27 |
-  28 |   try {
-> 29 |     const response = await fetch(`${AI_SERVICE_URL}${endpoint}`, {
-     |                      ^
-  30 |       method,
-  31 |       headers: {
-  32 |         'Content-Type': 'application/json', {
-  [cause]: Error: connect ECONNREFUSED 127.0.0.1:8000
-      at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
-    errno: -111,
-    code: 'ECONNREFUSED',
-    syscall: 'connect',
-    address: '127.0.0.1',
-    port: 8000
-  }
-}
- GET /api/ai/health 503 in 1600ms (compile: 1163ms, render: 436ms)
+ GET /client/jobs/new 200 in 6.5s (compile: 5.9s, render: 584ms)
+ GET /manifest.json 404 in 1197ms (compile: 1050ms, render: 147ms)
+ GET /manifest.json 404 in 154ms (compile: 15ms, render: 139ms)
 [next-auth][warn][DEBUG_ENABLED] 
 https://next-auth.js.org/warnings#debug_enabled
- GET /api/auth/session 200 in 2.9s (compile: 2.8s, render: 40ms)
+ GET /api/auth/session 200 in 2.8s (compile: 2.7s, render: 59ms)
+ GET /api/auth/session 200 in 68ms (compile: 55ms, render: 13ms)
+ GET /api/jobs/27 200 in 2.3s (compile: 2.2s, render: 57ms)
+ GET /client/jobs 200 in 1162ms (compile: 980ms, render: 182ms)
+ GET /client/applications 200 in 773ms (compile: 689ms, render: 84ms)
+ GET /client/jobs 200 in 90ms (compile: 7ms, render: 83ms)
+ GET /client/jobs/27 200 in 1932ms (compile: 1821ms, render: 111ms)
+ GET /client/jobs/27/edit 200 in 1845ms (compile: 1782ms, render: 63ms)
+ GET /api/jobs/27 200 in 108ms (compile: 61ms, render: 47ms)
+ GET /client 200 in 812ms (compile: 715ms, render: 98ms)

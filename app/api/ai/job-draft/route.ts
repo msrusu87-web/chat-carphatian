@@ -12,7 +12,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
-import OpenAI from 'openai'
+import Groq from 'groq-sdk'
 import { z } from 'zod'
 
 // Request validation schema - simplified
@@ -26,9 +26,9 @@ const jobDraftSchema = z.object({
   }).optional(),
 })
 
-// Initialize OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+// Initialize Groq (free API!)
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 })
 
 export async function POST(request: NextRequest) {
@@ -81,9 +81,9 @@ Make it engaging and clear. Focus on attracting qualified freelancers.`
       userPrompt = `Improve this existing job posting:\n\nTitle: ${validatedData.existingJob.title}\n\nDescription: ${validatedData.existingJob.description}\n\nUser's instructions: ${userPrompt}`
     }
 
-    // Call OpenAI
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+    // Call Groq (free and fast!)
+    const completion = await groq.chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt }

@@ -33,15 +33,15 @@ export default async function ClientMessagesPage() {
       id: messages.id,
       content: messages.content,
       sender_id: messages.sender_id,
-      receiver_id: messages.receiver_id,
-      read: messages.read,
+      recipient_id: messages.recipient_id,
+      read_at: messages.read_at,
       created_at: messages.created_at,
     })
     .from(messages)
     .where(
       or(
         eq(messages.sender_id, userId),
-        eq(messages.receiver_id, userId)
+        eq(messages.recipient_id, userId)
       )
     )
     .orderBy(desc(messages.created_at))
@@ -54,7 +54,7 @@ export default async function ClientMessagesPage() {
   }>()
 
   for (const msg of allMessages) {
-    const partnerId = msg.sender_id === userId ? msg.receiver_id : msg.sender_id
+    const partnerId = msg.sender_id === userId ? msg.recipient_id : msg.sender_id
     
     if (!conversationMap.has(partnerId)) {
       conversationMap.set(partnerId, {
@@ -64,7 +64,7 @@ export default async function ClientMessagesPage() {
       })
     }
     
-    if (msg.receiver_id === userId && !msg.read) {
+    if (msg.recipient_id === userId && !msg.read_at) {
       const conv = conversationMap.get(partnerId)!
       conv.unreadCount++
     }
@@ -77,7 +77,6 @@ export default async function ClientMessagesPage() {
         where: eq(users.id, conv.partnerId),
         columns: {
           id: true,
-          name: true,
           email: true,
           role: true,
         },
@@ -137,7 +136,7 @@ export default async function ClientMessagesPage() {
                 <div className="flex items-center gap-4">
                   <div className="relative">
                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold">
-                      {conv.partner?.name?.charAt(0) || '?'}
+                      {conv.partner?.email?.charAt(0) || '?'}
                     </div>
                     {conv.unreadCount > 0 && (
                       <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
@@ -149,7 +148,7 @@ export default async function ClientMessagesPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
                       <h3 className={`font-semibold ${conv.unreadCount > 0 ? 'text-white' : 'text-gray-300'}`}>
-                        {conv.partner?.name || 'Unknown User'}
+                        {conv.partner?.email || 'Unknown User'}
                       </h3>
                       <span className="text-gray-500 text-xs">
                         {formatTimeAgo(conv.lastMessage.created_at!)}

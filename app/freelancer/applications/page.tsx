@@ -7,6 +7,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { redirect } from 'next/navigation'
 import { db } from '@/lib/db'
+import { applications } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import Link from 'next/link'
 
@@ -25,7 +26,7 @@ export default async function FreelancerApplicationsPage() {
   const userId = parseInt(user.id)
 
   const myApplications = await db.query.applications.findMany({
-    where: eq((t) => t.freelancer_id, userId),
+    where: eq(applications.freelancer_id, userId),
     orderBy: (applications, { desc }) => [desc(applications.created_at)],
     with: { job: { with: { client: true } } },
   })

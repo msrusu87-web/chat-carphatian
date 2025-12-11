@@ -7,6 +7,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { redirect } from 'next/navigation'
 import { db } from '@/lib/db'
+import { contracts } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import Link from 'next/link'
 
@@ -25,7 +26,7 @@ export default async function FreelancerContractsPage() {
   const userId = parseInt(user.id)
 
   const myContracts = await db.query.contracts.findMany({
-    where: eq((t) => t.freelancer_id, userId),
+    where: eq(contracts.freelancer_id, userId),
     orderBy: (contracts, { desc }) => [desc(contracts.created_at)],
     with: { 
       job: true,

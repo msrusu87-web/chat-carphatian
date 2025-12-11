@@ -55,7 +55,7 @@ export default async function FreelancerProfilePage() {
           <div className="space-y-4">
             <div>
               <label className="text-gray-400 text-sm">Title</label>
-              <p className="text-white">{userProfile?.profile?.title || 'Not set'}</p>
+              <p className="text-white">{userProfile?.profile?.full_name || 'Not set'}</p>
             </div>
             <div>
               <label className="text-gray-400 text-sm">Bio</label>

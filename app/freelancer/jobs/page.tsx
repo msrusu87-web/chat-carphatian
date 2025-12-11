@@ -62,7 +62,6 @@ export default async function FreelancerJobsPage() {
               <div className="flex flex-wrap items-center gap-4 text-sm">
                 <span className="text-gray-400">💰 ${job.budget_min} - ${job.budget_max}</span>
                 <span className="text-gray-400">📅 {new Date(job.created_at).toLocaleDateString()}</span>
-                {job.category && <span className="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-full">{job.category}</span>}
               </div>
             </div>
           ))}

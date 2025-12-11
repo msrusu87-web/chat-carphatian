@@ -165,8 +165,10 @@ export default async function ClientJobsPage() {
                   
                   <div className="flex items-center gap-6">
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-white">${job.budget?.toLocaleString()}</p>
-                      <p className="text-gray-500 text-xs uppercase">{job.budget_type || 'Fixed'}</p>
+                      <p className="text-2xl font-bold text-white">
+                        ${job.budget_min && job.budget_max ? `${job.budget_min}-${job.budget_max}` : (job.budget_min || job.budget_max || 'TBD')}
+                      </p>
+                      <p className="text-gray-500 text-xs uppercase">Budget Range</p>
                     </div>
                     
                     <div className="text-center min-w-[80px]">
@@ -189,7 +191,7 @@ export default async function ClientJobsPage() {
                     })}
                   </span>
                   <span className="text-gray-500">
-                    📁 {job.category}
+                    � {job.required_skills && job.required_skills.length > 0 ? job.required_skills[0] : 'General'}
                   </span>
                 </div>
               </Link>

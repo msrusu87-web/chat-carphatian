@@ -6,6 +6,7 @@
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { redirect } from 'next/navigation'
+import StripeConnectButton from '@/components/StripeConnectButton'
 
 export default async function FreelancerEarningsPage() {
   const session = await getServerSession(authOptions)
@@ -52,14 +53,7 @@ export default async function FreelancerEarningsPage() {
 
       <div className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl p-6 mb-8">
         <h2 className="text-xl font-bold text-white mb-4">Payout Method</h2>
-        <div className="text-center py-8">
-          <span className="text-6xl mb-4 block">🏦</span>
-          <h3 className="text-lg font-bold text-white mb-2">Setup Stripe Connect</h3>
-          <p className="text-gray-400 mb-6">Connect your bank account to receive payments</p>
-          <button className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all">
-            Connect Stripe
-          </button>
-        </div>
+        <StripeConnectButton />
       </div>
 
       <div className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl p-6">

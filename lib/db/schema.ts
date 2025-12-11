@@ -136,6 +136,7 @@ export const users = pgTable('users', {
   password_hash: text('password_hash').notNull(),
   role: userRoleEnum('role').notNull().default('client'),
   email_verified: boolean('email_verified').notNull().default(false),
+  stripe_account_id: varchar('stripe_account_id', { length: 255 }), // Stripe Connect account for freelancers
   created_at: timestamp('created_at').notNull().defaultNow(),
   updated_at: timestamp('updated_at').notNull().defaultNow(),
 }, (table) => ({

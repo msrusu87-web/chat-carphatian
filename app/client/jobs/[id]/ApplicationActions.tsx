@@ -8,6 +8,9 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import dynamic from 'next/dynamic'
+
+const PaymentModal = dynamic(() => import('./PaymentModal'), { ssr: false })
 
 interface ApplicationActionsProps {
   applicationId: number
@@ -27,6 +30,8 @@ export default function ApplicationActions({
   const router = useRouter()
   const [loading, setLoading] = useState<'accept' | 'reject' | null>(null)
   const [showHireModal, setShowHireModal] = useState(false)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
+  const [contractId, setContractId] = useState<number | null>(null)
   const [error, setError] = useState('')
 
   const handleReject = async () => {
@@ -74,13 +79,25 @@ export default function ApplicationActions({
         throw new Error(data.error || 'Failed to create contract')
       }
 
+      const contractData = await contractResponse.json()
+      setContractId(contractData.contract.id)
       setShowHireModal(false)
-      router.refresh()
+      setShowPaymentModal(true) // Open payment modal after contract created
     } catch (err: any) {
       setError(err.message)
     } finally {
       setLoading(null)
     }
+  }
+
+  const handlePaymentSuccess = () => {
+    setShowPaymentModal(false)
+    router.push(`/client/contracts/${contractId}`)
+  }
+
+  const handlePaymentCancel = () => {
+    setShowPaymentModal(false)
+    router.refresh()
   }
 
   return (
@@ -152,6 +169,16 @@ export default function ApplicationActions({
             </div>
           </div>
         </div>
+      )}
+
+      {/* Payment Modal */}
+      {showPaymentModal && contractId && (
+        <PaymentModal
+          contractId={contractId}
+          amount={budget}
+          onSuccess={handlePaymentSuccess}
+          onCancel={handlePaymentCancel}
+        />
       )}
     </>
   )

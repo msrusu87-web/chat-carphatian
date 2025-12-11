@@ -8,8 +8,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { db } from '@/lib/db'
-import { milestones, contracts } from '@/lib/db/schema'
-import { eq, and } from 'drizzle-orm'
+import { milestones, contracts, users } from '@/lib/db/schema'
+import { eq } from 'drizzle-orm'
+import { releasePaymentToFreelancer, calculatePlatformFee } from '@/lib/stripe'
 
 export async function POST(
   req: NextRequest,
@@ -70,6 +71,28 @@ export async function POST(
       .where(eq(milestones.id, milestoneId))
       .returning()
 
+    // Process Stripe payment if freelancer has connected account
+    let paymentProcessed = false
+    if (process.env.STRIPE_SECRET_KEY && milestone.contract.freelancer.stripe_account_id) {
+      try {
+        const milestoneAmount = parseFloat(updatedMilestone.amount)
+        const platformFee = calculatePlatformFee(milestoneAmount)
+
+        await releasePaymentToFreelancer({
+          amount: milestoneAmount,
+          freelancerStripeAccountId: milestone.contract.freelancer.stripe_account_id,
+          platformFee,
+          contractId: milestone.contract.id,
+          milestoneId: updatedMilestone.id,
+        })
+
+        paymentProcessed = true
+      } catch (stripeError: any) {
+        console.error('Stripe payment failed:', stripeError)
+        // Continue even if payment fails - milestone is still released
+      }
+    }
+
     // Check if all milestones are now released
     const allMilestones = await db.query.milestones.findMany({
       where: eq(milestones.contract_id, milestone.contract.id)
@@ -95,6 +118,7 @@ export async function POST(
       milestone: updatedMilestone,
       contract: updatedContract,
       allMilestonesReleased: allReleased,
+      paymentProcessed,
     })
 
   } catch (error: any) {

@@ -19,7 +19,36 @@ export default function ApplicationForm({ jobId, freelancerId }: ApplicationForm
   const [coverLetter, setCoverLetter] = useState('')
   const [proposedRate, setProposedRate] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [generating, setGenerating] = useState(false)
   const [error, setError] = useState('')
+
+  const handleGenerateWithAI = async () => {
+    setGenerating(true)
+    setError('')
+
+    try {
+      const response = await fetch('/api/ai/cover-letter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jobId,
+          freelancerId,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to generate cover letter')
+      }
+
+      setCoverLetter(data.coverLetter)
+    } catch (err: any) {
+      setError(err.message || 'Failed to generate cover letter')
+    } finally {
+      setGenerating(false)
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -70,9 +99,28 @@ export default function ApplicationForm({ jobId, freelancerId }: ApplicationForm
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Cover Letter */}
         <div>
-          <label htmlFor="coverLetter" className="block text-sm font-medium text-gray-300 mb-2">
-            Cover Letter *
-          </label>
+          <div className="flex items-center justify-between mb-2">
+            <label htmlFor="coverLetter" className="block text-sm font-medium text-gray-300">
+              Cover Letter *
+            </label>
+            <button
+              type="button"
+              onClick={handleGenerateWithAI}
+              disabled={generating || submitting}
+              className="px-4 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm font-medium rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              {generating ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
+                  Generating...
+                </>
+              ) : (
+                <>
+                  ✨ Generate with AI
+                </>
+              )}
+            </button>
+          </div>
           <textarea
             id="coverLetter"
             value={coverLetter}
@@ -80,10 +128,10 @@ export default function ApplicationForm({ jobId, freelancerId }: ApplicationForm
             rows={8}
             className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             placeholder="Explain why you're a great fit for this job, highlight relevant experience, and what makes you stand out..."
-            disabled={submitting}
+            disabled={submitting || generating}
           />
           <p className="text-xs text-gray-400 mt-1">
-            Tip: Mention specific skills and past projects that align with this job
+            💡 Click "Generate with AI" to create a personalized cover letter based on the job requirements
           </p>
         </div>
 

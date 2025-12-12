@@ -9,7 +9,6 @@ import { redirect } from 'next/navigation'
 import { db } from '@/lib/db'
 import { users, jobs, contracts, applications } from '@/lib/db/schema'
 import { count, eq } from 'drizzle-orm'
-import { DashboardLayout } from '@/components/DashboardLayout'
 import { AdminDashboardContent } from '@/components/admin/AdminDashboardContent'
 
 export default async function AdminDashboard() {
@@ -49,19 +48,17 @@ export default async function AdminDashboard() {
   })
 
   return (
-    <DashboardLayout role="admin" userName={user.name || user.email}>
-      <AdminDashboardContent
-        userCount={userStats.count}
-        clientCount={clientStats.count}
-        freelancerCount={freelancerStats.count}
-        jobCount={jobStats.count}
-        openJobCount={openJobStats.count}
-        contractCount={contractStats.count}
-        activeContractCount={activeContractStats.count}
-        applicationCount={appStats.count}
-        recentJobs={recentJobs}
-        recentContracts={recentContracts}
-      />
-    </DashboardLayout>
+    <AdminDashboardContent
+      userCount={userStats.count}
+      clientCount={clientStats.count}
+      freelancerCount={freelancerStats.count}
+      jobCount={jobStats.count}
+      openJobCount={openJobStats.count}
+      contractCount={contractStats.count}
+      activeContractCount={activeContractStats.count}
+      applicationCount={appStats.count}
+      recentJobs={recentJobs}
+      recentContracts={recentContracts}
+    />
   )
 }

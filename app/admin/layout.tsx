@@ -1,13 +1,14 @@
 /**
  * Admin Layout
  * 
- * Simple passthrough layout - DashboardLayout handles sidebar.
+ * Wraps all admin pages with DashboardLayout sidebar.
  * Built by Carphatian
  */
 
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { redirect } from 'next/navigation'
+import { DashboardLayout } from '@/components/DashboardLayout'
 
 export default async function AdminLayout({
   children,
@@ -26,5 +27,9 @@ export default async function AdminLayout({
     redirect('/dashboard')
   }
 
-  return <>{children}</>
+  return (
+    <DashboardLayout role="admin" userName={user.name || user.email}>
+      {children}
+    </DashboardLayout>
+  )
 }

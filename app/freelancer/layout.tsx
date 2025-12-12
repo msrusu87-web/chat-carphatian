@@ -1,13 +1,14 @@
 /**
  * Freelancer Layout
  * 
- * Simple passthrough layout - DashboardLayout handles sidebar.
+ * Wraps all freelancer pages with DashboardLayout sidebar.
  * Built by Carphatian
  */
 
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { redirect } from 'next/navigation'
+import { DashboardLayout } from '@/components/DashboardLayout'
 
 export default async function FreelancerLayout({
   children,
@@ -20,5 +21,15 @@ export default async function FreelancerLayout({
     redirect('/login')
   }
 
-  return <>{children}</>
+  const user = session.user as any
+
+  if (user.role !== 'freelancer' && user.role !== 'admin') {
+    redirect('/dashboard')
+  }
+
+  return (
+    <DashboardLayout role="freelancer" userName={user.name || user.email}>
+      {children}
+    </DashboardLayout>
+  )
 }

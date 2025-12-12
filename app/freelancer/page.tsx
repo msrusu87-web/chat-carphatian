@@ -9,7 +9,6 @@ import { redirect } from 'next/navigation'
 import { db } from '@/lib/db'
 import { applications, contracts, jobs } from '@/lib/db/schema'
 import { eq, count, and, desc } from 'drizzle-orm'
-import { DashboardLayout } from '@/components/DashboardLayout'
 import { FreelancerDashboardContent } from '@/components/freelancer/FreelancerDashboardContent'
 
 export default async function FreelancerDashboard() {
@@ -48,15 +47,13 @@ export default async function FreelancerDashboard() {
   })
 
   return (
-    <DashboardLayout role="freelancer" userName={user.name}>
-      <FreelancerDashboardContent
-        userName={user.name}
-        applicationCount={appStats.count}
-        pendingCount={pendingStats.count}
-        contractCount={contractStats.count}
-        recentApps={recentApps}
-        openJobs={openJobs}
-      />
-    </DashboardLayout>
+    <FreelancerDashboardContent
+      userName={user.name}
+      applicationCount={appStats.count}
+      pendingCount={pendingStats.count}
+      contractCount={contractStats.count}
+      recentApps={recentApps}
+      openJobs={openJobs}
+    />
   )
 }

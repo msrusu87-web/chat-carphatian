@@ -7,9 +7,8 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { redirect } from 'next/navigation'
 import { db } from '@/lib/db'
-import { jobs, applications, contracts } from '@/lib/db/schema'
+import { jobs, contracts } from '@/lib/db/schema'
 import { eq, count, and } from 'drizzle-orm'
-import { DashboardLayout } from '@/components/DashboardLayout'
 import { ClientDashboardContent } from '@/components/client/ClientDashboardContent'
 
 export default async function ClientDashboard() {
@@ -40,14 +39,12 @@ export default async function ClientDashboard() {
   })
 
   return (
-    <DashboardLayout role="client" userName={user.name}>
-      <ClientDashboardContent
-        userName={user.name}
-        jobCount={jobStats.count}
-        openJobCount={openJobStats.count}
-        contractCount={contractStats.count}
-        recentJobs={recentJobs}
-      />
-    </DashboardLayout>
+    <ClientDashboardContent
+      userName={user.name}
+      jobCount={jobStats.count}
+      openJobCount={openJobStats.count}
+      contractCount={contractStats.count}
+      recentJobs={recentJobs}
+    />
   )
 }

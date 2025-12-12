@@ -1,13 +1,14 @@
 /**
  * Client Layout
  * 
- * Simple passthrough layout - DashboardLayout handles sidebar.
+ * Wraps all client pages with DashboardLayout sidebar.
  * Built by Carphatian
  */
 
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { redirect } from 'next/navigation'
+import { DashboardLayout } from '@/components/DashboardLayout'
 
 export default async function ClientLayout({
   children,
@@ -20,5 +21,15 @@ export default async function ClientLayout({
     redirect('/login')
   }
 
-  return <>{children}</>
+  const user = session.user as any
+
+  if (user.role !== 'client' && user.role !== 'admin') {
+    redirect('/dashboard')
+  }
+
+  return (
+    <DashboardLayout role="client" userName={user.name || user.email}>
+      {children}
+    </DashboardLayout>
+  )
 }

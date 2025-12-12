@@ -14,6 +14,7 @@ import Link from 'next/link'
 import MilestoneActions from './MilestoneActions'
 import ContractAttachments from '@/components/ContractAttachments'
 import ContractReviewSection from '@/components/ContractReviewSection'
+import DeliverableReview from '@/components/DeliverableReview'
 
 interface PageProps {
     params: Promise<{ id: string }>
@@ -240,6 +241,9 @@ export default async function ContractDetailPage({ params }: PageProps) {
                         description="Project deliverables, source code, and documentation"
                         canUpload={isFreelancer}
                     />
+
+                    {/* Deliverable Review Section (Client Only) */}
+                    {isClient && <DeliverableReview contractId={contractId} />}
 
                     {/* Reviews Section */}
                     <ContractReviewSection

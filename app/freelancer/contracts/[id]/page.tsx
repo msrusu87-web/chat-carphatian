@@ -13,6 +13,7 @@ import { eq } from 'drizzle-orm'
 import Link from 'next/link'
 import ContractAttachments from '@/components/ContractAttachments'
 import ContractReviewSection from '@/components/ContractReviewSection'
+import DeliverableStatus from '@/components/DeliverableStatus'
 
 interface PageProps {
     params: Promise<{ id: string }>
@@ -223,6 +224,9 @@ export default async function FreelancerContractDetailPage({ params }: PageProps
                         description="Upload your completed work, source code, and documentation"
                         canUpload={true}
                     />
+
+                    {/* Deliverable Approval Status */}
+                    <DeliverableStatus contractId={contractId} />
 
                     {/* Reviews Section */}
                     <ContractReviewSection

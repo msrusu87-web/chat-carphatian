@@ -1,8 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import FileUpload from '@/components/FileUpload'
 import FileViewer from '@/components/FileViewer'
+import { toast } from 'sonner'
 
 interface DeliverableUploadFormProps {
     contractId: number
@@ -15,63 +17,103 @@ interface UploadedFile {
     mime_type: string
     size: number
     uploaded_at: Date
+    submission_status?: string
+    submitted_at?: Date
 }
 
 export default function DeliverableUploadForm({ contractId }: DeliverableUploadFormProps) {
+    const router = useRouter()
     const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
     const [viewingFile, setViewingFile] = useState<UploadedFile | null>(null)
     const [notes, setNotes] = useState('')
     const [submitting, setSubmitting] = useState(false)
+    const [loading, setLoading] = useState(true)
+    const [isSubmitted, setIsSubmitted] = useState(false)
+
+    // Load existing files
+    useEffect(() => {
+        loadFiles()
+    }, [contractId])
+
+    const loadFiles = async () => {
+        try {
+            const res = await fetch(`/api/attachments?contractId=${contractId}&entityType=contract`)
+            if (res.ok) {
+                const data = await res.json()
+                setUploadedFiles(data.files || [])
+                // Check if already submitted
+                const hasSubmitted = data.files?.some((f: UploadedFile) => f.submission_status === 'submitted')
+                setIsSubmitted(hasSubmitted)
+            }
+        } catch (error) {
+            console.error('Failed to load files:', error)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const handleFileUpload = async (files: File[]) => {
         for (const file of files) {
             const formData = new FormData()
             formData.append('file', file)
-            formData.append('contractId', contractId.toString())
-            formData.append('type', 'deliverable')
+            formData.append('entity_id', contractId.toString())
+            formData.append('entity_type', 'contract')
 
-            const res = await fetch('/api/attachments', {
-                method: 'POST',
-                body: formData,
-            })
+            try {
+                const res = await fetch('/api/attachments', {
+                    method: 'POST',
+                    body: formData,
+                })
 
-            if (!res.ok) {
-                throw new Error('Upload failed')
+                if (!res.ok) {
+                    const error = await res.json()
+                    throw new Error(error.error || 'Upload failed')
+                }
+
+                const data = await res.json()
+                setUploadedFiles(prev => [...prev, data.file])
+                toast.success(`${file.name} uploaded successfully`)
+            } catch (error: any) {
+                toast.error(`Failed to upload ${file.name}: ${error.message}`)
             }
-
-            const data = await res.json()
-            setUploadedFiles(prev => [...prev, { ...data.file, id: Date.now() }])
-        }
-    }
-
-    const handleSourceCodeUpload = async (files: File[]) => {
-        for (const file of files) {
-            const formData = new FormData()
-            formData.append('file', file)
-            formData.append('contractId', contractId.toString())
-            formData.append('type', 'source_code')
-
-            const res = await fetch('/api/attachments', {
-                method: 'POST',
-                body: formData,
-            })
-
-            if (!res.ok) {
-                throw new Error('Upload failed')
-            }
-
-            const data = await res.json()
-            setUploadedFiles(prev => [...prev, { ...data.file, id: Date.now() }])
         }
     }
 
     const handleSubmit = async () => {
+        if (uploadedFiles.length === 0) {
+            toast.error('Please upload at least one file before submitting')
+            return
+        }
+
         setSubmitting(true)
         try {
-            // TODO: Submit deliverables and mark contract as delivered
-            alert('Deliverables submitted successfully!')
-        } catch (error) {
-            alert('Failed to submit deliverables')
+            const res = await fetch(`/api/contracts/${contractId}/submit-deliverables`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    fileIds: uploadedFiles.map(f => f.id),
+                    notes: notes.trim(),
+                }),
+            })
+
+            if (!res.ok) {
+                const error = await res.json()
+                throw new Error(error.error || 'Submission failed')
+            }
+
+            const data = await res.json()
+            toast.success(data.message || 'Deliverables submitted successfully!')
+            setIsSubmitted(true)
+            
+            // Reload files to get updated statuses
+            await loadFiles()
+            
+            // Redirect to contract page after 1.5 seconds
+            setTimeout(() => {
+                router.push(`/freelancer/contracts/${contractId}`)
+            }, 1500)
+        } catch (error: any) {
+            toast.error(error.message || 'Failed to submit deliverables')
         } finally {
             setSubmitting(false)
         }
@@ -92,8 +134,32 @@ export default function DeliverableUploadForm({ contractId }: DeliverableUploadF
         return '📎'
     }
 
+    const isSourceCode = (file: UploadedFile) => {
+        return file.filename.match(/\.(zip|rar|7z|tar|gz|js|ts|jsx|tsx|py|java|cpp|c|h)$/i)
+    }
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center p-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+            </div>
+        )
+    }
+
     return (
         <div className="space-y-6">
+            {isSubmitted && (
+                <div className="bg-green-600/20 border border-green-600 rounded-2xl p-4">
+                    <div className="flex items-center gap-3">
+                        <span className="text-2xl">✅</span>
+                        <div>
+                            <p className="text-white font-semibold">Deliverables Submitted</p>
+                            <p className="text-green-100 text-sm">Your files are under client review</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Deliverables Section */}
             <div className="bg-gray-800/50 backdrop-blur border border-gray-700 rounded-2xl p-6">
                 <h2 className="text-xl font-bold text-white mb-4">Project Deliverables</h2>
@@ -101,17 +167,19 @@ export default function DeliverableUploadForm({ contractId }: DeliverableUploadF
                     Upload final deliverables, documentation, and any related files
                 </p>
 
-                <FileUpload
-                    onUpload={handleFileUpload}
-                    accept="*"
-                    label="Upload Files"
-                    maxSizeMB={50}
-                />
+                {!isSubmitted && (
+                    <FileUpload
+                        onUpload={handleFileUpload}
+                        accept="*"
+                        label="Upload Files"
+                        maxSizeMB={50}
+                    />
+                )}
 
-                {uploadedFiles.filter(f => !f.url.includes('source_code')).length > 0 && (
+                {uploadedFiles.filter(f => !isSourceCode(f)).length > 0 && (
                     <div className="mt-4 space-y-2">
                         {uploadedFiles
-                            .filter(f => !f.url.includes('source_code'))
+                            .filter(f => !isSourceCode(f))
                             .map((file) => (
                                 <div
                                     key={file.id}
@@ -154,17 +222,19 @@ export default function DeliverableUploadForm({ contractId }: DeliverableUploadF
                     Upload your source code (ZIP, RAR, or individual files)
                 </p>
 
-                <FileUpload
-                    onUpload={handleSourceCodeUpload}
-                    accept=".zip,.rar,.7z,.tar,.gz,.js,.ts,.jsx,.tsx,.py,.java,.cpp,.c,.h,.css,.html"
-                    label="Upload Source Code"
-                    maxSizeMB={100}
-                />
+                {!isSubmitted && (
+                    <FileUpload
+                        onUpload={handleFileUpload}
+                        accept=".zip,.rar,.7z,.tar,.gz,.js,.ts,.jsx,.tsx,.py,.java,.cpp,.c,.h,.css,.html"
+                        label="Upload Source Code"
+                        maxSizeMB={100}
+                    />
+                )}
 
-                {uploadedFiles.filter(f => f.url.includes('source_code')).length > 0 && (
+                {uploadedFiles.filter(f => isSourceCode(f)).length > 0 && (
                     <div className="mt-4 space-y-2">
                         {uploadedFiles
-                            .filter(f => f.url.includes('source_code'))
+                            .filter(f => isSourceCode(f))
                             .map((file) => (
                                 <div
                                     key={file.id}
@@ -197,20 +267,23 @@ export default function DeliverableUploadForm({ contractId }: DeliverableUploadF
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="Add any notes or instructions for the client..."
-                    className="w-full h-32 bg-gray-700/50 border border-gray-600 rounded-lg p-3 text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500"
+                    disabled={isSubmitted}
+                    className="w-full h-32 bg-gray-700/50 border border-gray-600 rounded-lg p-3 text-white placeholder-gray-400 focus:outline-none focus:border-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 />
             </div>
 
             {/* Submit Button */}
-            <div className="flex gap-3">
-                <button
-                    onClick={handleSubmit}
-                    disabled={submitting || uploadedFiles.length === 0}
-                    className="flex-1 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
-                >
-                    {submitting ? 'Submitting...' : 'Submit Deliverables'}
-                </button>
-            </div>
+            {!isSubmitted && (
+                <div className="flex gap-3">
+                    <button
+                        onClick={handleSubmit}
+                        disabled={submitting || uploadedFiles.length === 0}
+                        className="flex-1 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
+                    >
+                        {submitting ? 'Submitting...' : `Submit ${uploadedFiles.length} File(s) for Review`}
+                    </button>
+                </div>
+            )}
 
             {/* File Viewer Modal */}
             {viewingFile && (

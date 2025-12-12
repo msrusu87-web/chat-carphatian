@@ -512,9 +512,19 @@ export const attachments = pgTable('attachments', {
   size: integer('size').notNull(), // in bytes
   uploaded_by: integer('uploaded_by').notNull().references(() => users.id),
   uploaded_at: timestamp('uploaded_at').notNull().defaultNow(),
+  // Deliverable submission tracking
+  submission_status: varchar('submission_status', { length: 20 }).default('draft'), // draft, submitted
+  submitted_at: timestamp('submitted_at'),
+  // Approval workflow
+  approval_status: varchar('approval_status', { length: 20 }).default('pending'), // pending, approved, rejected
+  feedback: text('feedback'),
+  reviewed_at: timestamp('reviewed_at'),
+  reviewed_by: integer('reviewed_by').references(() => users.id),
 }, (table) => ({
   entityIdx: index('attachments_entity_idx').on(table.entity_type, table.entity_id),
   uploadedByIdx: index('attachments_uploaded_by_idx').on(table.uploaded_by),
+  submissionStatusIdx: index('attachments_submission_status_idx').on(table.submission_status),
+  approvalStatusIdx: index('attachments_approval_status_idx').on(table.approval_status),
 }))
 
 // =========================================

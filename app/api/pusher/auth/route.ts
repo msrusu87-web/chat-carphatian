@@ -5,7 +5,7 @@
  * 
  * Security:
  * - Requires authentication
- * - Validates channel access
+ * - Validates channel access based on relationships
  * 
  * Built by Carphatian
  */
@@ -14,6 +14,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { authenticateChannel, Channels } from '@/lib/realtime/pusher'
+import { db } from '@/lib/db'
+import { messages, contracts, jobs, applications } from '@/lib/db/schema'
+import { eq, and, or } from 'drizzle-orm'
 
 export async function POST(req: NextRequest) {
   try {
@@ -68,26 +71,78 @@ export async function POST(req: NextRequest) {
  * Validate if user can access the channel
  */
 async function validateChannelAccess(channel: string, user: any): Promise<boolean> {
+  const userId = parseInt(user.id)
+
   // User's own channel - always allowed
-  if (channel === Channels.user(user.id)) {
+  if (channel === Channels.user(userId)) {
     return true
   }
 
   // Private conversation channel - check if user is participant
   if (channel.startsWith('private-conversation-')) {
-    const conversationId = channel.replace('private-conversation-', '')
-    // TODO: Check if user is participant in conversation
-    return true // For now, allow all authenticated users
+    const otherUserId = parseInt(channel.replace('private-conversation-', ''))
+    
+    if (isNaN(otherUserId)) return false
+
+    // Check if there are any messages between these users
+    const hasConversation = await db
+      .select()
+      .from(messages)
+      .where(
+        or(
+          and(eq(messages.sender_id, userId), eq(messages.recipient_id, otherUserId)),
+          and(eq(messages.sender_id, otherUserId), eq(messages.recipient_id, userId))
+        )
+      )
+      .limit(1)
+
+    return hasConversation.length > 0
   }
 
-  // Private job channel - check if user is client or applicant
+  // Private job channel - check if user is client or has applied
   if (channel.startsWith('private-job-')) {
-    return true // For now, allow all authenticated users
+    const jobId = parseInt(channel.replace('private-job-', ''))
+    
+    if (isNaN(jobId)) return false
+
+    // Check if user is the job client
+    const [job] = await db
+      .select()
+      .from(jobs)
+      .where(eq(jobs.id, jobId))
+      .limit(1)
+
+    if (job?.client_id === userId) return true
+
+    // Check if user has applied to this job
+    const [application] = await db
+      .select()
+      .from(applications)
+      .where(
+        and(
+          eq(applications.job_id, jobId),
+          eq(applications.freelancer_id, userId)
+        )
+      )
+      .limit(1)
+
+    return !!application
   }
 
   // Private contract channel - check if user is party to contract
   if (channel.startsWith('private-contract-')) {
-    return true // For now, allow all authenticated users
+    const contractId = parseInt(channel.replace('private-contract-', ''))
+    
+    if (isNaN(contractId)) return false
+
+    const [contract] = await db
+      .select()
+      .from(contracts)
+      .where(eq(contracts.id, contractId))
+      .limit(1)
+
+    // User must be either the client or freelancer
+    return contract?.client_id === userId || contract?.freelancer_id === userId
   }
 
   // Presence channels - allow authenticated users

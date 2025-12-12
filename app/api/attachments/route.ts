@@ -11,9 +11,21 @@ import { authOptions } from '@/lib/auth-options'
 import { writeFile, mkdir, unlink } from 'fs/promises'
 import { join } from 'path'
 import { db } from '@/lib/db'
-import { attachments, users } from '@/lib/db/schema'
+import { attachments, users, contracts } from '@/lib/db/schema'
 import { eq, and } from 'drizzle-orm'
 import { scanFile, isAllowedFileType } from '@/lib/security/virus-scan'
+import Pusher from 'pusher'
+import { Resend } from 'resend'
+
+const pusher = new Pusher({
+    appId: process.env.PUSHER_APP_ID!,
+    key: process.env.NEXT_PUBLIC_PUSHER_KEY!,
+    secret: process.env.PUSHER_SECRET!,
+    cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+    useTLS: true,
+})
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: NextRequest) {
     try {
@@ -97,6 +109,119 @@ export async function POST(req: NextRequest) {
             size: file.size,
             uploaded_by: currentUser.id,
         }).returning()
+
+        // Send notifications if file uploaded to contract
+        if (entityType === 'contract' || entityType === 'deliverable') {
+            try {
+                // Get contract details
+                const contract = await db.query.contracts.findFirst({
+                    where: eq(contracts.id, parseInt(entityId)),
+                    with: {
+                        client: true,
+                        freelancer: {
+                            with: {
+                                profile: true,
+                            },
+                        },
+                        job: true,
+                    },
+                })
+
+                if (contract) {
+                    // Determine who to notify (the other party)
+                    const isUploadedByClient = currentUser.id === contract.client_id
+                    const recipientUser = isUploadedByClient ? contract.freelancer : contract.client
+                    const uploaderRole = isUploadedByClient ? 'client' : 'freelancer'
+                    const uploaderName = isUploadedByClient 
+                        ? contract.client.email 
+                        : (contract.freelancer.profile?.full_name || contract.freelancer.email)
+
+                    // Send email notification
+                    const emailSubject = `📎 New File Uploaded: ${contract.job.title}`
+                    const emailHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+        .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
+        .file-info { background: white; border-left: 4px solid #667eea; padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .button { display: inline-block; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin-top: 20px; }
+        .footer { text-align: center; color: #6b7280; font-size: 12px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📎 New File Uploaded</h1>
+        </div>
+        <div class="content">
+            <h2>Hello!</h2>
+            <p>A new file has been uploaded to your contract: <strong>${contract.job.title}</strong></p>
+            
+            <div class="file-info">
+                <p><strong>📄 Filename:</strong> ${file.name}</p>
+                <p><strong>📊 Size:</strong> ${(file.size / 1024).toFixed(1)} KB</p>
+                <p><strong>👤 Uploaded by:</strong> ${uploaderName} (${uploaderRole})</p>
+                <p><strong>📅 Date:</strong> ${new Date().toLocaleString()}</p>
+            </div>
+
+            <p>You can view and download this file from your contract page.</p>
+
+            <a href="${process.env.NEXT_PUBLIC_APP_URL}/${isUploadedByClient ? 'freelancer' : 'client'}/contracts/${contract.id}" class="button">
+                View Contract
+            </a>
+        </div>
+        <div class="footer">
+            <p>This is an automated message from Carphatian Platform</p>
+            <p><a href="${process.env.NEXT_PUBLIC_APP_URL}">Visit Platform</a></p>
+        </div>
+    </div>
+</body>
+</html>
+                    `
+
+                    await resend.emails.send({
+                        from: 'Carphatian Platform <noreply@carphatian.ro>',
+                        to: recipientUser.email,
+                        subject: emailSubject,
+                        html: emailHtml,
+                    })
+
+                    // Send Pusher notifications
+                    const eventData = {
+                        contractId: contract.id,
+                        attachmentId: attachment.id,
+                        filename: file.name,
+                        fileSize: file.size,
+                        uploadedBy: uploaderName,
+                        uploaderRole: uploaderRole,
+                        uploadedAt: new Date().toISOString(),
+                    }
+
+                    // Notify on contract channel
+                    await pusher.trigger(`contract-${contract.id}`, 'file-uploaded', eventData)
+
+                    // Notify on recipient's personal channel
+                    await pusher.trigger(
+                        `private-user-${recipientUser.id}`,
+                        'file-uploaded',
+                        {
+                            ...eventData,
+                            message: `${uploaderName} uploaded a new file: ${file.name}`,
+                            contractTitle: contract.job.title,
+                        }
+                    )
+
+                    console.log(`✓ Notifications sent for file upload: ${file.name}`)
+                }
+            } catch (notificationError) {
+                console.error('Failed to send notifications:', notificationError)
+                // Continue even if notifications fail
+            }
+        }
 
         return NextResponse.json({
             success: true,

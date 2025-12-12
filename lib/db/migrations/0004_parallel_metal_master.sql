@@ -1,0 +1,1 @@
+ALTER TABLE "profiles" ADD COLUMN "email_preferences" jsonb DEFAULT '{"applications":true,"messages":true,"payments":true,"reviews":true,"marketing":false}'::jsonb;

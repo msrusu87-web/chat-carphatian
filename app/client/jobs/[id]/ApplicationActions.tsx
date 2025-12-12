@@ -20,12 +20,12 @@ interface ApplicationActionsProps {
   budget: number
 }
 
-export default function ApplicationActions({ 
-  applicationId, 
-  jobId, 
+export default function ApplicationActions({
+  applicationId,
+  jobId,
   freelancerId,
   jobTitle,
-  budget 
+  budget
 }: ApplicationActionsProps) {
   const router = useRouter()
   const [loading, setLoading] = useState<'accept' | 'reject' | null>(null)
@@ -36,7 +36,7 @@ export default function ApplicationActions({
 
   const handleReject = async () => {
     if (!confirm('Are you sure you want to reject this application?')) return
-    
+
     setLoading('reject')
     setError('')
 
@@ -129,10 +129,10 @@ export default function ApplicationActions({
           <div className="bg-gray-800 border border-gray-700 rounded-2xl p-6 max-w-md w-full mx-4">
             <h3 className="text-xl font-bold text-white mb-4">Confirm Hire</h3>
             <p className="text-gray-400 mb-6">
-              You are about to hire this freelancer for <strong className="text-white">"{jobTitle}"</strong>. 
+              You are about to hire this freelancer for <strong className="text-white">"{jobTitle}"</strong>.
               This will create a contract and mark the job as in progress.
             </p>
-            
+
             <div className="bg-gray-700/50 rounded-lg p-4 mb-6">
               <div className="flex justify-between mb-2">
                 <span className="text-gray-400">Contract Value</span>

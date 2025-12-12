@@ -22,13 +22,13 @@ interface JobDraft {
 export default function CreateJobPage() {
   const { data: session, status } = useSession()
   const router = useRouter()
-  
+
   // Form state
   const [step, setStep] = useState<'input' | 'generating' | 'preview' | 'saving'>('input')
   const [prompt, setPrompt] = useState('')
   const [jobDraft, setJobDraft] = useState<JobDraft | null>(null)
   const [error, setError] = useState('')
-  
+
   // Final job form
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -74,7 +74,7 @@ export default function CreateJobPage() {
       }
 
       const data = await response.json()
-      
+
       if (data.error) {
         throw new Error(data.error)
       }
@@ -211,11 +211,10 @@ export default function CreateJobPage() {
                   <button
                     key={cat.value}
                     onClick={() => setCategory(cat.value)}
-                    className={`p-3 rounded-xl border text-left transition-all ${
-                      category === cat.value
+                    className={`p-3 rounded-xl border text-left transition-all ${category === cat.value
                         ? 'border-purple-500 bg-purple-500/20 text-white'
                         : 'border-gray-600 bg-gray-700/50 text-gray-300 hover:border-gray-500'
-                    }`}
+                      }`}
                   >
                     {cat.label}
                   </button>
@@ -325,21 +324,19 @@ export default function CreateJobPage() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => setBudgetType('fixed')}
-                    className={`flex-1 py-4 rounded-xl border transition-all ${
-                      budgetType === 'fixed'
+                    className={`flex-1 py-4 rounded-xl border transition-all ${budgetType === 'fixed'
                         ? 'border-purple-500 bg-purple-500/20 text-white'
                         : 'border-gray-600 bg-gray-700/50 text-gray-400'
-                    }`}
+                      }`}
                   >
                     💰 Fixed Price
                   </button>
                   <button
                     onClick={() => setBudgetType('hourly')}
-                    className={`flex-1 py-4 rounded-xl border transition-all ${
-                      budgetType === 'hourly'
+                    className={`flex-1 py-4 rounded-xl border transition-all ${budgetType === 'hourly'
                         ? 'border-purple-500 bg-purple-500/20 text-white'
                         : 'border-gray-600 bg-gray-700/50 text-gray-400'
-                    }`}
+                      }`}
                   >
                     ⏰ Hourly
                   </button>

@@ -93,7 +93,7 @@ export default async function JobDetailPage({ params }: PageProps) {
         <Link href="/client/jobs" className="text-purple-400 hover:text-purple-300 mb-4 inline-flex items-center gap-2">
           ← Back to Jobs
         </Link>
-        
+
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mt-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -103,14 +103,14 @@ export default async function JobDetailPage({ params }: PageProps) {
               </span>
             </div>
             <p className="text-gray-400">
-              Posted {new Date(job.created_at!).toLocaleDateString('en-US', { 
-                month: 'long', 
+              Posted {new Date(job.created_at!).toLocaleDateString('en-US', {
+                month: 'long',
                 day: 'numeric',
                 year: 'numeric'
               })}
             </p>
           </div>
-          
+
           <div className="flex gap-3">
             <Link
               href={`/client/jobs/${job.id}/edit`}
@@ -202,8 +202,8 @@ export default async function JobDetailPage({ params }: PageProps) {
                             {app.status}
                           </span>
                         </div>
-                        
-                        
+
+
                         <div className="flex flex-wrap gap-1 mb-3">
                         </div>
 
@@ -220,8 +220,8 @@ export default async function JobDetailPage({ params }: PageProps) {
                         </div>
 
                         {app.status === 'pending' && (
-                          <ApplicationActions 
-                            applicationId={app.id} 
+                          <ApplicationActions
+                            applicationId={app.id}
                             jobId={jobId}
                             freelancerId={app.freelancer_id}
                             jobTitle={job.title}
@@ -230,10 +230,10 @@ export default async function JobDetailPage({ params }: PageProps) {
                         )}
                       </div>
                     </div>
-                    
+
                     <div className="mt-3 pt-3 border-t border-gray-700/50 text-xs text-gray-500">
-                      Applied {new Date(app.created_at!).toLocaleDateString('en-US', { 
-                        month: 'short', 
+                      Applied {new Date(app.created_at!).toLocaleDateString('en-US', {
+                        month: 'short',
                         day: 'numeric',
                         year: 'numeric',
                         hour: '2-digit',

@@ -2,6 +2,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { redirect } from 'next/navigation'
 import { Sidebar } from '@/components/dashboard/Sidebar'
+import { FloatingLanguageSwitcher } from '@/components/FloatingLanguageSwitcher'
 
 export default async function ClientLayout({
   children,
@@ -18,6 +19,7 @@ export default async function ClientLayout({
 
   return (
     <div className="min-h-screen bg-gray-900">
+      <FloatingLanguageSwitcher />
       <Sidebar userRole="client" userName={user.name || user.email} />
       <main className="ml-64 min-h-screen">
         {children}

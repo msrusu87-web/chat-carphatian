@@ -1,6 +1,11 @@
 /**
  * AI Cover Letter Generation API
  * Generate personalized cover letters based on job details and freelancer profile
+ * 
+ * Security:
+ * - Rate limited: 20 requests per minute (AI endpoints)
+ * - Requires authentication
+ * 
  * Built by Carphatian
  */
 
@@ -11,12 +16,17 @@ import { db } from '@/lib/db'
 import { users, jobs } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import Groq from 'groq-sdk'
+import { withRateLimit } from '@/lib/security/rate-limit'
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 })
 
 export async function POST(req: NextRequest) {
+  // Rate limiting - 20 requests per minute for AI endpoints
+  const rateLimitResponse = await withRateLimit(req, 'ai')
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user?.email) {

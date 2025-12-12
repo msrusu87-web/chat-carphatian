@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
+import NotificationBell from '@/components/NotificationBell'
 
 interface SidebarProps {
   userRole: 'client' | 'freelancer' | 'admin'
@@ -16,6 +17,7 @@ export function Sidebar({ userRole, userName }: SidebarProps) {
     client: [
       { icon: '📊', label: 'Dashboard', href: '/client' },
       { icon: '💼', label: 'My Jobs', href: '/client/jobs' },
+      { icon: '👥', label: 'Find Talent', href: '/client/freelancers' },
       { icon: '📝', label: 'Applications', href: '/client/applications' },
       { icon: '📄', label: 'Contracts', href: '/client/contracts' },
       { icon: '💬', label: 'Messages', href: '/client/messages' },
@@ -39,6 +41,8 @@ export function Sidebar({ userRole, userName }: SidebarProps) {
       { icon: '📄', label: 'Contracts', href: '/admin/contracts' },
       { icon: '💳', label: 'Payments', href: '/admin/payments' },
       { icon: '📈', label: 'Analytics', href: '/admin/analytics' },
+      { icon: '🩺', label: 'Health', href: '/admin/health' },
+      { icon: '📧', label: 'Email', href: '/admin/settings/email' },
       { icon: '⚙️', label: 'Settings', href: '/admin/settings' },
     ],
   }
@@ -76,6 +80,7 @@ export function Sidebar({ userRole, userName }: SidebarProps) {
             <p className="text-sm font-medium text-white truncate">{userName || 'User'}</p>
             <p className="text-xs text-gray-500 capitalize">{userRole}</p>
           </div>
+          <NotificationBell />
         </div>
       </div>
 

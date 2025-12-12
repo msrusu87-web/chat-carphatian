@@ -173,10 +173,42 @@ export const profiles = pgTable('profiles', {
   location: varchar('location', { length: 255 }),
   phone: varchar('phone', { length: 50 }),
   skills: jsonb('skills').$type<string[]>().default([]),
+  // Enhanced profile fields
+  title: varchar('title', { length: 255 }), // Professional title (e.g., "Senior React Developer")
+  experience_years: integer('experience_years'), // Years of experience
+  education: text('education'), // Educational background
+  certifications: jsonb('certifications').$type<string[]>().default([]), // List of certifications
+  languages: jsonb('languages').$type<{ language: string, proficiency: string }[]>().default([]), // Languages spoken
+  availability: varchar('availability', { length: 100 }), // e.g., "Full-time", "Part-time", "20 hrs/week"
+  timezone: varchar('timezone', { length: 100 }), // User's timezone
+  company_name: varchar('company_name', { length: 255 }), // For clients - company name
+  company_size: varchar('company_size', { length: 50 }), // For clients - "1-10", "11-50", etc.
+  industry: varchar('industry', { length: 100 }), // For clients - industry sector
+  website: varchar('website', { length: 255 }), // Portfolio or company website
+  linkedin: varchar('linkedin', { length: 255 }), // LinkedIn profile
+  github: varchar('github', { length: 255 }), // GitHub profile (for developers)
+  // Stats for matching algorithm
+  total_jobs_completed: integer('total_jobs_completed').default(0),
+  success_rate: decimal('success_rate', { precision: 5, scale: 2 }).default('0'), // 0-100%
+  average_response_time: integer('average_response_time'), // in hours
   // AI Embedding for semantic matching (1536 dimensions from OpenAI)
   // This allows us to find freelancers whose skills match job requirements
   // even when they use different wording
   profile_embedding: text('profile_embedding'), // Will store as JSON array of numbers
+  // Email notification preferences
+  email_preferences: jsonb('email_preferences').$type<{
+    applications: boolean // Notifications about job applications
+    messages: boolean // New message notifications
+    payments: boolean // Payment notifications
+    reviews: boolean // Review requests
+    marketing: boolean // Platform updates and tips
+  }>().default({
+    applications: true,
+    messages: true,
+    payments: true,
+    reviews: true,
+    marketing: false,
+  }),
   created_at: timestamp('created_at').notNull().defaultNow(),
   updated_at: timestamp('updated_at').notNull().defaultNow(),
 }, (table) => ({
@@ -437,6 +469,54 @@ export const reviews = pgTable('reviews', {
   reviewerContractUnique: unique('reviews_reviewer_contract_unique').on(table.reviewer_id, table.contract_id),
 }))
 
+/**
+ * Portfolio Items Table
+ * 
+ * Showcase work samples for freelancers.
+ * Each portfolio item represents a completed project.
+ * 
+ * Fields:
+ * - title: Project name
+ * - description: What was built
+ * - tech_stack: Technologies used (JSON array)
+ * - image_url: Project screenshot/thumbnail
+ * - project_url: Live demo link
+ * - completion_date: When project was finished
+ */
+export const portfolios = pgTable('portfolios', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  user_id: integer('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  title: varchar('title', { length: 255 }).notNull(),
+  description: text('description').notNull(),
+  tech_stack: jsonb('tech_stack').$type<string[]>().default([]),
+  image_url: text('image_url'),
+  project_url: text('project_url'),
+  completion_date: timestamp('completion_date'),
+  created_at: timestamp('created_at').notNull().defaultNow(),
+}, (table) => ({
+  userIdIdx: index('portfolios_user_id_idx').on(table.user_id),
+}))
+
+/**
+ * Attachments Table
+ * 
+ * Store file attachments for contracts, messages, and deliverables
+ */
+export const attachments = pgTable('attachments', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  entity_type: varchar('entity_type', { length: 50 }).notNull(), // contract, message, deliverable, documentation
+  entity_id: integer('entity_id').notNull(),
+  filename: varchar('filename', { length: 255 }).notNull(),
+  url: text('url').notNull(),
+  mime_type: varchar('mime_type', { length: 100 }).notNull(),
+  size: integer('size').notNull(), // in bytes
+  uploaded_by: integer('uploaded_by').notNull().references(() => users.id),
+  uploaded_at: timestamp('uploaded_at').notNull().defaultNow(),
+}, (table) => ({
+  entityIdx: index('attachments_entity_idx').on(table.entity_type, table.entity_id),
+  uploadedByIdx: index('attachments_uploaded_by_idx').on(table.uploaded_by),
+}))
+
 // =========================================
 // AI CONFIGURATION TABLES
 // =========================================
@@ -615,5 +695,120 @@ export const aiRoutingRulesRelations = relations(aiRoutingRules, ({ one }) => ({
   fallbackProvider: one(aiProviders, {
     fields: [aiRoutingRules.fallback_provider_id],
     references: [aiProviders.id],
+  }),
+}))
+
+export const portfoliosRelations = relations(portfolios, ({ one }) => ({
+  user: one(users, {
+    fields: [portfolios.user_id],
+    references: [users.id],
+  }),
+}))
+
+// =========================================
+// AUTHENTICATION TOKENS
+// =========================================
+
+/**
+ * Verification Tokens Table
+ * 
+ * Stores tokens for email verification and password reset.
+ * Tokens are one-time use and expire after a set period.
+ * 
+ * Types:
+ * - email_verification: Verify email address after signup
+ * - password_reset: Reset forgotten password
+ * 
+ * Security:
+ * - Token is hashed before storage
+ * - Expires after 24 hours (configurable)
+ * - Deleted after use
+ */
+export const verificationTokens = pgTable('verification_tokens', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  user_id: integer('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  token: varchar('token', { length: 255 }).notNull().unique(),
+  type: varchar('type', { length: 50 }).notNull(), // 'email_verification' | 'password_reset'
+  expires_at: timestamp('expires_at').notNull(),
+  created_at: timestamp('created_at').notNull().defaultNow(),
+}, (table) => ({
+  userIdIdx: index('verification_tokens_user_id_idx').on(table.user_id),
+  tokenIdx: index('verification_tokens_token_idx').on(table.token),
+  expiresAtIdx: index('verification_tokens_expires_at_idx').on(table.expires_at),
+}))
+
+// =========================================
+// PLATFORM SETTINGS
+// =========================================
+
+/**
+ * Platform Settings Table
+ * 
+ * Stores global configuration for the platform including:
+ * - SMTP email configuration
+ * - Payment settings
+ * - Feature flags
+ * - API keys (encrypted)
+ * 
+ * Settings are stored as key-value pairs with optional encryption
+ * for sensitive values like passwords and API keys.
+ */
+export const platformSettings = pgTable('platform_settings', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  key: varchar('key', { length: 100 }).notNull().unique(),
+  value: text('value'),
+  encrypted: boolean('encrypted').notNull().default(false),
+  category: varchar('category', { length: 50 }).notNull().default('general'),
+  description: text('description'),
+  updated_at: timestamp('updated_at').notNull().defaultNow(),
+  updated_by: integer('updated_by').references(() => users.id),
+}, (table) => ({
+  keyIdx: index('platform_settings_key_idx').on(table.key),
+  categoryIdx: index('platform_settings_category_idx').on(table.category),
+}))
+
+// =========================================
+// NOTIFICATIONS
+// =========================================
+
+/**
+ * Notification Type Enum
+ */
+export const notificationTypeEnum = pgEnum('notification_type', [
+  'message',
+  'application',
+  'contract',
+  'payment',
+  'review',
+  'job',
+  'milestone',
+  'system',
+])
+
+/**
+ * Notifications Table
+ * 
+ * Stores user notifications for various platform events.
+ */
+export const notifications = pgTable('notifications', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  user_id: integer('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  type: notificationTypeEnum('type').notNull(),
+  title: varchar('title', { length: 255 }).notNull(),
+  message: text('message').notNull(),
+  link: varchar('link', { length: 500 }),
+  read: boolean('read').notNull().default(false),
+  created_at: timestamp('created_at').notNull().defaultNow(),
+  metadata: text('metadata'), // JSON string for extra data
+}, (table) => ({
+  userIdIdx: index('notifications_user_id_idx').on(table.user_id),
+  readIdx: index('notifications_read_idx').on(table.read),
+  createdAtIdx: index('notifications_created_at_idx').on(table.created_at),
+}))
+
+export const notificationsRelations = relations(notifications, ({ one }) => ({
+  user: one(users, {
+    fields: [notifications.user_id],
+    references: [users.id],
   }),
 }))

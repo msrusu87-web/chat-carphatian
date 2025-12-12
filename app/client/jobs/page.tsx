@@ -40,7 +40,7 @@ export default async function ClientJobsPage() {
         .select({ count: count() })
         .from(applications)
         .where(eq(applications.job_id, job.id))
-      
+
       return {
         ...job,
         applicationCount: appCount.count,
@@ -162,7 +162,7 @@ export default async function ClientJobsPage() {
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-6">
                     <div className="text-center">
                       <p className="text-2xl font-bold text-white">
@@ -170,22 +170,22 @@ export default async function ClientJobsPage() {
                       </p>
                       <p className="text-gray-500 text-xs uppercase">Budget Range</p>
                     </div>
-                    
+
                     <div className="text-center min-w-[80px]">
                       <p className="text-2xl font-bold text-purple-400">{job.applicationCount}</p>
                       <p className="text-gray-500 text-xs">Applications</p>
                     </div>
-                    
+
                     <div className="text-gray-400">
                       →
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="mt-4 pt-4 border-t border-gray-700/50 flex items-center justify-between text-sm">
                   <span className="text-gray-500">
-                    Posted {new Date(job.created_at!).toLocaleDateString('en-US', { 
-                      month: 'short', 
+                    Posted {new Date(job.created_at!).toLocaleDateString('en-US', {
+                      month: 'short',
                       day: 'numeric',
                       year: 'numeric'
                     })}

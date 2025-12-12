@@ -29,10 +29,10 @@ export default async function FreelancerApplicationsPage() {
   const myApplications = await db.query.applications.findMany({
     where: eq(applications.freelancer_id, userId),
     orderBy: (applications, { desc }) => [desc(applications.created_at)],
-    with: { 
-      job: { 
-        with: { client: true } 
-      } 
+    with: {
+      job: {
+        with: { client: true }
+      }
     },
   })
 

@@ -8,8 +8,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { db } from '@/lib/db'
-import { applications, jobs } from '@/lib/db/schema'
-import { eq, and } from 'drizzle-orm'
+import { applications, jobs, profiles } from '@/lib/db/schema'
+import { eq } from 'drizzle-orm'
+import { sendApplicationStatusEmail } from '@/lib/email/notifications'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -31,7 +32,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
     }
 
     const body = await request.json()
-    const { status } = body
+    const { status, message } = body
 
     if (!status || !['pending', 'accepted', 'rejected', 'withdrawn'].includes(status)) {
       return NextResponse.json({ error: 'Invalid status' }, { status: 400 })
@@ -84,6 +85,27 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       })
       .where(eq(applications.id, applicationId))
       .returning()
+
+    // Send email notification to freelancer on status change
+    if (['accepted', 'rejected', 'withdrawn'].includes(status)) {
+      // Get client profile for name
+      const clientProfile = await db.query.profiles.findFirst({
+        where: eq(profiles.user_id, job.client_id),
+      })
+      
+      const clientName = clientProfile?.full_name || 'The client'
+
+      // Send notification (async, don't block response)
+      sendApplicationStatusEmail(
+        application.freelancer_id,
+        job.id,
+        job.title,
+        clientName,
+        status as 'accepted' | 'rejected' | 'withdrawn',
+        undefined, // contractId - would be set if we create contract on accept
+        message
+      ).catch((err) => console.error('Failed to send status email:', err))
+    }
 
     return NextResponse.json(updated)
   } catch (error) {

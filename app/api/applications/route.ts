@@ -15,6 +15,7 @@ import { db } from '@/lib/db'
 import { applications, jobs, profiles } from '@/lib/db/schema'
 import { eq, and, desc } from 'drizzle-orm'
 import { z } from 'zod'
+import { sendApplicationReceivedEmail } from '@/lib/email/notifications'
 
 /**
  * Application Creation Schema
@@ -210,6 +211,23 @@ export async function POST(req: NextRequest) {
         status: 'pending',
       })
       .returning()
+
+    // Get freelancer profile for email notification
+    const freelancerProfile = await db.query.profiles.findFirst({
+      where: eq(profiles.user_id, parseInt(user.id)),
+    })
+
+    const freelancerName = freelancerProfile?.full_name || user.email?.split('@')[0] || 'A freelancer'
+
+    // Send email notification to client (async, don't await)
+    sendApplicationReceivedEmail(
+      job.client_id,
+      freelancerName,
+      job.id,
+      job.title,
+      validatedData.proposed_rate,
+      validatedData.cover_letter
+    ).catch((err) => console.error('Failed to send application email:', err))
 
     return NextResponse.json(
       { message: 'Application submitted successfully', application: newApplication },

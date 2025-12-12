@@ -8,6 +8,10 @@
  * - User role (client or freelancer)
  * - User profile with full name
  * 
+ * Security:
+ * - Rate limited: 10 requests per minute (auth)
+ * - Input sanitization
+ * 
  * Request body:
  * {
  *   email: string,
@@ -28,16 +32,35 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createUser, authErrors } from '@/lib/auth'
+import { withRateLimit } from '@/lib/security/rate-limit'
+import { sanitizeEmail, sanitizeText, truncate } from '@/lib/security/sanitize'
 
 export async function POST(request: NextRequest) {
+  // Rate limiting - 10 attempts per minute for auth endpoints
+  const rateLimitResponse = await withRateLimit(request, 'auth')
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     const body = await request.json()
-    const { email, password, fullName, role } = body
+    let { email, password, fullName, role } = body
 
     // Validate inputs
     if (!email || !password || !fullName || !role) {
       return NextResponse.json(
         { error: 'All fields are required' },
+        { status: 400 }
+      )
+    }
+
+    // Sanitize inputs
+    email = sanitizeEmail(email)
+    fullName = truncate(sanitizeText(fullName), 100)
+    role = sanitizeText(role)
+
+    // Validate email format after sanitization
+    if (!email) {
+      return NextResponse.json(
+        { error: 'Invalid email address' },
         { status: 400 }
       )
     }

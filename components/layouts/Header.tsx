@@ -3,11 +3,15 @@
  * 
  * Main navigation bar with responsive design.
  * Adapts based on authentication state and user role.
+ * Includes language switcher for internationalization.
+ * 
+ * Built by Carphatian
  */
 
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import {
@@ -18,6 +22,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 interface HeaderProps {
   isAuthenticated?: boolean;
@@ -33,6 +38,7 @@ export function Header({
   userAvatar 
 }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = useTranslations('nav');
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
@@ -53,42 +59,45 @@ export function Header({
             {!isAuthenticated ? (
               <>
                 <Link href="/how-it-works" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                  How It Works
+                  {t('howItWorks')}
                 </Link>
                 <Link href="/find-talent" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                  Find Talent
+                  {t('findTalent')}
                 </Link>
                 <Link href="/find-work" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                  Find Work
+                  {t('findWork')}
                 </Link>
                 <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                  Pricing
+                  {t('pricing')}
                 </Link>
               </>
             ) : (
               <>
                 <Link href={`/${userRole}/dashboard`} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                  Dashboard
+                  {t('dashboard')}
                 </Link>
                 <Link href={`/${userRole}/jobs`} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
                   {userRole === 'client' ? 'My Jobs' : 'Browse Jobs'}
                 </Link>
                 <Link href={`/${userRole}/messages`} className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                  Messages
+                  {t('messages')}
                 </Link>
               </>
             )}
           </nav>
 
-          {/* Auth Buttons / User Menu */}
+          {/* Auth Buttons / User Menu with Language Switcher */}
           <div className="flex items-center gap-3">
+            {/* Language Switcher - visible on all states */}
+            <LanguageSwitcher variant="compact" />
+            
             {!isAuthenticated ? (
               <>
                 <Button variant="ghost" asChild className="hidden sm:inline-flex">
-                  <Link href="/login">Sign In</Link>
+                  <Link href="/login">{t('signIn')}</Link>
                 </Button>
                 <Button asChild>
-                  <Link href="/signup">Get Started</Link>
+                  <Link href="/signup">{t('signUp')}</Link>
                 </Button>
               </>
             ) : (
@@ -112,10 +121,10 @@ export function Header({
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href={`/${userRole}/dashboard`}>Dashboard</Link>
+                    <Link href={`/${userRole}/dashboard`}>{t('dashboard')}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href={`/${userRole}/settings`}>Settings</Link>
+                    <Link href={`/${userRole}/settings`}>{t('settings')}</Link>
                   </DropdownMenuItem>
                   {userRole === 'admin' && (
                     <DropdownMenuItem asChild>
@@ -124,7 +133,7 @@ export function Header({
                   )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="text-destructive">
-                    Sign Out
+                    {t('signOut')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -159,31 +168,31 @@ export function Header({
             {!isAuthenticated ? (
               <div className="flex flex-col gap-3">
                 <Link href="/how-it-works" className="text-sm font-medium py-2 hover:text-primary transition-colors">
-                  How It Works
+                  {t('howItWorks')}
                 </Link>
                 <Link href="/find-talent" className="text-sm font-medium py-2 hover:text-primary transition-colors">
-                  Find Talent
+                  {t('findTalent')}
                 </Link>
                 <Link href="/find-work" className="text-sm font-medium py-2 hover:text-primary transition-colors">
-                  Find Work
+                  {t('findWork')}
                 </Link>
                 <Link href="/pricing" className="text-sm font-medium py-2 hover:text-primary transition-colors">
-                  Pricing
+                  {t('pricing')}
                 </Link>
                 <Button asChild className="mt-2">
-                  <Link href="/signup">Get Started</Link>
+                  <Link href="/signup">{t('signUp')}</Link>
                 </Button>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
                 <Link href={`/${userRole}/dashboard`} className="text-sm font-medium py-2 hover:text-primary transition-colors">
-                  Dashboard
+                  {t('dashboard')}
                 </Link>
                 <Link href={`/${userRole}/jobs`} className="text-sm font-medium py-2 hover:text-primary transition-colors">
                   {userRole === 'client' ? 'My Jobs' : 'Browse Jobs'}
                 </Link>
                 <Link href={`/${userRole}/messages`} className="text-sm font-medium py-2 hover:text-primary transition-colors">
-                  Messages
+                  {t('messages')}
                 </Link>
               </div>
             )}

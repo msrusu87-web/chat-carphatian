@@ -1,0 +1,764 @@
+{
+  "common": {
+    "appName": "Carphatian AI Marketplace",
+    "tagline": "AI-Powered Freelance Platform",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "more": "More",
+    "less": "Less",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "viewAll": "View All"
+  },
+  "nav": {
+    "home": "Home",
+    "howItWorks": "How It Works",
+    "findTalent": "Find Talent",
+    "findWork": "Find Work",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "blog": "Blog",
+    "signIn": "Sign In",
+    "signUp": "Get Started",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "messages": "Messages",
+    "signOut": "Sign Out"
+  },
+  "home": {
+    "hero": {
+      "badge": "AI-Powered Matching",
+      "title": "Find Perfect Talent in Seconds, Not Weeks",
+      "highlight": "Perfect Talent",
+      "description": "Our AI understands your needs and instantly matches you with the right freelancers. No more sifting through hundreds of profiles.",
+      "postJob": "Post a Job",
+      "findWork": "Find Work",
+      "features": "✓ No credit card required • ✓ Free to get started • ✓ AI-powered matching"
+    },
+    "features": {
+      "title": "Why Choose Carphatian?",
+      "subtitle": "Traditional platforms waste your time. We use AI to do the heavy lifting.",
+      "instantMatching": {
+        "title": "Instant Matching",
+        "description": "AI analyzes your job requirements and finds the perfect freelancers in seconds. No manual searching required."
+      },
+      "securePayments": {
+        "title": "Secure Payments",
+        "description": "Escrow protection, milestone-based payments, and instant payouts via Stripe. Your money is safe."
+      },
+      "aiAssistant": {
+        "title": "AI Assistant",
+        "description": "From job descriptions to cover letters, our AI helps you communicate better and faster."
+      }
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Three simple steps to start working together",
+      "step1": {
+        "number": "1",
+        "title": "Describe Your Needs",
+        "description": "Chat with our AI to create the perfect job post. No forms, no hassle. Just have a conversation."
+      },
+      "step2": {
+        "number": "2",
+        "title": "Get Matched Instantly",
+        "description": "Our AI finds freelancers whose skills, experience, and availability perfectly match your requirements."
+      },
+      "step3": {
+        "number": "3",
+        "title": "Hire & Pay Securely",
+        "description": "Review proposals, hire the best talent, and pay securely through our escrow-protected payment system."
+      }
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "description": "Join thousands of clients and freelancers who are already using AI to work smarter.",
+      "hiring": "I'm Hiring",
+      "lookingForWork": "I'm Looking for Work"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "rememberMe": "Remember me",
+      "submit": "Sign In",
+      "signingIn": "Signing in...",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "invalidCredentials": "Invalid email or password",
+      "error": "An error occurred. Please try again.",
+      "demoCredentials": "Demo Credentials",
+      "admin": "Admin",
+      "client": "Client",
+      "freelancer": "Freelancer",
+      "spamNotice": "Not receiving emails?",
+      "checkSpam": "Check your spam/junk folder and add",
+      "toContacts": "to your contacts."
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Join the AI-powered marketplace",
+      "iWantTo": "I want to",
+      "hireTalent": "Hire Talent",
+      "hireTalentDesc": "Post jobs & find experts",
+      "findWork": "Find Work",
+      "findWorkDesc": "Get hired for projects",
+      "name": "Full Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "submit": "Create Account",
+      "creating": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "termsAgree": "By signing up, you agree to our",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy",
+      "passwordMismatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "success": {
+        "title": "Account Created!",
+        "description": "We've sent a verification email to",
+        "checkSpam": "Please check your spam/junk folder if you don't see our email within a few minutes.",
+        "continue": "Continue to Login"
+      },
+      "emailTip": "Email Tip:",
+      "addToContacts": "Please add",
+      "ensureReceive": "to your contacts to ensure you receive our emails. Check your spam/junk folder if you don't see verification emails."
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "subtitle": "Enter your email and we'll send you a reset link",
+      "email": "Email address",
+      "submit": "Send Reset Link",
+      "sending": "Sending...",
+      "backToLogin": "Back to login",
+      "success": "Password reset link sent! Check your email.",
+      "error": "Failed to send reset link. Please try again."
+    }
+  },
+  "howItWorks": {
+    "hero": {
+      "title": "How Carphatian Works",
+      "subtitle": "The smarter way to hire and get hired"
+    },
+    "forClients": {
+      "title": "For Clients",
+      "subtitle": "Hire the best talent in 3 simple steps",
+      "step1": {
+        "title": "Post Your Project",
+        "description": "Describe your project needs using our AI-powered job creator. It helps you write clear, detailed job posts that attract the right talent."
+      },
+      "step2": {
+        "title": "Review AI Matches",
+        "description": "Our AI instantly matches your project with qualified freelancers based on skills, experience, availability, and past performance."
+      },
+      "step3": {
+        "title": "Hire & Collaborate",
+        "description": "Review proposals, interview candidates, and hire with confidence. Our secure payment system protects both parties."
+      }
+    },
+    "forFreelancers": {
+      "title": "For Freelancers",
+      "subtitle": "Find work that matches your skills",
+      "step1": {
+        "title": "Create Your Profile",
+        "description": "Build a comprehensive profile showcasing your skills, portfolio, and experience. Our AI helps you stand out to potential clients."
+      },
+      "step2": {
+        "title": "Get Matched to Jobs",
+        "description": "Receive personalized job recommendations based on your skills and preferences. Apply with AI-generated cover letters."
+      },
+      "step3": {
+        "title": "Work & Get Paid",
+        "description": "Complete projects, track milestones, and receive secure payments directly to your bank account or Stripe."
+      }
+    },
+    "features": {
+      "title": "Platform Features",
+      "aiMatching": {
+        "title": "AI-Powered Matching",
+        "description": "Our advanced algorithms analyze hundreds of factors to find the perfect match between clients and freelancers."
+      },
+      "securePayments": {
+        "title": "Secure Escrow Payments",
+        "description": "Funds are held securely until work is approved. Milestone-based payments keep projects on track."
+      },
+      "realTimeChat": {
+        "title": "Real-Time Communication",
+        "description": "Built-in messaging with file sharing, video calls, and project management tools."
+      },
+      "aiTools": {
+        "title": "AI Writing Tools",
+        "description": "Generate job descriptions, cover letters, and proposals with our intelligent writing assistant."
+      }
+    },
+    "cta": {
+      "title": "Ready to Experience the Future of Freelancing?",
+      "subtitle": "Join thousands of professionals already using Carphatian",
+      "startHiring": "Start Hiring",
+      "startWorking": "Start Working"
+    }
+  },
+  "findTalent": {
+    "hero": {
+      "title": "Find Expert Freelancers",
+      "subtitle": "Access top-tier talent for any project, powered by AI matching"
+    },
+    "search": {
+      "placeholder": "Search for skills, roles, or keywords...",
+      "button": "Search"
+    },
+    "categories": {
+      "title": "Browse by Category",
+      "development": "Development & IT",
+      "design": "Design & Creative",
+      "writing": "Writing & Translation",
+      "marketing": "Marketing & Sales",
+      "admin": "Admin & Support",
+      "finance": "Finance & Accounting"
+    },
+    "topTalent": {
+      "title": "Top-Rated Freelancers",
+      "subtitle": "Verified professionals ready to start",
+      "viewProfile": "View Profile",
+      "hourlyRate": "per hour",
+      "successRate": "Success Rate",
+      "jobsCompleted": "Jobs Completed"
+    },
+    "whyHire": {
+      "title": "Why Hire on Carphatian?",
+      "quality": {
+        "title": "Quality Guaranteed",
+        "description": "Only top 3% of applicants are accepted. Every freelancer is vetted for skills and professionalism."
+      },
+      "fast": {
+        "title": "Fast Matching",
+        "description": "AI finds the right freelancer in seconds. Start projects within hours, not weeks."
+      },
+      "secure": {
+        "title": "Secure Payments",
+        "description": "Pay only when satisfied. Escrow protection on every project."
+      }
+    },
+    "cta": {
+      "title": "Can't Find What You're Looking For?",
+      "subtitle": "Post a job and let freelancers come to you",
+      "postJob": "Post a Job for Free"
+    }
+  },
+  "findWork": {
+    "hero": {
+      "title": "Find Your Next Project",
+      "subtitle": "Browse thousands of jobs and get matched with AI"
+    },
+    "search": {
+      "placeholder": "Search for jobs, skills, or companies...",
+      "button": "Search Jobs"
+    },
+    "filters": {
+      "title": "Filters",
+      "category": "Category",
+      "budget": "Budget",
+      "duration": "Duration",
+      "experience": "Experience Level",
+      "location": "Location",
+      "jobType": "Job Type"
+    },
+    "jobTypes": {
+      "hourly": "Hourly",
+      "fixed": "Fixed Price",
+      "fullTime": "Full Time",
+      "partTime": "Part Time"
+    },
+    "experience": {
+      "entry": "Entry Level",
+      "intermediate": "Intermediate",
+      "expert": "Expert"
+    },
+    "latestJobs": {
+      "title": "Latest Jobs",
+      "subtitle": "Fresh opportunities posted today",
+      "apply": "Apply Now",
+      "postedBy": "Posted by",
+      "ago": "ago",
+      "proposals": "proposals"
+    },
+    "whyJoin": {
+      "title": "Why Freelance on Carphatian?",
+      "noFees": {
+        "title": "Low Fees",
+        "description": "Keep more of what you earn with our competitive 10% service fee."
+      },
+      "payments": {
+        "title": "Reliable Payments",
+        "description": "Get paid on time, every time. Multiple withdrawal options available."
+      },
+      "growth": {
+        "title": "Career Growth",
+        "description": "Build your reputation, earn badges, and get access to premium clients."
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Freelancing?",
+      "subtitle": "Create your profile and start applying today",
+      "createProfile": "Create Free Profile"
+    }
+  },
+  "pricing": {
+    "hero": {
+      "title": "Simple, Transparent Pricing",
+      "subtitle": "No hidden fees. Pay only for what you use."
+    },
+    "forClients": {
+      "title": "For Clients",
+      "subtitle": "Hire talent with confidence",
+      "free": {
+        "name": "Free",
+        "price": "€0",
+        "period": "forever",
+        "description": "Perfect for trying out the platform",
+        "features": [
+          "Post up to 3 jobs",
+          "AI-powered matching",
+          "Secure payments",
+          "Basic support"
+        ],
+        "cta": "Get Started"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "€49",
+        "period": "per month",
+        "description": "For growing businesses",
+        "features": [
+          "Unlimited job posts",
+          "Priority matching",
+          "Advanced analytics",
+          "Dedicated support",
+          "Team collaboration",
+          "Custom contracts"
+        ],
+        "cta": "Start Free Trial",
+        "popular": "Most Popular"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Custom",
+        "period": "contact us",
+        "description": "For large organizations",
+        "features": [
+          "Everything in Pro",
+          "Custom integrations",
+          "SLA guarantee",
+          "Account manager",
+          "White-label options",
+          "Volume discounts"
+        ],
+        "cta": "Contact Sales"
+      }
+    },
+    "forFreelancers": {
+      "title": "For Freelancers",
+      "subtitle": "Keep more of what you earn",
+      "fee": {
+        "title": "Service Fee",
+        "rate": "10%",
+        "description": "One simple fee on all earnings",
+        "details": "We charge a flat 10% service fee on all payments. No hidden costs, no surprises."
+      },
+      "included": {
+        "title": "What's Included",
+        "features": [
+          "Unlimited job applications",
+          "AI-powered job matching",
+          "Secure escrow payments",
+          "Profile verification badge",
+          "Portfolio showcase",
+          "Skills assessments",
+          "24/7 support"
+        ]
+      }
+    },
+    "comparison": {
+      "title": "Compare to Other Platforms",
+      "ourFee": "Our Fee",
+      "competitors": "Others",
+      "savings": "Your Savings"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "question": "How do payments work?",
+        "answer": "Clients fund escrow before work begins. Payment is released when milestones are approved. Freelancers can withdraw to bank or Stripe."
+      },
+      "q2": {
+        "question": "Are there any hidden fees?",
+        "answer": "No. Clients pay a small processing fee (2.9% + €0.30). Freelancers pay only the 10% service fee."
+      },
+      "q3": {
+        "question": "Can I cancel my subscription?",
+        "answer": "Yes, you can cancel anytime. Your subscription remains active until the end of the billing period."
+      },
+      "q4": {
+        "question": "Do you offer refunds?",
+        "answer": "We offer dispute resolution for projects. If work isn't delivered as agreed, clients can request mediation."
+      }
+    },
+    "cta": {
+      "title": "Start Free Today",
+      "subtitle": "No credit card required",
+      "button": "Create Free Account"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About Carphatian",
+      "subtitle": "Revolutionizing freelancing with artificial intelligence"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "We're building the future of work by connecting talented freelancers with businesses that need them, powered by AI that understands both sides."
+    },
+    "story": {
+      "title": "Our Story",
+      "p1": "Carphatian was born from frustration with traditional freelancing platforms. Too much time wasted on searching, too many mismatches, too little trust.",
+      "p2": "We asked: what if AI could understand exactly what you need and find the perfect match instantly? What if the entire process—from posting a job to getting paid—was seamless and secure?",
+      "p3": "That's what we've built. A platform where AI does the heavy lifting so you can focus on what matters: doing great work."
+    },
+    "values": {
+      "title": "Our Values",
+      "transparency": {
+        "title": "Transparency",
+        "description": "Clear pricing, honest communication, no hidden agendas."
+      },
+      "quality": {
+        "title": "Quality",
+        "description": "We vet every freelancer and maintain high standards."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Constantly improving our AI to serve you better."
+      },
+      "trust": {
+        "title": "Trust",
+        "description": "Secure payments and fair dispute resolution."
+      }
+    },
+    "team": {
+      "title": "Our Team",
+      "subtitle": "Passionate about connecting talent with opportunity"
+    },
+    "stats": {
+      "freelancers": "Freelancers",
+      "clients": "Clients",
+      "projectsCompleted": "Projects Completed",
+      "countriesServed": "Countries Served"
+    },
+    "cta": {
+      "title": "Join Our Community",
+      "subtitle": "Be part of the future of freelancing",
+      "joinAsClient": "Join as Client",
+      "joinAsFreelancer": "Join as Freelancer"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Contact Us",
+      "subtitle": "We'd love to hear from you"
+    },
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! We'll get back to you soon.",
+      "error": "Failed to send message. Please try again."
+    },
+    "info": {
+      "title": "Get in Touch",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "hours": "Business Hours"
+    },
+    "support": {
+      "title": "Support",
+      "description": "Need help with your account or a project?",
+      "helpCenter": "Visit Help Center",
+      "liveChat": "Start Live Chat"
+    },
+    "sales": {
+      "title": "Sales",
+      "description": "Interested in enterprise solutions?",
+      "contact": "Contact Sales Team"
+    }
+  },
+  "status": {
+    "title": "System Status",
+    "allOperational": "All Systems Operational",
+    "services": {
+      "website": "Website",
+      "api": "API",
+      "payments": "Payments",
+      "messaging": "Messaging"
+    },
+    "operational": "Operational",
+    "degraded": "Degraded",
+    "down": "Down"
+  },
+  "legal": {
+    "terms": {
+      "title": "Terms of Service",
+      "lastUpdated": "Last updated"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated"
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "lastUpdated": "Last updated"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "overview": "Overview",
+    "recentActivity": "Recent Activity",
+    "quickActions": "Quick Actions",
+    "noActivity": "No recent activity",
+    "viewAll": "View All",
+    "admin": {
+      "title": "Admin Dashboard",
+      "users": "Users",
+      "jobs": "Jobs",
+      "contracts": "Contracts",
+      "payments": "Payments",
+      "analytics": "Analytics",
+      "settings": "Settings",
+      "totalUsers": "Total Users",
+      "activeJobs": "Active Jobs",
+      "totalRevenue": "Total Revenue",
+      "platformHealth": "Platform Health"
+    },
+    "client": {
+      "title": "Client Dashboard",
+      "postJob": "Post a Job",
+      "myJobs": "My Jobs",
+      "applications": "Applications",
+      "contracts": "Contracts",
+      "payments": "Payments",
+      "messages": "Messages",
+      "findFreelancers": "Find Freelancers",
+      "activeContracts": "Active Contracts",
+      "pendingApplications": "Pending Applications",
+      "totalSpent": "Total Spent"
+    },
+    "freelancer": {
+      "title": "Freelancer Dashboard",
+      "findJobs": "Find Jobs",
+      "myApplications": "My Applications",
+      "contracts": "Contracts",
+      "earnings": "Earnings",
+      "profile": "Profile",
+      "messages": "Messages",
+      "settings": "Settings",
+      "availableJobs": "Available Jobs",
+      "pendingProposals": "Pending Proposals",
+      "activeProjects": "Active Projects",
+      "totalEarnings": "Total Earnings",
+      "pending": "pending",
+      "findWork": "Find Work",
+      "browseJobs": "Browse Available Jobs",
+      "activeContracts": "Active Contracts"
+    }
+  },
+  "jobs": {
+    "title": "Jobs",
+    "create": "Post a Job",
+    "edit": "Edit Job",
+    "details": "Job Details",
+    "apply": "Apply Now",
+    "applied": "Applied",
+    "save": "Save Job",
+    "saved": "Saved",
+    "share": "Share",
+    "report": "Report",
+    "budget": "Budget",
+    "duration": "Duration",
+    "skills": "Required Skills",
+    "proposals": "Proposals",
+    "description": "Description",
+    "requirements": "Requirements",
+    "aboutClient": "About the Client",
+    "similarJobs": "Similar Jobs",
+    "status": {
+      "open": "Open",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "closed": "Closed",
+      "draft": "Draft"
+    },
+    "filters": {
+      "all": "All Jobs",
+      "recommended": "Recommended",
+      "saved": "Saved",
+      "applied": "Applied"
+    }
+  },
+  "contracts": {
+    "title": "Contracts",
+    "active": "Active",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "viewDetails": "View Details",
+    "milestones": "Milestones",
+    "timeline": "Timeline",
+    "deliverables": "Deliverables",
+    "submitWork": "Submit Work",
+    "requestRevision": "Request Revision",
+    "approveWork": "Approve Work",
+    "releaseFunds": "Release Funds"
+  },
+  "payments": {
+    "title": "Payments",
+    "history": "Payment History",
+    "pending": "Pending",
+    "completed": "Completed",
+    "methods": "Payment Methods",
+    "addMethod": "Add Payment Method",
+    "withdraw": "Withdraw Funds",
+    "balance": "Available Balance",
+    "earnings": "Total Earnings",
+    "spent": "Total Spent"
+  },
+  "messages": {
+    "title": "Messages",
+    "newMessage": "New Message",
+    "search": "Search messages...",
+    "noMessages": "No messages yet",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "online": "Online",
+    "offline": "Offline",
+    "typing": "typing..."
+  },
+  "profile": {
+    "title": "Profile",
+    "edit": "Edit Profile",
+    "view": "View Profile",
+    "settings": "Settings",
+    "portfolio": "Portfolio",
+    "reviews": "Reviews",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education",
+    "certifications": "Certifications",
+    "hourlyRate": "Hourly Rate",
+    "availability": "Availability",
+    "languages": "Languages",
+    "location": "Location",
+    "memberSince": "Member Since",
+    "verified": "Verified",
+    "topRated": "Top Rated"
+  },
+  "reviews": {
+    "title": "Reviews",
+    "writeReview": "Write a Review",
+    "rating": "Rating",
+    "comment": "Comment",
+    "helpful": "Helpful",
+    "report": "Report",
+    "noReviews": "No reviews yet"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all as read",
+    "settings": "Notification Settings",
+    "noNotifications": "No notifications",
+    "newMessage": "New message from",
+    "newApplication": "New application for",
+    "contractStarted": "Contract started",
+    "paymentReceived": "Payment received",
+    "reviewReceived": "New review received"
+  },
+  "settings": {
+    "title": "Settings",
+    "account": "Account",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "privacy": "Privacy",
+    "security": "Security",
+    "billing": "Billing",
+    "preferences": "Preferences",
+    "language": "Language",
+    "timezone": "Timezone",
+    "currency": "Currency",
+    "deleteAccount": "Delete Account",
+    "changePassword": "Change Password",
+    "twoFactor": "Two-Factor Authentication"
+  },
+  "errors": {
+    "notFound": "Page Not Found",
+    "notFoundDesc": "The page you're looking for doesn't exist.",
+    "serverError": "Server Error",
+    "serverErrorDesc": "Something went wrong. Please try again later.",
+    "unauthorized": "Unauthorized",
+    "unauthorizedDesc": "You don't have permission to access this page.",
+    "goHome": "Go Home",
+    "goBack": "Go Back"
+  },
+  "footer": {
+    "platform": "Platform",
+    "aboutUs": "About Us",
+    "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "legal": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy",
+    "contact": "Contact",
+    "copyright": "© 2025 Carphatian AI Marketplace. All rights reserved.",
+    "builtBy": "Built by",
+    "followUs": "Follow Us",
+    "newsletter": {
+      "title": "Subscribe to our Newsletter",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    },
+    "tagline": "The next-generation freelance platform powered by AI. Connecting exceptional talent with visionary clients through intelligent matching."
+  }
+}

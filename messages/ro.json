@@ -1,0 +1,764 @@
+{
+  "common": {
+    "appName": "Carphatian AI Marketplace",
+    "tagline": "Platforma Freelance cu Inteligență Artificială",
+    "loading": "Se încarcă...",
+    "error": "A apărut o eroare",
+    "retry": "Încearcă din nou",
+    "cancel": "Anulează",
+    "save": "Salvează",
+    "delete": "Șterge",
+    "edit": "Editează",
+    "view": "Vezi",
+    "close": "Închide",
+    "search": "Caută",
+    "filter": "Filtrează",
+    "sort": "Sortează",
+    "more": "Mai mult",
+    "less": "Mai puțin",
+    "yes": "Da",
+    "no": "Nu",
+    "or": "sau",
+    "submit": "Trimite",
+    "back": "Înapoi",
+    "next": "Următorul",
+    "previous": "Anterior",
+    "learnMore": "Află mai mult",
+    "getStarted": "Începe acum",
+    "viewAll": "Vezi Tot"
+  },
+  "nav": {
+    "home": "Acasă",
+    "howItWorks": "Cum funcționează",
+    "findTalent": "Găsește talente",
+    "findWork": "Găsește proiecte",
+    "pricing": "Prețuri",
+    "about": "Despre noi",
+    "contact": "Contact",
+    "blog": "Blog",
+    "signIn": "Autentificare",
+    "signUp": "Începe acum",
+    "dashboard": "Panou de control",
+    "profile": "Profil",
+    "settings": "Setări",
+    "messages": "Mesaje",
+    "signOut": "Deconectare"
+  },
+  "home": {
+    "hero": {
+      "badge": "Potrivire cu AI",
+      "title": "Găsește talentul perfect în secunde, nu săptămâni",
+      "highlight": "Talentul perfect",
+      "description": "AI-ul nostru înțelege nevoile tale și te conectează instant cu freelancerii potriviți. Fără a mai căuta prin sute de profiluri.",
+      "postJob": "Postează un job",
+      "findWork": "Găsește proiecte",
+      "features": "✓ Fără card de credit • ✓ Gratuit pentru început • ✓ Potrivire cu AI"
+    },
+    "features": {
+      "title": "De ce să alegi Carphatian?",
+      "subtitle": "Platformele tradiționale îți pierd timpul. Noi folosim AI pentru a face munca grea.",
+      "instantMatching": {
+        "title": "Potrivire instantanee",
+        "description": "AI analizează cerințele jobului și găsește freelancerii perfecți în câteva secunde. Fără căutare manuală."
+      },
+      "securePayments": {
+        "title": "Plăți sigure",
+        "description": "Protecție escrow, plăți bazate pe etape și transferuri instant prin Stripe. Banii tăi sunt în siguranță."
+      },
+      "aiAssistant": {
+        "title": "Asistent AI",
+        "description": "De la descrieri de joburi la scrisori de intenție, AI-ul nostru te ajută să comunici mai bine și mai rapid."
+      }
+    },
+    "howItWorks": {
+      "title": "Cum funcționează",
+      "subtitle": "Trei pași simpli pentru a începe colaborarea",
+      "step1": {
+        "number": "1",
+        "title": "Descrie-ți nevoile",
+        "description": "Discută cu AI-ul nostru pentru a crea postarea perfectă. Fără formulare, fără complicații. Doar o conversație."
+      },
+      "step2": {
+        "number": "2",
+        "title": "Primește potriviri instant",
+        "description": "AI-ul nostru găsește freelanceri ale căror abilități, experiență și disponibilitate se potrivesc perfect cu cerințele tale."
+      },
+      "step3": {
+        "number": "3",
+        "title": "Angajează și plătește sigur",
+        "description": "Revizuiește propunerile, angajează cel mai bun talent și plătește în siguranță prin sistemul nostru de plăți protejat."
+      }
+    },
+    "cta": {
+      "title": "Pregătit să începi?",
+      "description": "Alătură-te miilor de clienți și freelanceri care folosesc deja AI pentru a lucra mai inteligent.",
+      "hiring": "Vreau să angajez",
+      "lookingForWork": "Caut proiecte"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Bine ai revenit",
+      "subtitle": "Conectează-te la contul tău",
+      "email": "Adresă de email",
+      "emailPlaceholder": "tu@exemplu.com",
+      "password": "Parolă",
+      "passwordPlaceholder": "••••••••",
+      "rememberMe": "Ține-mă minte",
+      "submit": "Conectare",
+      "signingIn": "Se conectează...",
+      "forgotPassword": "Ai uitat parola?",
+      "noAccount": "Nu ai cont?",
+      "signUp": "Creează cont",
+      "invalidCredentials": "Email sau parolă invalidă",
+      "error": "A apărut o eroare. Te rugăm să încerci din nou.",
+      "demoCredentials": "Credențiale demo",
+      "admin": "Admin",
+      "client": "Client",
+      "freelancer": "Freelancer",
+      "spamNotice": "Nu primești emailuri?",
+      "checkSpam": "Verifică folderul spam/junk și adaugă",
+      "toContacts": "la contacte."
+    },
+    "signup": {
+      "title": "Creează-ți contul",
+      "subtitle": "Alătură-te platformei cu AI",
+      "iWantTo": "Vreau să",
+      "hireTalent": "Angajez talente",
+      "hireTalentDesc": "Postează joburi și găsește experți",
+      "findWork": "Găsesc proiecte",
+      "findWorkDesc": "Fii angajat pentru proiecte",
+      "name": "Nume complet",
+      "namePlaceholder": "Ion Popescu",
+      "email": "Adresă de email",
+      "emailPlaceholder": "tu@exemplu.com",
+      "password": "Parolă",
+      "passwordPlaceholder": "Minim 8 caractere",
+      "confirmPassword": "Confirmă parola",
+      "confirmPasswordPlaceholder": "Confirmă parola",
+      "submit": "Creează cont",
+      "creating": "Se creează contul...",
+      "hasAccount": "Ai deja cont?",
+      "signIn": "Conectează-te",
+      "termsAgree": "Prin înregistrare, ești de acord cu",
+      "termsOfService": "Termenii și condițiile",
+      "and": "și",
+      "privacyPolicy": "Politica de confidențialitate",
+      "passwordMismatch": "Parolele nu se potrivesc",
+      "passwordTooShort": "Parola trebuie să aibă minim 8 caractere",
+      "success": {
+        "title": "Cont creat!",
+        "description": "Ți-am trimis un email de verificare la",
+        "checkSpam": "Verifică folderul spam/junk dacă nu vezi emailul în câteva minute.",
+        "continue": "Continuă la autentificare"
+      },
+      "emailTip": "Sfat pentru email:",
+      "addToContacts": "Te rugăm să adaugi",
+      "ensureReceive": "la contacte pentru a te asigura că primești emailurile noastre. Verifică folderul spam/junk."
+    },
+    "forgotPassword": {
+      "title": "Ai uitat parola",
+      "subtitle": "Introdu emailul și îți vom trimite un link de resetare",
+      "email": "Adresă de email",
+      "submit": "Trimite link de resetare",
+      "sending": "Se trimite...",
+      "backToLogin": "Înapoi la autentificare",
+      "success": "Link de resetare trimis! Verifică emailul.",
+      "error": "Nu s-a putut trimite linkul. Te rugăm să încerci din nou."
+    }
+  },
+  "howItWorks": {
+    "hero": {
+      "title": "Cum funcționează Carphatian",
+      "subtitle": "Modul mai inteligent de a angaja și a fi angajat"
+    },
+    "forClients": {
+      "title": "Pentru clienți",
+      "subtitle": "Angajează cele mai bune talente în 3 pași simpli",
+      "step1": {
+        "title": "Postează proiectul",
+        "description": "Descrie nevoile proiectului folosind creatorul de joburi cu AI. Te ajută să scrii postări clare și detaliate care atrag talentele potrivite."
+      },
+      "step2": {
+        "title": "Revizuiește potrivirile AI",
+        "description": "AI-ul nostru potrivește instant proiectul tău cu freelanceri calificați pe baza abilităților, experienței, disponibilității și performanței anterioare."
+      },
+      "step3": {
+        "title": "Angajează și colaborează",
+        "description": "Revizuiește propunerile, intervievează candidații și angajează cu încredere. Sistemul nostru de plăți sigure protejează ambele părți."
+      }
+    },
+    "forFreelancers": {
+      "title": "Pentru freelanceri",
+      "subtitle": "Găsește proiecte care se potrivesc abilităților tale",
+      "step1": {
+        "title": "Creează-ți profilul",
+        "description": "Construiește un profil complet care îți prezintă abilitățile, portofoliul și experiența. AI-ul nostru te ajută să ieși în evidență."
+      },
+      "step2": {
+        "title": "Primește potriviri de joburi",
+        "description": "Primește recomandări personalizate de joburi bazate pe abilitățile și preferințele tale. Aplică cu scrisori de intenție generate de AI."
+      },
+      "step3": {
+        "title": "Lucrează și primește plata",
+        "description": "Finalizează proiecte, urmărește etapele și primește plăți sigure direct în contul bancar sau Stripe."
+      }
+    },
+    "features": {
+      "title": "Funcționalități ale platformei",
+      "aiMatching": {
+        "title": "Potrivire cu AI",
+        "description": "Algoritmii noștri avansați analizează sute de factori pentru a găsi potrivirea perfectă între clienți și freelanceri."
+      },
+      "securePayments": {
+        "title": "Plăți Escrow sigure",
+        "description": "Fondurile sunt ținute în siguranță până când munca este aprobată. Plățile pe etape țin proiectele pe drumul cel bun."
+      },
+      "realTimeChat": {
+        "title": "Comunicare în timp real",
+        "description": "Mesagerie integrată cu partajare de fișiere, apeluri video și instrumente de management de proiect."
+      },
+      "aiTools": {
+        "title": "Instrumente AI de scriere",
+        "description": "Generează descrieri de joburi, scrisori de intenție și propuneri cu asistentul nostru inteligent de scriere."
+      }
+    },
+    "cta": {
+      "title": "Pregătit să experimentezi viitorul freelancing-ului?",
+      "subtitle": "Alătură-te miilor de profesioniști care folosesc deja Carphatian",
+      "startHiring": "Începe să angajezi",
+      "startWorking": "Începe să lucrezi"
+    }
+  },
+  "findTalent": {
+    "hero": {
+      "title": "Găsește freelanceri experți",
+      "subtitle": "Accesează talente de top pentru orice proiect, cu potrivire AI"
+    },
+    "search": {
+      "placeholder": "Caută abilități, roluri sau cuvinte cheie...",
+      "button": "Caută"
+    },
+    "categories": {
+      "title": "Răsfoiește pe categorii",
+      "development": "Dezvoltare și IT",
+      "design": "Design și creativitate",
+      "writing": "Scriere și traduceri",
+      "marketing": "Marketing și vânzări",
+      "admin": "Administrativ și suport",
+      "finance": "Finanțe și contabilitate"
+    },
+    "topTalent": {
+      "title": "Freelanceri cu rating de top",
+      "subtitle": "Profesioniști verificați gata să înceapă",
+      "viewProfile": "Vezi profil",
+      "hourlyRate": "pe oră",
+      "successRate": "Rata de succes",
+      "jobsCompleted": "Joburi finalizate"
+    },
+    "whyHire": {
+      "title": "De ce să angajezi pe Carphatian?",
+      "quality": {
+        "title": "Calitate garantată",
+        "description": "Doar 3% din aplicanți sunt acceptați. Fiecare freelancer este verificat pentru abilități și profesionalism."
+      },
+      "fast": {
+        "title": "Potrivire rapidă",
+        "description": "AI găsește freelancerul potrivit în câteva secunde. Începe proiecte în ore, nu săptămâni."
+      },
+      "secure": {
+        "title": "Plăți sigure",
+        "description": "Plătești doar când ești mulțumit. Protecție escrow pentru fiecare proiect."
+      }
+    },
+    "cta": {
+      "title": "Nu găsești ce cauți?",
+      "subtitle": "Postează un job și lasă freelancerii să vină la tine",
+      "postJob": "Postează un job gratuit"
+    }
+  },
+  "findWork": {
+    "hero": {
+      "title": "Găsește următorul tău proiect",
+      "subtitle": "Răsfoiește mii de joburi și primește potriviri cu AI"
+    },
+    "search": {
+      "placeholder": "Caută joburi, abilități sau companii...",
+      "button": "Caută joburi"
+    },
+    "filters": {
+      "title": "Filtre",
+      "category": "Categorie",
+      "budget": "Buget",
+      "duration": "Durată",
+      "experience": "Nivel de experiență",
+      "location": "Locație",
+      "jobType": "Tip de job"
+    },
+    "jobTypes": {
+      "hourly": "Pe oră",
+      "fixed": "Preț fix",
+      "fullTime": "Full time",
+      "partTime": "Part time"
+    },
+    "experience": {
+      "entry": "Nivel începător",
+      "intermediate": "Intermediar",
+      "expert": "Expert"
+    },
+    "latestJobs": {
+      "title": "Ultimele joburi",
+      "subtitle": "Oportunități noi postate azi",
+      "apply": "Aplică acum",
+      "postedBy": "Postat de",
+      "ago": "în urmă",
+      "proposals": "propuneri"
+    },
+    "whyJoin": {
+      "title": "De ce să fii freelancer pe Carphatian?",
+      "noFees": {
+        "title": "Comisioane mici",
+        "description": "Păstrează mai mult din ce câștigi cu comisionul nostru competitiv de 10%."
+      },
+      "payments": {
+        "title": "Plăți de încredere",
+        "description": "Primește plata la timp, de fiecare dată. Mai multe opțiuni de retragere disponibile."
+      },
+      "growth": {
+        "title": "Creștere în carieră",
+        "description": "Construiește-ți reputația, câștigă insigne și obține acces la clienți premium."
+      }
+    },
+    "cta": {
+      "title": "Pregătit să începi freelancing-ul?",
+      "subtitle": "Creează-ți profilul și începe să aplici azi",
+      "createProfile": "Creează profil gratuit"
+    }
+  },
+  "pricing": {
+    "hero": {
+      "title": "Prețuri simple și transparente",
+      "subtitle": "Fără taxe ascunse. Plătești doar pentru ce folosești."
+    },
+    "forClients": {
+      "title": "Pentru clienți",
+      "subtitle": "Angajează talente cu încredere",
+      "free": {
+        "name": "Gratuit",
+        "price": "0€",
+        "period": "pentru totdeauna",
+        "description": "Perfect pentru a încerca platforma",
+        "features": [
+          "Postează până la 3 joburi",
+          "Potrivire cu AI",
+          "Plăți sigure",
+          "Suport de bază"
+        ],
+        "cta": "Începe acum"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "49€",
+        "period": "pe lună",
+        "description": "Pentru afaceri în creștere",
+        "features": [
+          "Joburi nelimitate",
+          "Potrivire prioritară",
+          "Analiză avansată",
+          "Suport dedicat",
+          "Colaborare în echipă",
+          "Contracte personalizate"
+        ],
+        "cta": "Începe perioada de probă",
+        "popular": "Cel mai popular"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Personalizat",
+        "period": "contactează-ne",
+        "description": "Pentru organizații mari",
+        "features": [
+          "Tot ce e în Pro",
+          "Integrări personalizate",
+          "Garanție SLA",
+          "Manager de cont",
+          "Opțiuni white-label",
+          "Reduceri de volum"
+        ],
+        "cta": "Contactează vânzări"
+      }
+    },
+    "forFreelancers": {
+      "title": "Pentru freelanceri",
+      "subtitle": "Păstrează mai mult din ce câștigi",
+      "fee": {
+        "title": "Comision de serviciu",
+        "rate": "10%",
+        "description": "Un singur comision pentru toate câștigurile",
+        "details": "Percepem un comision fix de 10% pentru toate plățile. Fără costuri ascunse, fără surprize."
+      },
+      "included": {
+        "title": "Ce este inclus",
+        "features": [
+          "Aplicații nelimitate la joburi",
+          "Potrivire de joburi cu AI",
+          "Plăți escrow sigure",
+          "Insignă de verificare profil",
+          "Prezentare portofoliu",
+          "Evaluări de abilități",
+          "Suport 24/7"
+        ]
+      }
+    },
+    "comparison": {
+      "title": "Comparație cu alte platforme",
+      "ourFee": "Comisionul nostru",
+      "competitors": "Alții",
+      "savings": "Economiile tale"
+    },
+    "faq": {
+      "title": "Întrebări frecvente",
+      "q1": {
+        "question": "Cum funcționează plățile?",
+        "answer": "Clienții alimentează escrow-ul înainte de începerea lucrului. Plata este eliberată când etapele sunt aprobate. Freelancerii pot retrage în cont bancar sau Stripe."
+      },
+      "q2": {
+        "question": "Există taxe ascunse?",
+        "answer": "Nu. Clienții plătesc un mic comision de procesare (2.9% + 0.30€). Freelancerii plătesc doar comisionul de 10%."
+      },
+      "q3": {
+        "question": "Pot anula abonamentul?",
+        "answer": "Da, poți anula oricând. Abonamentul rămâne activ până la sfârșitul perioadei de facturare."
+      },
+      "q4": {
+        "question": "Oferiți rambursări?",
+        "answer": "Oferim rezolvare de dispute pentru proiecte. Dacă munca nu este livrată conform acordului, clienții pot solicita mediere."
+      }
+    },
+    "cta": {
+      "title": "Începe gratuit azi",
+      "subtitle": "Fără card de credit",
+      "button": "Creează cont gratuit"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Despre Carphatian",
+      "subtitle": "Revoluționăm freelancing-ul cu inteligență artificială"
+    },
+    "mission": {
+      "title": "Misiunea noastră",
+      "description": "Construim viitorul muncii conectând freelanceri talentați cu afacerile care au nevoie de ei, alimentat de AI care înțelege ambele părți."
+    },
+    "story": {
+      "title": "Povestea noastră",
+      "p1": "Carphatian s-a născut din frustrarea cu platformele tradiționale de freelancing. Prea mult timp pierdut căutând, prea multe nepotriviri, prea puțină încredere.",
+      "p2": "Ne-am întrebat: ce-ar fi dacă AI-ul ar putea înțelege exact ce ai nevoie și ar găsi potrivirea perfectă instant? Ce-ar fi dacă întregul proces—de la postarea unui job la primirea plății—ar fi fără probleme și sigur?",
+      "p3": "Asta am construit. O platformă unde AI face munca grea ca tu să te poți concentra pe ce contează: să faci muncă excelentă."
+    },
+    "values": {
+      "title": "Valorile noastre",
+      "transparency": {
+        "title": "Transparență",
+        "description": "Prețuri clare, comunicare onestă, fără agende ascunse."
+      },
+      "quality": {
+        "title": "Calitate",
+        "description": "Verificăm fiecare freelancer și menținem standarde înalte."
+      },
+      "innovation": {
+        "title": "Inovație",
+        "description": "Îmbunătățim constant AI-ul nostru pentru a te servi mai bine."
+      },
+      "trust": {
+        "title": "Încredere",
+        "description": "Plăți sigure și rezolvare echitabilă a disputelor."
+      }
+    },
+    "team": {
+      "title": "Echipa noastră",
+      "subtitle": "Pasionați de conectarea talentului cu oportunitatea"
+    },
+    "stats": {
+      "freelancers": "Freelanceri",
+      "clients": "Clienți",
+      "projectsCompleted": "Proiecte finalizate",
+      "countriesServed": "Țări deservite"
+    },
+    "cta": {
+      "title": "Alătură-te comunității noastre",
+      "subtitle": "Fii parte din viitorul freelancing-ului",
+      "joinAsClient": "Alătură-te ca client",
+      "joinAsFreelancer": "Alătură-te ca freelancer"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Contactează-ne",
+      "subtitle": "Ne-ar plăcea să auzim de la tine"
+    },
+    "form": {
+      "name": "Numele tău",
+      "email": "Adresă de email",
+      "subject": "Subiect",
+      "message": "Mesaj",
+      "submit": "Trimite mesaj",
+      "sending": "Se trimite...",
+      "success": "Mesaj trimis cu succes! Te vom contacta în curând.",
+      "error": "Nu s-a putut trimite mesajul. Te rugăm să încerci din nou."
+    },
+    "info": {
+      "title": "Ia legătura",
+      "email": "Email",
+      "phone": "Telefon",
+      "address": "Adresă",
+      "hours": "Program de lucru"
+    },
+    "support": {
+      "title": "Suport",
+      "description": "Ai nevoie de ajutor cu contul sau un proiect?",
+      "helpCenter": "Vizitează Centrul de ajutor",
+      "liveChat": "Începe chat live"
+    },
+    "sales": {
+      "title": "Vânzări",
+      "description": "Interesat de soluții enterprise?",
+      "contact": "Contactează echipa de vânzări"
+    }
+  },
+  "status": {
+    "title": "Status sistem",
+    "allOperational": "Toate sistemele funcționează",
+    "services": {
+      "website": "Website",
+      "api": "API",
+      "payments": "Plăți",
+      "messaging": "Mesagerie"
+    },
+    "operational": "Funcțional",
+    "degraded": "Degradat",
+    "down": "Nefuncțional"
+  },
+  "legal": {
+    "terms": {
+      "title": "Termeni și condiții",
+      "lastUpdated": "Ultima actualizare"
+    },
+    "privacy": {
+      "title": "Politica de confidențialitate",
+      "lastUpdated": "Ultima actualizare"
+    },
+    "cookies": {
+      "title": "Politica de cookie-uri",
+      "lastUpdated": "Ultima actualizare"
+    }
+  },
+  "dashboard": {
+    "welcome": "Bine ai revenit",
+    "overview": "Prezentare generală",
+    "recentActivity": "Activitate recentă",
+    "quickActions": "Acțiuni rapide",
+    "noActivity": "Nicio activitate recentă",
+    "viewAll": "Vezi tot",
+    "admin": {
+      "title": "Panou Admin",
+      "users": "Utilizatori",
+      "jobs": "Joburi",
+      "contracts": "Contracte",
+      "payments": "Plăți",
+      "analytics": "Analiză",
+      "settings": "Setări",
+      "totalUsers": "Total utilizatori",
+      "activeJobs": "Joburi active",
+      "totalRevenue": "Venit total",
+      "platformHealth": "Sănătatea platformei"
+    },
+    "client": {
+      "title": "Panou Client",
+      "postJob": "Postează un job",
+      "myJobs": "Joburile mele",
+      "applications": "Aplicații",
+      "contracts": "Contracte",
+      "payments": "Plăți",
+      "messages": "Mesaje",
+      "findFreelancers": "Găsește freelanceri",
+      "activeContracts": "Contracte active",
+      "pendingApplications": "Aplicații în așteptare",
+      "totalSpent": "Total cheltuit"
+    },
+    "freelancer": {
+      "title": "Panou Freelancer",
+      "findJobs": "Găsește joburi",
+      "myApplications": "Aplicațiile mele",
+      "contracts": "Contracte",
+      "earnings": "Câștiguri",
+      "profile": "Profil",
+      "messages": "Mesaje",
+      "settings": "Setări",
+      "availableJobs": "Joburi disponibile",
+      "pendingProposals": "Propuneri în așteptare",
+      "activeProjects": "Proiecte active",
+      "totalEarnings": "Câștiguri totale",
+      "pending": "în așteptare",
+      "findWork": "Găsește Muncă",
+      "browseJobs": "Caută Proiecte Disponibile",
+      "activeContracts": "Contracte Active"
+    }
+  },
+  "jobs": {
+    "title": "Joburi",
+    "create": "Postează un job",
+    "edit": "Editează job",
+    "details": "Detalii job",
+    "apply": "Aplică acum",
+    "applied": "Aplicat",
+    "save": "Salvează job",
+    "saved": "Salvat",
+    "share": "Distribuie",
+    "report": "Raportează",
+    "budget": "Buget",
+    "duration": "Durată",
+    "skills": "Abilități necesare",
+    "proposals": "Propuneri",
+    "description": "Descriere",
+    "requirements": "Cerințe",
+    "aboutClient": "Despre client",
+    "similarJobs": "Joburi similare",
+    "status": {
+      "open": "Deschis",
+      "inProgress": "În desfășurare",
+      "completed": "Finalizat",
+      "closed": "Închis",
+      "draft": "Ciornă"
+    },
+    "filters": {
+      "all": "Toate joburile",
+      "recommended": "Recomandate",
+      "saved": "Salvate",
+      "applied": "Aplicate"
+    }
+  },
+  "contracts": {
+    "title": "Contracte",
+    "active": "Active",
+    "completed": "Finalizate",
+    "cancelled": "Anulate",
+    "viewDetails": "Vezi detalii",
+    "milestones": "Etape",
+    "timeline": "Cronologie",
+    "deliverables": "Livrabile",
+    "submitWork": "Trimite munca",
+    "requestRevision": "Solicită revizuire",
+    "approveWork": "Aprobă munca",
+    "releaseFunds": "Eliberează fonduri"
+  },
+  "payments": {
+    "title": "Plăți",
+    "history": "Istoric plăți",
+    "pending": "În așteptare",
+    "completed": "Finalizate",
+    "methods": "Metode de plată",
+    "addMethod": "Adaugă metodă de plată",
+    "withdraw": "Retrage fonduri",
+    "balance": "Sold disponibil",
+    "earnings": "Câștiguri totale",
+    "spent": "Total cheltuit"
+  },
+  "messages": {
+    "title": "Mesaje",
+    "newMessage": "Mesaj nou",
+    "search": "Caută mesaje...",
+    "noMessages": "Niciun mesaj încă",
+    "typeMessage": "Scrie un mesaj...",
+    "send": "Trimite",
+    "online": "Online",
+    "offline": "Offline",
+    "typing": "scrie..."
+  },
+  "profile": {
+    "title": "Profil",
+    "edit": "Editează profil",
+    "view": "Vezi profil",
+    "settings": "Setări",
+    "portfolio": "Portofoliu",
+    "reviews": "Recenzii",
+    "skills": "Abilități",
+    "experience": "Experiență",
+    "education": "Educație",
+    "certifications": "Certificări",
+    "hourlyRate": "Tarif pe oră",
+    "availability": "Disponibilitate",
+    "languages": "Limbi",
+    "location": "Locație",
+    "memberSince": "Membru din",
+    "verified": "Verificat",
+    "topRated": "Rating de top"
+  },
+  "reviews": {
+    "title": "Recenzii",
+    "writeReview": "Scrie o recenzie",
+    "rating": "Rating",
+    "comment": "Comentariu",
+    "helpful": "Util",
+    "report": "Raportează",
+    "noReviews": "Nicio recenzie încă"
+  },
+  "notifications": {
+    "title": "Notificări",
+    "markAllRead": "Marchează toate ca citite",
+    "settings": "Setări notificări",
+    "noNotifications": "Nicio notificare",
+    "newMessage": "Mesaj nou de la",
+    "newApplication": "Aplicație nouă pentru",
+    "contractStarted": "Contract început",
+    "paymentReceived": "Plată primită",
+    "reviewReceived": "Recenzie nouă primită"
+  },
+  "settings": {
+    "title": "Setări",
+    "account": "Cont",
+    "profile": "Profil",
+    "notifications": "Notificări",
+    "privacy": "Confidențialitate",
+    "security": "Securitate",
+    "billing": "Facturare",
+    "preferences": "Preferințe",
+    "language": "Limbă",
+    "timezone": "Fus orar",
+    "currency": "Monedă",
+    "deleteAccount": "Șterge cont",
+    "changePassword": "Schimbă parola",
+    "twoFactor": "Autentificare în doi pași"
+  },
+  "errors": {
+    "notFound": "Pagina nu a fost găsită",
+    "notFoundDesc": "Pagina pe care o cauți nu există.",
+    "serverError": "Eroare de server",
+    "serverErrorDesc": "Ceva nu a mers bine. Te rugăm să încerci mai târziu.",
+    "unauthorized": "Neautorizat",
+    "unauthorizedDesc": "Nu ai permisiunea să accesezi această pagină.",
+    "goHome": "Acasă",
+    "goBack": "Înapoi"
+  },
+  "footer": {
+    "platform": "Platformă",
+    "aboutUs": "Despre noi",
+    "howItWorks": "Cum funcționează",
+    "pricing": "Prețuri",
+    "blog": "Blog",
+    "legal": "Legal",
+    "terms": "Termeni și condiții",
+    "privacy": "Politica de confidențialitate",
+    "cookies": "Politica de cookie-uri",
+    "contact": "Contact",
+    "copyright": "© 2025 Carphatian AI Marketplace. Toate drepturile rezervate.",
+    "builtBy": "Construit de",
+    "followUs": "Urmărește-ne",
+    "newsletter": {
+      "title": "Abonează-te la newsletter",
+      "placeholder": "Introdu emailul",
+      "subscribe": "Abonează-te"
+    },
+    "tagline": "Platforma freelance de nouă generație alimentată de AI. Conectăm talente excepționale cu clienți vizionari prin potrivire inteligentă."
+  }
+}

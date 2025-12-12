@@ -29,7 +29,7 @@ export default async function FreelancerContractsPage() {
   const myContracts = await db.query.contracts.findMany({
     where: eq(contracts.freelancer_id, userId),
     orderBy: (contracts, { desc }) => [desc(contracts.created_at)],
-    with: { 
+    with: {
       job: true,
       client: true,
       milestones: true,

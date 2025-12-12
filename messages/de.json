@@ -1,0 +1,764 @@
+{
+  "common": {
+    "appName": "Carphatian AI Marketplace",
+    "tagline": "KI-gestützte Freelance-Plattform",
+    "loading": "Lädt...",
+    "error": "Ein Fehler ist aufgetreten",
+    "retry": "Erneut versuchen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "view": "Ansehen",
+    "close": "Schließen",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "more": "Mehr",
+    "less": "Weniger",
+    "yes": "Ja",
+    "no": "Nein",
+    "or": "oder",
+    "submit": "Absenden",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "learnMore": "Mehr erfahren",
+    "getStarted": "Loslegen",
+    "viewAll": "Alle Anzeigen"
+  },
+  "nav": {
+    "home": "Startseite",
+    "howItWorks": "So funktioniert's",
+    "findTalent": "Talent finden",
+    "findWork": "Arbeit finden",
+    "pricing": "Preise",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "blog": "Blog",
+    "signIn": "Anmelden",
+    "signUp": "Loslegen",
+    "dashboard": "Dashboard",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "messages": "Nachrichten",
+    "signOut": "Abmelden"
+  },
+  "home": {
+    "hero": {
+      "badge": "KI-Matching",
+      "title": "Finden Sie das perfekte Talent in Sekunden, nicht Wochen",
+      "highlight": "Perfektes Talent",
+      "description": "Unsere KI versteht Ihre Anforderungen und verbindet Sie sofort mit den richtigen Freelancern. Kein Durchsuchen von Hunderten von Profilen.",
+      "postJob": "Job veröffentlichen",
+      "findWork": "Arbeit finden",
+      "features": "✓ Keine Kreditkarte • ✓ Kostenlos starten • ✓ KI-Matching"
+    },
+    "features": {
+      "title": "Warum Carphatian wählen?",
+      "subtitle": "Traditionelle Plattformen verschwenden Ihre Zeit. Wir nutzen KI für die schwere Arbeit.",
+      "instantMatching": {
+        "title": "Sofort-Matching",
+        "description": "KI analysiert Jobanforderungen und findet perfekte Freelancer in Sekunden. Keine manuelle Suche."
+      },
+      "securePayments": {
+        "title": "Sichere Zahlungen",
+        "description": "Treuhand-Schutz, Meilenstein-Zahlungen und sofortige Überweisungen über Stripe. Ihr Geld ist sicher."
+      },
+      "aiAssistant": {
+        "title": "KI-Assistent",
+        "description": "Von Jobbeschreibungen bis zu Bewerbungsschreiben - unsere KI hilft Ihnen, besser und schneller zu kommunizieren."
+      }
+    },
+    "howItWorks": {
+      "title": "So funktioniert's",
+      "subtitle": "Drei einfache Schritte zur Zusammenarbeit",
+      "step1": {
+        "number": "1",
+        "title": "Beschreiben Sie Ihre Anforderungen",
+        "description": "Sprechen Sie mit unserer KI, um die perfekte Stellenanzeige zu erstellen. Keine Formulare, kein Aufwand. Nur ein Gespräch."
+      },
+      "step2": {
+        "number": "2",
+        "title": "Erhalten Sie sofortige Matches",
+        "description": "Unsere KI findet Freelancer, deren Fähigkeiten, Erfahrung und Verfügbarkeit perfekt zu Ihren Anforderungen passen."
+      },
+      "step3": {
+        "number": "3",
+        "title": "Engagieren und sicher bezahlen",
+        "description": "Prüfen Sie Vorschläge, engagieren Sie Top-Talente und bezahlen Sie sicher über unser geschütztes Zahlungssystem."
+      }
+    },
+    "cta": {
+      "title": "Bereit anzufangen?",
+      "description": "Schließen Sie sich Tausenden von Kunden und Freelancern an, die bereits KI nutzen, um intelligenter zu arbeiten.",
+      "hiring": "Ich möchte einstellen",
+      "lookingForWork": "Ich suche Arbeit"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Willkommen zurück",
+      "subtitle": "Melden Sie sich bei Ihrem Konto an",
+      "email": "E-Mail",
+      "emailPlaceholder": "ihre@email.de",
+      "password": "Passwort",
+      "passwordPlaceholder": "••••••••",
+      "rememberMe": "Angemeldet bleiben",
+      "submit": "Anmelden",
+      "signingIn": "Wird angemeldet...",
+      "forgotPassword": "Passwort vergessen?",
+      "noAccount": "Noch kein Konto?",
+      "signUp": "Registrieren",
+      "invalidCredentials": "Ungültige E-Mail oder Passwort",
+      "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      "demoCredentials": "Demo-Zugangsdaten",
+      "admin": "Admin",
+      "client": "Kunde",
+      "freelancer": "Freelancer",
+      "spamNotice": "Keine E-Mails erhalten?",
+      "checkSpam": "Überprüfen Sie Ihren Spam-Ordner und fügen Sie",
+      "toContacts": "zu Ihren Kontakten hinzu."
+    },
+    "signup": {
+      "title": "Konto erstellen",
+      "subtitle": "Treten Sie der KI-gestützten Plattform bei",
+      "iWantTo": "Ich möchte",
+      "hireTalent": "Talent einstellen",
+      "hireTalentDesc": "Jobs posten und Experten finden",
+      "findWork": "Arbeit finden",
+      "findWorkDesc": "Für Projekte engagiert werden",
+      "name": "Vollständiger Name",
+      "namePlaceholder": "Max Mustermann",
+      "email": "E-Mail",
+      "emailPlaceholder": "ihre@email.de",
+      "password": "Passwort",
+      "passwordPlaceholder": "Mindestens 8 Zeichen",
+      "confirmPassword": "Passwort bestätigen",
+      "confirmPasswordPlaceholder": "Passwort bestätigen",
+      "submit": "Konto erstellen",
+      "creating": "Konto wird erstellt...",
+      "hasAccount": "Bereits ein Konto?",
+      "signIn": "Anmelden",
+      "termsAgree": "Mit der Registrierung stimmen Sie unseren",
+      "termsOfService": "Nutzungsbedingungen",
+      "and": "und",
+      "privacyPolicy": "Datenschutzrichtlinie",
+      "passwordMismatch": "Passwörter stimmen nicht überein",
+      "passwordTooShort": "Passwort muss mindestens 8 Zeichen haben",
+      "success": {
+        "title": "Konto erstellt!",
+        "description": "Wir haben eine Bestätigungs-E-Mail gesendet an",
+        "checkSpam": "Überprüfen Sie Ihren Spam-Ordner, wenn Sie die E-Mail nicht sehen.",
+        "continue": "Weiter zur Anmeldung"
+      },
+      "emailTip": "E-Mail-Tipp:",
+      "addToContacts": "Bitte fügen Sie",
+      "ensureReceive": "zu Ihren Kontakten hinzu, um unsere E-Mails zu erhalten. Überprüfen Sie den Spam-Ordner."
+    },
+    "forgotPassword": {
+      "title": "Passwort vergessen",
+      "subtitle": "Geben Sie Ihre E-Mail ein und wir senden Ihnen einen Link zum Zurücksetzen",
+      "email": "E-Mail",
+      "submit": "Link senden",
+      "sending": "Wird gesendet...",
+      "backToLogin": "Zurück zur Anmeldung",
+      "success": "Link zum Zurücksetzen gesendet! Überprüfen Sie Ihre E-Mail.",
+      "error": "Link konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
+    }
+  },
+  "howItWorks": {
+    "hero": {
+      "title": "So funktioniert Carphatian",
+      "subtitle": "Der intelligentere Weg zum Einstellen und Eingestellt werden"
+    },
+    "forClients": {
+      "title": "Für Kunden",
+      "subtitle": "Stellen Sie Top-Talente in 3 einfachen Schritten ein",
+      "step1": {
+        "title": "Posten Sie Ihr Projekt",
+        "description": "Beschreiben Sie Ihre Projektanforderungen mit unserem KI-gestützten Job-Builder. Er hilft Ihnen, klare, detaillierte Ausschreibungen zu schreiben."
+      },
+      "step2": {
+        "title": "Prüfen Sie KI-Matches",
+        "description": "Unsere KI matched Ihr Projekt sofort mit qualifizierten Freelancern basierend auf Fähigkeiten, Erfahrung und Verfügbarkeit."
+      },
+      "step3": {
+        "title": "Engagieren und zusammenarbeiten",
+        "description": "Prüfen Sie Vorschläge, führen Sie Interviews und stellen Sie mit Vertrauen ein. Unser sicheres Zahlungssystem schützt beide Parteien."
+      }
+    },
+    "forFreelancers": {
+      "title": "Für Freelancer",
+      "subtitle": "Finden Sie Arbeit, die zu Ihren Fähigkeiten passt",
+      "step1": {
+        "title": "Erstellen Sie Ihr Profil",
+        "description": "Erstellen Sie ein umfassendes Profil mit Ihren Fähigkeiten, Portfolio und Erfahrung. Unsere KI hilft Ihnen, hervorzustechen."
+      },
+      "step2": {
+        "title": "Erhalten Sie Job-Matches",
+        "description": "Erhalten Sie personalisierte Jobempfehlungen basierend auf Ihren Fähigkeiten und Präferenzen. Bewerben Sie sich mit KI-generierten Bewerbungen."
+      },
+      "step3": {
+        "title": "Arbeiten und bezahlt werden",
+        "description": "Schließen Sie Projekte ab, verfolgen Sie Meilensteine und erhalten Sie sichere Zahlungen direkt auf Ihr Bankkonto oder Stripe."
+      }
+    },
+    "features": {
+      "title": "Plattform-Funktionen",
+      "aiMatching": {
+        "title": "KI-Matching",
+        "description": "Unsere fortschrittlichen Algorithmen analysieren Hunderte von Faktoren, um die perfekte Übereinstimmung zwischen Kunden und Freelancern zu finden."
+      },
+      "securePayments": {
+        "title": "Sichere Treuhand-Zahlungen",
+        "description": "Gelder werden sicher gehalten, bis die Arbeit genehmigt ist. Meilenstein-Zahlungen halten Projekte auf Kurs."
+      },
+      "realTimeChat": {
+        "title": "Echtzeit-Kommunikation",
+        "description": "Integriertes Messaging mit Dateifreigabe, Videoanrufen und Projektmanagement-Tools."
+      },
+      "aiTools": {
+        "title": "KI-Schreibwerkzeuge",
+        "description": "Generieren Sie Jobbeschreibungen, Bewerbungsschreiben und Vorschläge mit unserem intelligenten Schreibassistenten."
+      }
+    },
+    "cta": {
+      "title": "Bereit, die Zukunft des Freelancings zu erleben?",
+      "subtitle": "Schließen Sie sich Tausenden von Fachleuten an, die bereits Carphatian nutzen",
+      "startHiring": "Jetzt einstellen",
+      "startWorking": "Jetzt arbeiten"
+    }
+  },
+  "findTalent": {
+    "hero": {
+      "title": "Finden Sie Experten-Freelancer",
+      "subtitle": "Zugang zu Top-Talenten für jedes Projekt, mit KI-Matching"
+    },
+    "search": {
+      "placeholder": "Suchen Sie nach Fähigkeiten, Rollen oder Schlüsselwörtern...",
+      "button": "Suchen"
+    },
+    "categories": {
+      "title": "Nach Kategorie durchsuchen",
+      "development": "Entwicklung & IT",
+      "design": "Design & Kreativ",
+      "writing": "Schreiben & Übersetzung",
+      "marketing": "Marketing & Vertrieb",
+      "admin": "Admin & Support",
+      "finance": "Finanzen & Buchhaltung"
+    },
+    "topTalent": {
+      "title": "Top-bewertete Freelancer",
+      "subtitle": "Verifizierte Profis bereit anzufangen",
+      "viewProfile": "Profil ansehen",
+      "hourlyRate": "pro Stunde",
+      "successRate": "Erfolgsrate",
+      "jobsCompleted": "Abgeschlossene Jobs"
+    },
+    "whyHire": {
+      "title": "Warum auf Carphatian einstellen?",
+      "quality": {
+        "title": "Garantierte Qualität",
+        "description": "Nur 3% der Bewerber werden akzeptiert. Jeder Freelancer wird auf Fähigkeiten und Professionalität geprüft."
+      },
+      "fast": {
+        "title": "Schnelles Matching",
+        "description": "KI findet den richtigen Freelancer in Sekunden. Starten Sie Projekte in Stunden, nicht Wochen."
+      },
+      "secure": {
+        "title": "Sichere Zahlungen",
+        "description": "Bezahlen Sie erst bei Zufriedenheit. Treuhand-Schutz bei jedem Projekt."
+      }
+    },
+    "cta": {
+      "title": "Nicht gefunden, wonach Sie suchen?",
+      "subtitle": "Posten Sie einen Job und lassen Sie Freelancer zu Ihnen kommen",
+      "postJob": "Job kostenlos posten"
+    }
+  },
+  "findWork": {
+    "hero": {
+      "title": "Finden Sie Ihr nächstes Projekt",
+      "subtitle": "Durchsuchen Sie Tausende von Jobs und erhalten Sie KI-Matches"
+    },
+    "search": {
+      "placeholder": "Suchen Sie nach Jobs, Fähigkeiten oder Unternehmen...",
+      "button": "Jobs suchen"
+    },
+    "filters": {
+      "title": "Filter",
+      "category": "Kategorie",
+      "budget": "Budget",
+      "duration": "Dauer",
+      "experience": "Erfahrungsstufe",
+      "location": "Standort",
+      "jobType": "Auftragsart"
+    },
+    "jobTypes": {
+      "hourly": "Stündlich",
+      "fixed": "Festpreis",
+      "fullTime": "Vollzeit",
+      "partTime": "Teilzeit"
+    },
+    "experience": {
+      "entry": "Einsteiger",
+      "intermediate": "Fortgeschritten",
+      "expert": "Experte"
+    },
+    "latestJobs": {
+      "title": "Neueste Jobs",
+      "subtitle": "Heute veröffentlichte neue Möglichkeiten",
+      "apply": "Jetzt bewerben",
+      "postedBy": "Gepostet von",
+      "ago": "vor",
+      "proposals": "Vorschläge"
+    },
+    "whyJoin": {
+      "title": "Warum auf Carphatian freelancen?",
+      "noFees": {
+        "title": "Niedrige Gebühren",
+        "description": "Behalten Sie mehr von Ihrem Verdienst mit unserer wettbewerbsfähigen 10% Gebühr."
+      },
+      "payments": {
+        "title": "Zuverlässige Zahlungen",
+        "description": "Pünktlich bezahlt werden, immer. Mehrere Auszahlungsoptionen verfügbar."
+      },
+      "growth": {
+        "title": "Karrierewachstum",
+        "description": "Bauen Sie Ihren Ruf auf, verdienen Sie Abzeichen und erhalten Sie Zugang zu Premium-Kunden."
+      }
+    },
+    "cta": {
+      "title": "Bereit, mit dem Freelancen zu beginnen?",
+      "subtitle": "Erstellen Sie Ihr Profil und bewerben Sie sich noch heute",
+      "createProfile": "Kostenloses Profil erstellen"
+    }
+  },
+  "pricing": {
+    "hero": {
+      "title": "Einfache, transparente Preise",
+      "subtitle": "Keine versteckten Gebühren. Zahlen Sie nur für das, was Sie nutzen."
+    },
+    "forClients": {
+      "title": "Für Kunden",
+      "subtitle": "Stellen Sie Talente mit Vertrauen ein",
+      "free": {
+        "name": "Kostenlos",
+        "price": "€0",
+        "period": "für immer",
+        "description": "Perfekt zum Ausprobieren der Plattform",
+        "features": [
+          "Bis zu 3 Jobs posten",
+          "KI-Matching",
+          "Sichere Zahlungen",
+          "Basis-Support"
+        ],
+        "cta": "Loslegen"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "€49",
+        "period": "pro Monat",
+        "description": "Für wachsende Unternehmen",
+        "features": [
+          "Unbegrenzte Jobs",
+          "Prioritäts-Matching",
+          "Erweiterte Analysen",
+          "Dedizierter Support",
+          "Team-Zusammenarbeit",
+          "Individuelle Verträge"
+        ],
+        "cta": "Kostenlos testen",
+        "popular": "Beliebteste"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Individuell",
+        "period": "kontaktieren Sie uns",
+        "description": "Für große Organisationen",
+        "features": [
+          "Alles in Pro",
+          "Individuelle Integrationen",
+          "SLA-Garantie",
+          "Account Manager",
+          "White-Label-Optionen",
+          "Mengenrabatte"
+        ],
+        "cta": "Vertrieb kontaktieren"
+      }
+    },
+    "forFreelancers": {
+      "title": "Für Freelancer",
+      "subtitle": "Behalten Sie mehr von dem, was Sie verdienen",
+      "fee": {
+        "title": "Servicegebühr",
+        "rate": "10%",
+        "description": "Eine einfache Gebühr auf alle Einnahmen",
+        "details": "Wir berechnen eine pauschale 10% Gebühr auf alle Zahlungen. Keine versteckten Kosten, keine Überraschungen."
+      },
+      "included": {
+        "title": "Was enthalten ist",
+        "features": [
+          "Unbegrenzte Bewerbungen",
+          "KI-Job-Matching",
+          "Sichere Treuhand-Zahlungen",
+          "Verifizierungsabzeichen",
+          "Portfolio-Präsentation",
+          "Fähigkeitsbewertungen",
+          "24/7 Support"
+        ]
+      }
+    },
+    "comparison": {
+      "title": "Vergleich mit anderen Plattformen",
+      "ourFee": "Unsere Gebühr",
+      "competitors": "Andere",
+      "savings": "Ihre Ersparnis"
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "q1": {
+        "question": "Wie funktionieren Zahlungen?",
+        "answer": "Kunden finanzieren das Treuhandkonto vor Projektbeginn. Die Zahlung wird freigegeben, wenn Meilensteine genehmigt werden."
+      },
+      "q2": {
+        "question": "Gibt es versteckte Gebühren?",
+        "answer": "Nein. Kunden zahlen eine kleine Bearbeitungsgebühr (2,9% + €0,30). Freelancer zahlen nur 10%."
+      },
+      "q3": {
+        "question": "Kann ich mein Abo kündigen?",
+        "answer": "Ja, Sie können jederzeit kündigen. Ihr Abo bleibt bis zum Ende des Abrechnungszeitraums aktiv."
+      },
+      "q4": {
+        "question": "Bieten Sie Rückerstattungen an?",
+        "answer": "Wir bieten Streitbeilegung für Projekte. Wenn Arbeit nicht wie vereinbart geliefert wird, können Kunden eine Mediation beantragen."
+      }
+    },
+    "cta": {
+      "title": "Heute kostenlos starten",
+      "subtitle": "Keine Kreditkarte erforderlich",
+      "button": "Kostenloses Konto erstellen"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Über Carphatian",
+      "subtitle": "Revolutionierung des Freelancings mit künstlicher Intelligenz"
+    },
+    "mission": {
+      "title": "Unsere Mission",
+      "description": "Wir bauen die Zukunft der Arbeit, indem wir talentierte Freelancer mit Unternehmen verbinden, die sie brauchen, angetrieben von KI, die beide Seiten versteht."
+    },
+    "story": {
+      "title": "Unsere Geschichte",
+      "p1": "Carphatian wurde aus Frustration mit traditionellen Freelance-Plattformen geboren. Zu viel Zeit mit Suchen verschwendet, zu viele Fehlbesetzungen, zu wenig Vertrauen.",
+      "p2": "Wir fragten uns: Was wäre, wenn KI genau verstehen könnte, was Sie brauchen, und sofort die perfekte Übereinstimmung finden könnte?",
+      "p3": "Das haben wir gebaut. Eine Plattform, bei der KI die schwere Arbeit übernimmt, damit Sie sich auf das konzentrieren können, was zählt: großartige Arbeit zu leisten."
+    },
+    "values": {
+      "title": "Unsere Werte",
+      "transparency": {
+        "title": "Transparenz",
+        "description": "Klare Preise, ehrliche Kommunikation, keine versteckten Agenden."
+      },
+      "quality": {
+        "title": "Qualität",
+        "description": "Wir prüfen jeden Freelancer und halten hohe Standards aufrecht."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Ständige Verbesserung unserer KI, um Ihnen besser zu dienen."
+      },
+      "trust": {
+        "title": "Vertrauen",
+        "description": "Sichere Zahlungen und faire Streitbeilegung."
+      }
+    },
+    "team": {
+      "title": "Unser Team",
+      "subtitle": "Leidenschaftlich daran, Talent mit Möglichkeiten zu verbinden"
+    },
+    "stats": {
+      "freelancers": "Freelancer",
+      "clients": "Kunden",
+      "projectsCompleted": "Abgeschlossene Projekte",
+      "countriesServed": "Bediente Länder"
+    },
+    "cta": {
+      "title": "Treten Sie unserer Community bei",
+      "subtitle": "Werden Sie Teil der Zukunft des Freelancings",
+      "joinAsClient": "Als Kunde beitreten",
+      "joinAsFreelancer": "Als Freelancer beitreten"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Kontaktieren Sie uns",
+      "subtitle": "Wir freuen uns von Ihnen zu hören"
+    },
+    "form": {
+      "name": "Ihr Name",
+      "email": "E-Mail",
+      "subject": "Betreff",
+      "message": "Nachricht",
+      "submit": "Nachricht senden",
+      "sending": "Wird gesendet...",
+      "success": "Nachricht erfolgreich gesendet! Wir melden uns bald.",
+      "error": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
+    },
+    "info": {
+      "title": "Kontakt aufnehmen",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "address": "Adresse",
+      "hours": "Geschäftszeiten"
+    },
+    "support": {
+      "title": "Support",
+      "description": "Brauchen Sie Hilfe mit Ihrem Konto oder einem Projekt?",
+      "helpCenter": "Hilfezentrum besuchen",
+      "liveChat": "Live-Chat starten"
+    },
+    "sales": {
+      "title": "Vertrieb",
+      "description": "Interessiert an Enterprise-Lösungen?",
+      "contact": "Vertriebsteam kontaktieren"
+    }
+  },
+  "status": {
+    "title": "Systemstatus",
+    "allOperational": "Alle Systeme funktionieren",
+    "services": {
+      "website": "Website",
+      "api": "API",
+      "payments": "Zahlungen",
+      "messaging": "Nachrichten"
+    },
+    "operational": "Funktioniert",
+    "degraded": "Eingeschränkt",
+    "down": "Ausgefallen"
+  },
+  "legal": {
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "lastUpdated": "Zuletzt aktualisiert"
+    },
+    "privacy": {
+      "title": "Datenschutzrichtlinie",
+      "lastUpdated": "Zuletzt aktualisiert"
+    },
+    "cookies": {
+      "title": "Cookie-Richtlinie",
+      "lastUpdated": "Zuletzt aktualisiert"
+    }
+  },
+  "dashboard": {
+    "welcome": "Willkommen zurück",
+    "overview": "Übersicht",
+    "recentActivity": "Letzte Aktivität",
+    "quickActions": "Schnellaktionen",
+    "noActivity": "Keine aktuelle Aktivität",
+    "viewAll": "Alle anzeigen",
+    "admin": {
+      "title": "Admin-Dashboard",
+      "users": "Benutzer",
+      "jobs": "Jobs",
+      "contracts": "Verträge",
+      "payments": "Zahlungen",
+      "analytics": "Analysen",
+      "settings": "Einstellungen",
+      "totalUsers": "Gesamtbenutzer",
+      "activeJobs": "Aktive Jobs",
+      "totalRevenue": "Gesamtumsatz",
+      "platformHealth": "Plattformzustand"
+    },
+    "client": {
+      "title": "Kunden-Dashboard",
+      "postJob": "Job posten",
+      "myJobs": "Meine Jobs",
+      "applications": "Bewerbungen",
+      "contracts": "Verträge",
+      "payments": "Zahlungen",
+      "messages": "Nachrichten",
+      "findFreelancers": "Freelancer finden",
+      "activeContracts": "Aktive Verträge",
+      "pendingApplications": "Ausstehende Bewerbungen",
+      "totalSpent": "Gesamtausgaben"
+    },
+    "freelancer": {
+      "title": "Freelancer-Dashboard",
+      "findJobs": "Jobs finden",
+      "myApplications": "Meine Bewerbungen",
+      "contracts": "Verträge",
+      "earnings": "Einnahmen",
+      "profile": "Profil",
+      "messages": "Nachrichten",
+      "settings": "Einstellungen",
+      "availableJobs": "Verfügbare Jobs",
+      "pendingProposals": "Ausstehende Vorschläge",
+      "activeProjects": "Aktive Projekte",
+      "totalEarnings": "Gesamteinnahmen",
+      "pending": "ausstehend",
+      "findWork": "Arbeit Finden",
+      "browseJobs": "Verfügbare Jobs Durchsuchen",
+      "activeContracts": "Aktive Verträge"
+    }
+  },
+  "jobs": {
+    "title": "Jobs",
+    "create": "Job posten",
+    "edit": "Job bearbeiten",
+    "details": "Job-Details",
+    "apply": "Jetzt bewerben",
+    "applied": "Beworben",
+    "save": "Job speichern",
+    "saved": "Gespeichert",
+    "share": "Teilen",
+    "report": "Melden",
+    "budget": "Budget",
+    "duration": "Dauer",
+    "skills": "Erforderliche Fähigkeiten",
+    "proposals": "Vorschläge",
+    "description": "Beschreibung",
+    "requirements": "Anforderungen",
+    "aboutClient": "Über den Kunden",
+    "similarJobs": "Ähnliche Jobs",
+    "status": {
+      "open": "Offen",
+      "inProgress": "In Bearbeitung",
+      "completed": "Abgeschlossen",
+      "closed": "Geschlossen",
+      "draft": "Entwurf"
+    },
+    "filters": {
+      "all": "Alle Jobs",
+      "recommended": "Empfohlen",
+      "saved": "Gespeichert",
+      "applied": "Beworben"
+    }
+  },
+  "contracts": {
+    "title": "Verträge",
+    "active": "Aktiv",
+    "completed": "Abgeschlossen",
+    "cancelled": "Storniert",
+    "viewDetails": "Details ansehen",
+    "milestones": "Meilensteine",
+    "timeline": "Zeitplan",
+    "deliverables": "Lieferungen",
+    "submitWork": "Arbeit einreichen",
+    "requestRevision": "Überarbeitung anfordern",
+    "approveWork": "Arbeit genehmigen",
+    "releaseFunds": "Zahlung freigeben"
+  },
+  "payments": {
+    "title": "Zahlungen",
+    "history": "Zahlungsverlauf",
+    "pending": "Ausstehend",
+    "completed": "Abgeschlossen",
+    "methods": "Zahlungsmethoden",
+    "addMethod": "Methode hinzufügen",
+    "withdraw": "Auszahlen",
+    "balance": "Verfügbares Guthaben",
+    "earnings": "Gesamteinnahmen",
+    "spent": "Gesamtausgaben"
+  },
+  "messages": {
+    "title": "Nachrichten",
+    "newMessage": "Neue Nachricht",
+    "search": "Nachrichten suchen...",
+    "noMessages": "Keine Nachrichten",
+    "typeMessage": "Nachricht eingeben...",
+    "send": "Senden",
+    "online": "Online",
+    "offline": "Offline",
+    "typing": "schreibt..."
+  },
+  "profile": {
+    "title": "Profil",
+    "edit": "Profil bearbeiten",
+    "view": "Profil ansehen",
+    "settings": "Einstellungen",
+    "portfolio": "Portfolio",
+    "reviews": "Bewertungen",
+    "skills": "Fähigkeiten",
+    "experience": "Erfahrung",
+    "education": "Ausbildung",
+    "certifications": "Zertifikate",
+    "hourlyRate": "Stundensatz",
+    "availability": "Verfügbarkeit",
+    "languages": "Sprachen",
+    "location": "Standort",
+    "memberSince": "Mitglied seit",
+    "verified": "Verifiziert",
+    "topRated": "Top-bewertet"
+  },
+  "reviews": {
+    "title": "Bewertungen",
+    "writeReview": "Bewertung schreiben",
+    "rating": "Bewertung",
+    "comment": "Kommentar",
+    "helpful": "Hilfreich",
+    "report": "Melden",
+    "noReviews": "Keine Bewertungen"
+  },
+  "notifications": {
+    "title": "Benachrichtigungen",
+    "markAllRead": "Alle als gelesen markieren",
+    "settings": "Benachrichtigungseinstellungen",
+    "noNotifications": "Keine Benachrichtigungen",
+    "newMessage": "Neue Nachricht von",
+    "newApplication": "Neue Bewerbung für",
+    "contractStarted": "Vertrag gestartet",
+    "paymentReceived": "Zahlung erhalten",
+    "reviewReceived": "Neue Bewertung"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "account": "Konto",
+    "profile": "Profil",
+    "notifications": "Benachrichtigungen",
+    "privacy": "Datenschutz",
+    "security": "Sicherheit",
+    "billing": "Abrechnung",
+    "preferences": "Präferenzen",
+    "language": "Sprache",
+    "timezone": "Zeitzone",
+    "currency": "Währung",
+    "deleteAccount": "Konto löschen",
+    "changePassword": "Passwort ändern",
+    "twoFactor": "Zwei-Faktor-Authentifizierung"
+  },
+  "errors": {
+    "notFound": "Seite nicht gefunden",
+    "notFoundDesc": "Die gesuchte Seite existiert nicht.",
+    "serverError": "Serverfehler",
+    "serverErrorDesc": "Etwas ist schief gelaufen. Bitte versuchen Sie es später erneut.",
+    "unauthorized": "Nicht autorisiert",
+    "unauthorizedDesc": "Sie haben keine Berechtigung, diese Seite anzuzeigen.",
+    "goHome": "Zur Startseite",
+    "goBack": "Zurück"
+  },
+  "footer": {
+    "platform": "Plattform",
+    "aboutUs": "Über uns",
+    "howItWorks": "So funktioniert's",
+    "pricing": "Preise",
+    "blog": "Blog",
+    "legal": "Rechtliches",
+    "terms": "Nutzungsbedingungen",
+    "privacy": "Datenschutzrichtlinie",
+    "cookies": "Cookie-Richtlinie",
+    "contact": "Kontakt",
+    "copyright": "© 2025 Carphatian AI Marketplace. Alle Rechte vorbehalten.",
+    "builtBy": "Entwickelt von",
+    "followUs": "Folgen Sie uns",
+    "newsletter": {
+      "title": "Newsletter abonnieren",
+      "placeholder": "E-Mail eingeben",
+      "subscribe": "Abonnieren"
+    },
+    "tagline": "Die KI-gestützte Freelance-Plattform der nächsten Generation. Wir verbinden außergewöhnliche Talente mit visionären Kunden durch intelligentes Matching."
+  }
+}

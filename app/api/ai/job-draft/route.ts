@@ -4,7 +4,11 @@
  * POST /api/ai/job-draft
  * 
  * Generates professional job descriptions using AI.
- * Uses OpenAI GPT-4 directly (no microservice needed).
+ * Uses Groq with Llama 3.3 for fast, free generation.
+ * 
+ * Security:
+ * - Rate limited: 20 requests per minute (AI endpoints)
+ * - Requires authentication (client/admin only)
  * 
  * Built by Carphatian
  */
@@ -14,6 +18,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import Groq from 'groq-sdk'
 import { z } from 'zod'
+import { withRateLimit } from '@/lib/security/rate-limit'
 
 // Request validation schema - simplified
 const jobDraftSchema = z.object({
@@ -32,10 +37,14 @@ const groq = new Groq({
 })
 
 export async function POST(request: NextRequest) {
+  // Rate limiting - 20 requests per minute for AI endpoints
+  const rateLimitResponse = await withRateLimit(request, 'ai')
+  if (rateLimitResponse) return rateLimitResponse
+
   try {
     // Check authentication
     const session = await getServerSession(authOptions)
-    
+
     if (!session?.user) {
       return NextResponse.json(
         { error: 'Authentication required' },
@@ -44,7 +53,7 @@ export async function POST(request: NextRequest) {
     }
 
     const user = session.user as { role?: string }
-    
+
     // Only clients and admins can generate job drafts
     if (user.role !== 'client' && user.role !== 'admin') {
       return NextResponse.json(
@@ -97,7 +106,7 @@ Make it engaging and clear. Focus on attracting qualified freelancers.`
     return NextResponse.json(result)
   } catch (error) {
     console.error('Job draft generation error:', error)
-    
+
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Invalid request', details: error.issues },

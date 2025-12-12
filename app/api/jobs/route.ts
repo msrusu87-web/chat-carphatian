@@ -2,7 +2,7 @@
  * Jobs API Route
  * 
  * CRUD operations for job postings:
- * - GET /api/jobs - List all open jobs (public)
+ * - GET /api/jobs - List all open jobs (public, cached)
  * - POST /api/jobs - Create new job (clients only)
  * 
  * Built by Carphatian
@@ -13,8 +13,9 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { db } from '@/lib/db'
 import { jobs, profiles } from '@/lib/db/schema'
-import { eq, desc, and } from 'drizzle-orm'
+import { eq, desc, and, gte, lte, ilike, or, sql } from 'drizzle-orm'
 import { z } from 'zod'
+import { cached, CacheTTL, CacheKeys, cacheDeletePattern } from '@/lib/cache'
 
 /**
  * Job Creation Schema
@@ -30,36 +31,88 @@ const createJobSchema = z.object({
 })
 
 /**
+ * Fetch jobs from database
+ */
+async function fetchJobsFromDB(status: string) {
+  return db.query.jobs.findMany({
+    where: eq(jobs.status, status as any),
+    orderBy: [desc(jobs.created_at)],
+    with: {
+      client: true,
+    },
+  })
+}
+
+/**
  * GET /api/jobs
  * 
  * List all open jobs with client profiles.
  * Public endpoint - no auth required.
+ * Cached for 5 minutes.
  */
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
     const status = searchParams.get('status') || 'open'
-    const limit = parseInt(searchParams.get('limit') || '20')
+    const limit = parseInt(searchParams.get('limit') || '50')
     const offset = parseInt(searchParams.get('offset') || '0')
+    const query = searchParams.get('query')
+    const budgetMin = searchParams.get('budgetMin')
+    const budgetMax = searchParams.get('budgetMax')
+    const skills = searchParams.get('skills')?.split(',').filter(Boolean) || []
 
-    // Fetch jobs with client profile
-    const jobList = await db
-      .select()
-      .from(jobs)
-      .where(eq(jobs.status, status as any))
-      .orderBy(desc(jobs.created_at))
-      .limit(limit)
-      .offset(offset)
+    // Use cached job list for the base query (no filters)
+    // Cache key includes status for different views
+    let jobList = await cached(
+      CacheKeys.jobs(status),
+      () => fetchJobsFromDB(status),
+      CacheTTL.MEDIUM // 5 minutes cache
+    )
 
-    // Get total count for pagination
-    const allJobs = await db
-      .select()
-      .from(jobs)
-      .where(eq(jobs.status, status as any))
+    // Apply filters client-side from cached data
+    // Budget filters
+    if (budgetMin) {
+      const min = parseFloat(budgetMin)
+      jobList = jobList.filter(job => 
+        job.budget_min && parseFloat(job.budget_min) >= min
+      )
+    }
+    if (budgetMax) {
+      const max = parseFloat(budgetMax)
+      jobList = jobList.filter(job => 
+        job.budget_max && parseFloat(job.budget_max) <= max
+      )
+    }
+
+    // Text search filter
+    if (query) {
+      const lowerQuery = query.toLowerCase()
+      jobList = jobList.filter(job => 
+        job.title.toLowerCase().includes(lowerQuery) ||
+        job.description.toLowerCase().includes(lowerQuery) ||
+        (job.required_skills || []).some((s: string) => s.toLowerCase().includes(lowerQuery))
+      )
+    }
+
+    // Skills filter
+    if (skills.length > 0) {
+      jobList = jobList.filter(job => {
+        if (!job.required_skills) return false
+        return skills.some(skill => 
+          job.required_skills!.some((js: string) => 
+            js.toLowerCase().includes(skill.toLowerCase())
+          )
+        )
+      })
+    }
+
+    // Apply pagination
+    const total = jobList.length
+    jobList = jobList.slice(offset, offset + limit)
 
     return NextResponse.json({
       jobs: jobList,
-      total: allJobs.length,
+      total,
       limit,
       offset,
     })
@@ -77,6 +130,7 @@ export async function GET(req: NextRequest) {
  * 
  * Create a new job posting.
  * Requires authentication as a client.
+ * Invalidates jobs cache on creation.
  */
 export async function POST(req: NextRequest) {
   try {
@@ -116,6 +170,9 @@ export async function POST(req: NextRequest) {
         status: 'open',
       })
       .returning()
+
+    // Invalidate jobs cache
+    await cacheDeletePattern('jobs:*')
 
     return NextResponse.json(
       { message: 'Job created successfully', job: newJob },

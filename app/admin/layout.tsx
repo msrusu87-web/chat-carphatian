@@ -1,8 +1,13 @@
+/**
+ * Admin Layout
+ * 
+ * Simple passthrough layout - DashboardLayout handles sidebar.
+ * Built by Carphatian
+ */
+
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-options'
 import { redirect } from 'next/navigation'
-import { Sidebar } from '@/components/dashboard/Sidebar'
-import { FloatingLanguageSwitcher } from '@/components/FloatingLanguageSwitcher'
 
 export default async function AdminLayout({
   children,
@@ -21,13 +26,5 @@ export default async function AdminLayout({
     redirect('/dashboard')
   }
 
-  return (
-    <div className="min-h-screen bg-gray-900">
-      <FloatingLanguageSwitcher />
-      <Sidebar userRole="admin" userName={user.name || user.email} />
-      <main className="ml-64 min-h-screen">
-        {children}
-      </main>
-    </div>
-  )
+  return <>{children}</>
 }

@@ -1,8 +1,8 @@
 /**
  * Dashboard Sidebar Component
  * 
- * Reusable sidebar for admin, client, and freelancer dashboards.
- * Fully translated using next-intl.
+ * Fully responsive sidebar for admin, client, and freelancer dashboards.
+ * Supports mobile slide-in with close button.
  * 
  * Built by Carphatian
  */
@@ -26,15 +26,18 @@ import {
   Send,
   Wallet,
   User,
-  LogOut
+  LogOut,
+  X
 } from 'lucide-react';
 
 interface SidebarProps {
   role: 'admin' | 'client' | 'freelancer';
   userName?: string;
+  onClose?: () => void;
+  isMobile?: boolean;
 }
 
-export function DashboardSidebar({ role, userName }: SidebarProps) {
+export function DashboardSidebar({ role, userName, onClose, isMobile }: SidebarProps) {
   const pathname = usePathname();
   const t = useTranslations('dashboard');
   const nav = useTranslations('nav');
@@ -81,16 +84,29 @@ export function DashboardSidebar({ role, userName }: SidebarProps) {
     }
   };
 
+  const handleLinkClick = () => {
+    if (onClose) onClose();
+  };
+
   return (
     <aside className="w-64 min-h-screen bg-gray-900 border-r border-gray-800 flex flex-col">
-      {/* Logo */}
-      <div className="p-4 border-b border-gray-800">
-        <Link href="/" className="flex items-center gap-2">
+      {/* Header with Close Button for Mobile */}
+      <div className="p-4 border-b border-gray-800 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2" onClick={handleLinkClick}>
           <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${getRoleColor()} flex items-center justify-center`}>
             <span className="text-white font-bold text-lg">C</span>
           </div>
           <span className="text-white font-bold">Carphatian</span>
         </Link>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="lg:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
+            aria-label="Close menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* User Info */}
@@ -101,15 +117,15 @@ export function DashboardSidebar({ role, userName }: SidebarProps) {
               {userName?.charAt(0).toUpperCase() || 'U'}
             </span>
           </div>
-          <div>
-            <p className="text-white font-medium text-sm">{userName || 'User'}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-white font-medium text-sm truncate">{userName || 'User'}</p>
             <p className="text-gray-400 text-xs capitalize">{role}</p>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {links.map((link) => {
           const Icon = link.icon;
           const isActive = pathname === link.href;
@@ -117,14 +133,15 @@ export function DashboardSidebar({ role, userName }: SidebarProps) {
             <Link
               key={link.href}
               href={link.href}
+              onClick={handleLinkClick}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                 isActive
                   ? `bg-gradient-to-r ${getRoleColor()} text-white`
                   : 'text-gray-400 hover:text-white hover:bg-gray-800'
               }`}
             >
-              <Icon className="w-5 h-5" />
-              <span className="text-sm font-medium">{link.label}</span>
+              <Icon className="w-5 h-5 flex-shrink-0" />
+              <span className="text-sm font-medium truncate">{link.label}</span>
             </Link>
           );
         })}
@@ -137,9 +154,10 @@ export function DashboardSidebar({ role, userName }: SidebarProps) {
         </div>
         <Link
           href="/api/auth/signout"
+          onClick={handleLinkClick}
           className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:text-red-400 hover:bg-gray-800 transition-all w-full"
         >
-          <LogOut className="w-5 h-5" />
+          <LogOut className="w-5 h-5 flex-shrink-0" />
           <span className="text-sm font-medium">{nav('signOut')}</span>
         </Link>
       </div>

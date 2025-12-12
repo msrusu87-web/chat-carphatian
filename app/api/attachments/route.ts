@@ -1,6 +1,7 @@
 /**
  * File Attachments API
- * Upload, fetch, and delete file attachments
+ * Upload, fetch, and delete file attachments with virus scanning
+ * Supports ClamAV when installed, falls back to basic validation
  * Built by Carphatian
  */
 
@@ -12,6 +13,7 @@ import { join } from 'path'
 import { db } from '@/lib/db'
 import { attachments, users } from '@/lib/db/schema'
 import { eq, and } from 'drizzle-orm'
+import { scanFile, isAllowedFileType } from '@/lib/security/virus-scan'
 
 export async function POST(req: NextRequest) {
     try {
@@ -38,10 +40,21 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'File and entity ID required' }, { status: 400 })
         }
 
-        // Validate file size (50MB max)
-        const maxSize = 50 * 1024 * 1024
+        // Validate file type
+        if (!isAllowedFileType(file.name, file.type)) {
+            return NextResponse.json({ 
+                error: 'File type not allowed. Please upload documents, images, code, or archives only.' 
+            }, { status: 400 })
+        }
+
+        // Validate file size (50MB max, 100MB for archives)
+        const isArchive = /\.(zip|rar|7z|tar|gz)$/i.test(file.name)
+        const maxSize = isArchive ? 100 * 1024 * 1024 : 50 * 1024 * 1024
         if (file.size > maxSize) {
-            return NextResponse.json({ error: 'File too large (max 50MB)' }, { status: 400 })
+            const maxSizeMB = isArchive ? '100MB' : '50MB'
+            return NextResponse.json({ 
+                error: `File too large (max ${maxSizeMB})` 
+            }, { status: 400 })
         }
 
         // Create uploads directory
@@ -58,6 +71,18 @@ export async function POST(req: NextRequest) {
         const bytes = await file.arrayBuffer()
         const buffer = Buffer.from(bytes)
         await writeFile(filepath, buffer)
+
+        // Scan file for viruses
+        const scanResult = await scanFile(filepath)
+        if (!scanResult.safe) {
+            // Delete the malicious file immediately
+            await unlink(filepath)
+            console.warn(`Malicious file detected and removed: ${filename} - ${scanResult.virus || scanResult.error}`)
+            return NextResponse.json({ 
+                error: `Security threat detected: ${scanResult.virus || scanResult.error}. File has been rejected.` 
+            }, { status: 400 })
+        }
+        console.log(`✓ File scanned (${scanResult.method}): ${filename}`)
 
         // Public URL - use API route for file serving in standalone mode
         const fileUrl = `/api/files/${entityType}s/${entityId}/${filename}`

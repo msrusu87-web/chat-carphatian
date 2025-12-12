@@ -38,6 +38,7 @@ export default function ContractAttachments({
     const [loading, setLoading] = useState(true)
     const [viewingFile, setViewingFile] = useState<FileAttachment | null>(null)
     const [deleting, setDeleting] = useState<number | null>(null)
+    const [downloadingAll, setDownloadingAll] = useState(false)
 
     useEffect(() => {
         fetchFiles()
@@ -97,6 +98,40 @@ export default function ContractAttachments({
         }
     }
 
+    const handleDownloadAll = async () => {
+        setDownloadingAll(true)
+        try {
+            const res = await fetch(`/api/contracts/${contractId}/download-all?type=${entityType}`)
+            
+            if (!res.ok) {
+                const error = await res.json()
+                alert(error.error || 'Failed to download files')
+                return
+            }
+
+            // Get filename from Content-Disposition header
+            const contentDisposition = res.headers.get('Content-Disposition')
+            const filenameMatch = contentDisposition?.match(/filename="?(.+)"?/)
+            const filename = filenameMatch ? filenameMatch[1] : `contract_files.zip`
+
+            // Download the blob
+            const blob = await res.blob()
+            const url = window.URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = filename
+            document.body.appendChild(a)
+            a.click()
+            window.URL.revokeObjectURL(url)
+            document.body.removeChild(a)
+        } catch (error) {
+            console.error('Download all failed:', error)
+            alert('Failed to download files')
+        } finally {
+            setDownloadingAll(false)
+        }
+    }
+
     const formatFileSize = (bytes: number) => {
         if (bytes < 1024) return bytes + ' B'
         if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB'
@@ -133,14 +168,32 @@ export default function ContractAttachments({
                         <h3 className="text-lg font-bold text-white">{title}</h3>
                         {description && <p className="text-sm text-gray-400 mt-1">{description}</p>}
                     </div>
-                    {canUpload && (
-                        <FileUpload
-                            onUpload={handleUpload}
-                            label="Upload"
-                            multiple={true}
-                            maxSizeMB={50}
-                        />
-                    )}
+                    <div className="flex items-center gap-2">
+                        {files.length > 1 && (
+                            <button
+                                onClick={handleDownloadAll}
+                                disabled={downloadingAll}
+                                className="px-3 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+                            >
+                                {downloadingAll ? (
+                                    <>
+                                        <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
+                                        Downloading...
+                                    </>
+                                ) : (
+                                    <>📦 Download All ({files.length})</>
+                                )}
+                            </button>
+                        )}
+                        {canUpload && (
+                            <FileUpload
+                                onUpload={handleUpload}
+                                label="Upload"
+                                multiple={true}
+                                maxSizeMB={50}
+                            />
+                        )}
+                    </div>
                 </div>
 
                 {files.length === 0 ? (

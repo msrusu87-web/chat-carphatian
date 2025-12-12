@@ -582,7 +582,9 @@
       "payments": "Pagos",
       "messages": "Mensajes",
       "findFreelancers": "Encontrar freelancers",
-      "activeContracts": "Contratos activos",
+      "applications": "Applications",
+      "browseOpportunities": "Browse opportunities",
+      "activeContracts": "Active Contracts",
       "pendingApplications": "Aplicaciones pendientes",
       "totalSpent": "Total gastado"
     },
@@ -602,7 +604,9 @@
       "pending": "pendiente",
       "findWork": "Buscar Trabajo",
       "browseJobs": "Ver Trabajos Disponibles",
-      "activeContracts": "Contratos Activos"
+      "applications": "Applications",
+      "browseOpportunities": "Browse opportunities",
+      "activeContracts": "Active Contracts"
     }
   },
   "jobs": {

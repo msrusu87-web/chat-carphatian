@@ -582,6 +582,8 @@
       "payments": "Payments",
       "messages": "Messages",
       "findFreelancers": "Find Freelancers",
+      "applications": "Applications",
+      "browseOpportunities": "Browse opportunities",
       "activeContracts": "Active Contracts",
       "pendingApplications": "Pending Applications",
       "totalSpent": "Total Spent"
@@ -602,6 +604,8 @@
       "pending": "pending",
       "findWork": "Find Work",
       "browseJobs": "Browse Available Jobs",
+      "applications": "Applications",
+      "browseOpportunities": "Browse opportunities",
       "activeContracts": "Active Contracts"
     }
   },

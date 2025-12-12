@@ -582,7 +582,9 @@
       "payments": "Plăți",
       "messages": "Mesaje",
       "findFreelancers": "Găsește freelanceri",
-      "activeContracts": "Contracte active",
+      "applications": "Applications",
+      "browseOpportunities": "Browse opportunities",
+      "activeContracts": "Active Contracts",
       "pendingApplications": "Aplicații în așteptare",
       "totalSpent": "Total cheltuit"
     },
@@ -602,7 +604,9 @@
       "pending": "în așteptare",
       "findWork": "Găsește Muncă",
       "browseJobs": "Caută Proiecte Disponibile",
-      "activeContracts": "Contracte Active"
+      "applications": "Applications",
+      "browseOpportunities": "Browse opportunities",
+      "activeContracts": "Active Contracts"
     }
   },
   "jobs": {
